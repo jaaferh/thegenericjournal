@@ -1,0 +1,60 @@
+Blog post
+	title: String
+	author: Author[1]
+	summary: String
+	content: Content[1]
+	date created: Date
+	topics: Topics[0..*]
+	comments: Comment[0..*]
+
+	url: String
+
+Content
+	container: Container[1..*]
+	last edited: Date
+
+Container
+	type: enum {Text, Image}
+
+	Text Container:
+		text: String
+
+	Image Container:
+		image url: String
+		caption: String
+
+Author
+	first name: String
+	family name: String
+	DoB: Date
+	bio: String
+	date joined: Date
+	pic url: String
+	
+	name: String
+	url: String
+
+Topic
+	name: String
+
+	url: String
+
+Comment
+	Parent comment: Comment[0..1]
+	nickname: String
+	text: String
+	date posted: Date
+	last edited: Date
+	likes: Int
+	Dislikes: Int
+
+	Points: Int
+	
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Author page: number of posts: Int
+Topics page: number of blogs: Int
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
