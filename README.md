@@ -1,7 +1,34 @@
-# thegenericjournal
+# The Generic Journal
 The most generic journal you can find online.
-API: Express.js
-SPA: Angular 2
+A project mainly to practice using MongoDB and Express.js as an API.
+
+Uses MEAN stack 
+
+# Running DEV
+
+Install npm dependencies for both the API and SPA using:
+
+`npm install`
+
+Run API after navigating to the TGJ-API folder:
+
+```
+cd TGJ-API
+
+npm run serverstart
+```
+
+Then navigate to the SPA and run the SPA:
+
+```
+cd ..
+cd TGJ-SPA
+
+ng serve
+```
+
+**API: localhost:3000**
+**SPA: localhost:4200**
 
 # Todo:
-    - Test the models by creating some objects
+    - Setup angular SPA to connect to API
