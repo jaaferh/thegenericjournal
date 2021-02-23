@@ -4,11 +4,13 @@ A project mainly to practice using MongoDB and Express.js as an API.
 
 Uses MEAN stack 
 
-# Running DEV
+## Running DEV
 
 Install npm dependencies for both the API and SPA using:
 
-`npm install`
+```
+npm install
+```
 
 Run API after navigating to the TGJ-API folder:
 
@@ -28,7 +30,12 @@ ng serve
 ```
 
 **API: localhost:3000**
+
 **SPA: localhost:4200**
 
-# Todo:
-    - Setup angular SPA to connect to API
+## UML Diagram (Rough sketch)
+
+![Alt text](UML Diagram.jpg?raw=true "UML Diagram")
+
+## Todo:
+* Setup angular SPA to connect to API

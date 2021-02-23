@@ -1,21 +1,38 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var journalRouter = require('./routes/journal');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const journalRouter = require('./routes/journal');
 
-var app = express();
+const app = express();
 
 // set up mongoose connection
-var mongoose = require('mongoose');
-var mongoDB = 'mongodb+srv://dbUser:dbUserPassword@cluster0.1lj3d.mongodb.net/generic_journal?retryWrites=true&w=majority';
+const mongoose = require('mongoose');
+const mongoDB = 'mongodb+srv://dbUser:dbUserPassword@cluster0.1lj3d.mongodb.net/generic_journal?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// set up Cross Origin Requests
+let whitelist = ['https://localhost:4200']
+
+app.use(cors({
+    origin: function(origin, callback) {
+        // allow requests with no origin
+        if(!origin) return callback(null, true);
+        if(whitelist.indexOf(origin) === -1 ) {
+            var message = 'The CORS policy for this origin doesn\'t ' +
+                'allow access from the particular origin.';
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
