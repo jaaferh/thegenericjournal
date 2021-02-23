@@ -35,7 +35,9 @@ ng serve
 
 ## UML Diagram (Rough sketch)
 
-![Alt text](UML Diagram.jpg?raw=true "UML Diagram")
+![UML Diagram](https://github.com/jaaferh/thegenericjournal/blob/main/UML%20Diagram.png)
 
 ## Todo:
-* Setup angular SPA to connect to API
+
+- Look at an alternative to Pagination.
+- Start working on writing the services and components before tidying up the frontend
