@@ -8,7 +8,7 @@ exports.author_list = function(req, res) {
     .exec(function (err, list_authors) {
         if (err) { return next(err); }
         //Successful
-        res.send({ author_list: list_authors });
+        res.send(list_authors);
     });
 };
 
