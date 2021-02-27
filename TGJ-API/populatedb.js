@@ -67,7 +67,7 @@ function topicCreate(name, cb) {
   }   );
 }
 
-function postCreate(title, author, thumbnail, summary, content, d_created, topic, comment, cb) {
+function postCreate(title, author, thumbnail, summary, content, d_created, topics, comments, cb) {
     postdetail = {
         title: title,
         author: author,
@@ -76,8 +76,8 @@ function postCreate(title, author, thumbnail, summary, content, d_created, topic
         content: content
     }
     if (d_created != false) postdetail.date_created = d_created
-    if (topic != false) postdetail.topics = topic
-    if (comment != false) postdetail.comments = comment
+    if (topics != false) postdetail.topics = topics
+    if (comments != false) postdetail.comments = comments
       
     var post = new Post(postdetail);    
     post.save(function (err) {
@@ -116,9 +116,10 @@ function commentCreate(p_comment, author_nick, text, d_posted, last_edit, likes,
 
 function contentCreate(container, last_edit, cb) {
     contentdetail = {
-        container: container,
         last_edited: last_edit
     }
+
+    if (container != false) contentdetail.container = container
       
     var content = new Content(contentdetail);    
     content.save(function (err) {
@@ -174,11 +175,11 @@ function createTopicAuthors(cb) {
     async.series([
         function(callback) {
           authorCreate('Patrick', 'Rothfuss', '1973-06-06', 'i like this', 
-            '2021-02-21', 'testurl.com', callback);
+            '2021-02-21', 'https://res.cloudinary.com/soqudu/image/upload/v1596199359/punjouwntf7c7ld0nvsx.jpg', callback);
         },
         function(callback) {
             authorCreate('Mohammed', 'Ridha', '1988-06-06', 'i like cats', 
-            '2021-02-21', 'testurl.com', callback);
+            '2021-02-21', 'https://res.cloudinary.com/soqudu/image/upload/v1596316663/bkg5po7mbhvzwi7sm6qf.jpg', callback);
         },
         function(callback) {
           topicCreate("Tech", callback);
@@ -223,10 +224,11 @@ function createContainers(cb) {
 function createContents(cb) {
     async.series([
         function(callback) {
-            contentCreate(containers[0], '2021-02-21', callback);
+            contentCreate([containers[0]], '2021-02-21', callback);
         },
         function(callback) {
-            contentCreate(containers[1], '2021-02-20', callback);        },
+            contentCreate([containers[0], containers[1]], '2021-02-20', callback);        
+        },
         ],
         // optional callback
         cb);
@@ -236,11 +238,11 @@ function createPosts(cb) {
     async.series([
         function(callback) {
             postCreate('my post', authors[0], 'thumbnail.url', 'my summary', 
-                contents[0], null, topics[0], comments[0], callback);
+                contents[0], null, [topics[0], topics[1]], [comments[0]], callback);
         },
         function(callback) {
             postCreate('my post 2', authors[1], 'thumbnail2.url', 'my summary 2', 
-                contents[1], null, topics[1], comments[1], callback);
+                contents[1], null, [topics[0], topics[1]], [comments[0], comments[1]], callback);
         }
         ],
         // optional callback

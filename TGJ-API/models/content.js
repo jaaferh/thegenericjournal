@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var ContentSchema = new Schema(
     {
-        container: {type: Schema.Types.ObjectId, ref: 'Container', required: true},
+        container: [{type: Schema.Types.ObjectId, ref: 'Container', required: true}],
         last_edited: {type: Date, required: true}
     }
 );
