@@ -39,5 +39,7 @@ ng serve
 
 ## Todo:
 
+- Do update, create and delete methods for Author
 - Look at an alternative to Pagination.
-- Start working on writing the services and components before tidying up the frontend
+- Draw Topic and Post pages
+- Find a way to preserve previous page (data: { detachable: 1 })
