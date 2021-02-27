@@ -1,5 +1,6 @@
 var Author = require('../models/author');
 var Post = require('../models/post');
+var async = require('async');
 
 // ALL AUTHORS GET.
 exports.author_list = function(req, res) {
@@ -31,7 +32,7 @@ exports.author_detail = function(req, res, next) {
             return next(err);
         }
         // Successful
-        res.send({ author: results.author, author_posts: results.authors_posts });
+        res.send({ title: 'Author Detail', author: results.author, author_posts: results.authors_posts });
     });
 };
 
