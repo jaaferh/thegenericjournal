@@ -5,6 +5,13 @@
 <div class="">
     <!-- <a *ngFor="let author of authors" href="">{{author.name}}</a> -->
     <ul>
-        <li *ngFor="let author of authors">{{author.name}}</li>
+        <li *ngFor="let authorDetail of authorDetails">
+            <img [src]=authorDetail.author.pic_url>
+            <a href="/author/{{authorDetail.author._id}}">
+                {{authorDetail.author.name}}
+            </a>
+            {{authorDetail.author.bio}}
+            {{authorDetail.author_posts.length}}
+        </li>
     </ul>
 </div>

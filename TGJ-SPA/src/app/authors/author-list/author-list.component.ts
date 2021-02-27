@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Author } from 'src/app/models/author.entity';
+import { Author, AuthorDetails } from 'src/app/models/author.entity';
 import { AuthorService } from 'src/app/services/author.service';
 import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-author-list',
@@ -10,17 +11,24 @@ import { map } from 'rxjs/operators';
 })
 export class AuthorListComponent implements OnInit {
   authors: Author[] = [];
-  constructor(private authorService: AuthorService) { }
+  authorDetails: AuthorDetails[] = [];
+  constructor(
+    private authorService: AuthorService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getAuthors();
+    this.route.data.subscribe(data => {
+      this.authors = data.authors;
+      this.getAuthorDetails();
+    });
   }
 
-  getAuthors(): void {
-    this.authorService.getAuthorList().subscribe(data => {
-      data.forEach(d => d.name = d.first_name + ' ' + d.family_name);
-      this.authors = data;
-      console.log(data);
+  getAuthorDetails(): void {
+    this.authors.forEach(author => {
+      this.authorService.getAuthorDetail(author._id).subscribe(data => {
+        data.author.name = data.author.first_name + ' ' + data.author.family_name;
+        this.authorDetails.push(data);
+      });
     });
   }
 

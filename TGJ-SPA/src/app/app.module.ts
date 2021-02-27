@@ -8,6 +8,7 @@ import { NavComponent } from './nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
+import { AuthorListResolver } from './resolvers/author-list.resolver';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { AuthorDetailComponent } from './authors/author-detail/author-detail.com
     HttpClientModule,
     CommonModule
   ],
-  providers: [],
+  providers: [
+    AuthorListResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
