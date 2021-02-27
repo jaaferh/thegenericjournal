@@ -1,3 +1,25 @@
-<p>
-  author-detail works!
-</p>
+<div class="header">
+    <h1>Author:</h1>
+</div>
+
+
+<div class="">
+    <img [src]=authorDetails.author.pic_url>
+    {{authorDetails.author.name}}
+    {{authorDetails.author.date_of_birth}}
+    {{authorDetails.author.date_joined}}
+    {{authorDetails.author.bio}}
+    
+    <ul>
+        <li *ngFor="let post of authorDetails.author_posts">
+            <img [src]=post.thumbnail>
+            <a href="/post/{{post._id}}">
+                {{post.title}}
+            </a>
+            <p *ngFor="let topic of post.topics">
+                {{topic.name}}
+            </p>
+            {{post.summary}}
+        </li>
+    </ul>
+</div>

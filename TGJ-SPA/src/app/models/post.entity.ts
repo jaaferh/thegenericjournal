@@ -9,6 +9,7 @@ export interface Post {
   title: string;
   thumbnail: string;
   author: Author;
+  summary: string;
   content: Content;
   date_created?: Date;
   topics?: Topic[];

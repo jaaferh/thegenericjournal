@@ -1,4 +1,4 @@
-import { Post } from "./post.entity";
+import { Post } from './post.entity';
 
 export interface Author {
   _id: string;

@@ -22,6 +22,7 @@ exports.author_detail = function(req, res, next) {
         },
         authors_posts: function(callback) {
             Post.find({ 'author': req.params.id })
+            .populate('topics')
             .exec(callback)
         },
     }, function(err, results) {
