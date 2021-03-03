@@ -8,7 +8,7 @@ export interface Author {
   bio: string;
   date_joined?: Date;
   pic_url?: string;
-  name: string;
+  name?: string;
 }
 
 export interface AuthorDetails {

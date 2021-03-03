@@ -11,19 +11,23 @@ import { AuthorDetailComponent } from './authors/author-detail/author-detail.com
 import { AuthorListResolver } from './resolvers/author-list.resolver';
 import { AlertifyService } from './services/alertify.service';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
+import { AuthorFormComponent } from './authors/author-form/author-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     AuthorListComponent,
-    AuthorDetailComponent
+    AuthorDetailComponent,
+    AuthorFormComponent,
    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [
     AlertifyService,
