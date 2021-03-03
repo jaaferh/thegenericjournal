@@ -37,9 +37,15 @@ ng serve
 
 ![UML Diagram](https://github.com/jaaferh/thegenericjournal/blob/main/UML%20Diagram.png)
 
-## Todo:
+## Short-Term Todo:
 
-- Do update, create and delete methods for Author
-- Look at an alternative to Pagination.
 - Draw Topic and Post pages
+- Create Topic pages
+
+
+## Long-Term Todo: 
+
+- Look at an alternative to Pagination.
 - Find a way to preserve previous page (data: { detachable: 1 })
+- Add AuthGuard to Routes once Authentication added
+- Add confirmation dialogue on delete
