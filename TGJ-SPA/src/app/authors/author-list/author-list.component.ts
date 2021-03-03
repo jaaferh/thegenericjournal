@@ -37,6 +37,6 @@ export class AuthorListComponent implements OnInit {
         this.alertify.error(error);
       });
     });
+    console.log(this.authorDetails);
   }
-
 }

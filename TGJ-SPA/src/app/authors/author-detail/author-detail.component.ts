@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthorDetails } from 'src/app/models/author.entity';
 import { Topic } from 'src/app/models/topic.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
-// import { AuthorService } from 'src/app/services/author.service';
+import { AuthorService } from 'src/app/services/author.service';
 
 @Component({
   selector: 'app-author-detail',
@@ -14,9 +14,10 @@ export class AuthorDetailComponent implements OnInit {
   authorDetails!: AuthorDetails;
   topics: Topic[] = [];
   constructor(
-    // private authorService: AuthorService,
+    private authorService: AuthorService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,4 +29,12 @@ export class AuthorDetailComponent implements OnInit {
     });
   }
 
+  deleteAuthor(id: string): void {
+    this.authorService.deleteAuthor(id).subscribe(() => {
+      this.alertify.success('Author Deleted Successfully');
+      this.router.navigate(['/authors']);
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
 }
