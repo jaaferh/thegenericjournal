@@ -38,7 +38,7 @@ exports.author_detail = function(req, res, next) {
 };
 
 // CREATE POST.
-exports.author_create_post = function(req, res, next) {
+exports.author_create = function(req, res, next) {
     // Create an Author object using request params
     var author = new Author(
         {
@@ -57,7 +57,7 @@ exports.author_create_post = function(req, res, next) {
 };
 
 // DELETE POST.
-exports.author_delete_post = function(req, res) {
+exports.author_delete = function(req, res) {
 
     async.series([
         // First delete author's posts
@@ -66,7 +66,7 @@ exports.author_delete_post = function(req, res) {
         },
         // Then delete author
         function(callback) {
-            Author.findByIdAndRemove(req.body.authorid, callback);
+            Author.findByIdAndRemove(req.params.id, callback);
         }, 
     ], function (err, results) {
         if (err) { return next(err); }
@@ -79,7 +79,7 @@ exports.author_delete_post = function(req, res) {
 };
 
 // UPDATE POST.
-exports.author_update_post = function(req, res) {
+exports.author_update = function(req, res) {
 
     // Create a Author object with data and old id.
     var author = new Author(

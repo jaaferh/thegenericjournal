@@ -17,13 +17,13 @@ router.get('/', post_controller.index);
 /// AUTHOR ROUTES ///
 
 // POST request for creating Author.
-router.post('/author/create', author_controller.author_create_post);
+router.post('/author/create', author_controller.author_create);
 
 // POST request to delete Author.
-router.post('/author/:id/delete', author_controller.author_delete_post);
+router.delete('/author/:id/delete', author_controller.author_delete);
 
 // POST request to update Author.
-router.post('/author/:id/update', author_controller.author_update_post);
+router.post('/author/:id/update', author_controller.author_update);
 
 // GET request for one Author.
 router.get('/author/:id', author_controller.author_detail);
