@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-var ContentSchema = new Schema(
-    {
-        container: [{type: Schema.Types.ObjectId, ref: 'Container', required: true}],
-        last_edited: {type: Date, required: true}
-    }
+const ContentSchema = new Schema(
+  {
+    container: [{ type: Schema.Types.ObjectId, ref: 'Container', required: true }],
+    last_edited: { type: Date, required: true },
+  },
 );
 
-//Export model
+// Export model
 module.exports = mongoose.model('Content', ContentSchema);

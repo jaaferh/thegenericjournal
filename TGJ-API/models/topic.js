@@ -1,19 +1,21 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-var TopicSchema = new Schema(
-    {
-        name: {type: String, required: true, minlength: 3, maxlength: 100},
-    }
+const TopicSchema = new Schema(
+  {
+    name: {
+      type: String, required: true, minlength: 3, maxlength: 100,
+    },
+  },
 );
 
 // Virtual for topic's URL
 TopicSchema
-    .virtual('url')
-    .get(function () {
-        return '/topic/' + this._id;
-    });
+  .virtual('url')
+  .get(function getUrl() {
+    return `/topic/${this._id}`;
+  });
 
-//Export model
+// Export model
 module.exports = mongoose.model('Topic', TopicSchema);

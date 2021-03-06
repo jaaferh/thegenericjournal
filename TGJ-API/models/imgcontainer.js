@@ -1,13 +1,15 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-var ImageContainerSchema = new Schema(
-    {
-        type: {type: String, required: true, enum: ['Text', 'Image'], default: 'Text'},
-        image_url: {type: String, required: true},
-        caption: {type: String}
-    }
+const ImageContainerSchema = new Schema(
+  {
+    type: {
+      type: String, required: true, enum: ['Text', 'Image'], default: 'Text',
+    },
+    image_url: { type: String, required: true },
+    caption: { type: String },
+  },
 );
 
 module.exports = mongoose.model('ImageContainer', ImageContainerSchema);

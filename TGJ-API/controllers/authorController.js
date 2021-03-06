@@ -1,128 +1,126 @@
-var Author = require('../models/author');
-var Post = require('../models/post');
-var async = require('async');
+const async = require('async');
+const Author = require('../models/author');
+const Post = require('../models/post');
 
 // ALL AUTHORS GET.
-exports.author_list = function(req, res) {
-    Author.find()
+exports.author_list = (req, res, next) => {
+  Author.find()
     .sort([['family_name', 'ascending']])
-    .exec(function (err, list_authors) {
-        if (err) { return next(err); }
-        // Successful
-        res.send(list_authors);
+    .exec((err, listAuthors) => {
+      if (err) { return next(err); }
+      // Successful
+      return res.send(listAuthors);
     });
 };
 
 // AUTHOR SEARCH GET
-exports.author_search = function(req, res, next) {
-    var input_name = new RegExp(req.params.key,'i');
-    console.log(input_name);
+exports.author_search = (req, res, next) => {
+  const inpuName = new RegExp(req.params.key, 'i');
+  console.log(inpuName);
 
-    Author.find({ '$text': {$search: input_name} })
-    .exec(function(err, fullsearch) {
-        if (err) { return next(err) }
-        // Successful
-        if (!err && fullsearch.length) res.send(fullsearch);
-        if (!err && fullsearch.length === 0) {
-            Author.find({
-                $or: [
-                    {first_name: input_name},
-                    {family_name: input_name}
-                ]
-            })
-            .exec(function (err, partialsearch) {
-                if (err) { return next(err); }
-                // Successful
-                res.send(partialsearch);
-            });
-        }
+  Author.find({ $text: { $search: inpuName } })
+    .exec((err, fullsearch) => {
+      if (err) { return next(err); }
+      // Successful
+      if (!err && fullsearch.length) return res.send(fullsearch);
+      if (!err && fullsearch.length === 0) {
+        return Author.find({
+          $or: [
+            { first_name: inpuName },
+            { family_name: inpuName },
+          ],
+        })
+          .exec((error, partialsearch) => {
+            if (error) { return next(error); }
+            // Successful
+            return res.send(partialsearch);
+          });
+      }
+      return null;
     });
-}
+};
 
 // DETAIL GET.
-exports.author_detail = function(req, res, next) {
-    async.parallel({
-        author: function(callback) {
-            Author.findById(req.params.id)
-            .exec(callback)
-        },
-        authors_posts: function(callback) {
-            Post.find({ 'author': req.params.id })
-            .populate('topics')
-            .exec(callback)
-        },
-    }, function(err, results) {
-        if (err) { return next(err); } // Error in API usage.
-        if (results.author==null) { // No results.
-            var err = new Error('Author not found');
-            err.status = 404;
-            return next(err);
-        }
-        // Successful
-        res.send({ title: 'Author Detail', author: results.author, author_posts: results.authors_posts });
-    });
+exports.author_detail = (req, res, next) => {
+  async.parallel({
+    author(callback) {
+      Author.findById(req.params.id)
+        .exec(callback);
+    },
+    authors_posts(callback) {
+      Post.find({ author: req.params.id })
+        .populate('topics')
+        .exec(callback);
+    },
+  }, (err, results) => {
+    if (err) { return next(err); } // Error in API usage.
+    if (results.author == null) { // No results.
+      const error = new Error('Author not found');
+      error.status = 404;
+      return next(error);
+    }
+    // Successful
+    return res.send({ title: 'Author Detail', author: results.author, author_posts: results.authors_posts });
+  });
 };
 
 // CREATE POST.
-exports.author_create = function(req, res, next) {
-    // Create an Author object using request params
-    var author = new Author(
-        {
-            first_name: req.body.first_name,
-            family_name: req.body.family_name,
-            date_of_birth: req.body.date_of_birth,
-            bio: req.body.bio,
-            date_joined: req.body.date_joined,
-            pic_url: req.body.pic_url
-        });
-    author.save(function (err) {
-        if (err) { return next(err); }
-        // Successful - set OK status
-        res.status(200).end();
-    });
+exports.author_create = (req, res, next) => {
+  // Create an Author object using request params
+  const author = new Author(
+    {
+      first_name: req.body.first_name,
+      family_name: req.body.family_name,
+      date_of_birth: req.body.date_of_birth,
+      bio: req.body.bio,
+      date_joined: req.body.date_joined,
+      pic_url: req.body.pic_url,
+    },
+  );
+  author.save((err) => {
+    if (err) { return next(err); }
+    // Successful - set OK status
+    return res.status(200).end();
+  });
 };
 
 // DELETE POST.
-exports.author_delete = function(req, res) {
-
-    async.series([
-        // First delete author's posts
-        function(callback) {
-            Post.deleteMany({ 'author': req.params.id }, callback);
-        },
-        // Then delete author
-        function(callback) {
-            Author.findByIdAndRemove(req.params.id, callback);
-        }, 
-    ], function (err, results) {
-        if (err) { return next(err); }
-        // Success - set OK status
-        res.status(200).end();
-    });
-    
-
-    
+exports.author_delete = (req, res, next) => {
+  async.series([
+    // First delete author's posts
+    (callback) => {
+      Post.deleteMany({ author: req.params.id }, callback);
+    },
+    // Then delete author
+    (callback) => {
+      Author.findByIdAndRemove(req.params.id, callback);
+    },
+  ], (err) => {
+    if (err) { return next(err); }
+    // Success - set OK status
+    return res.status(200).end();
+  });
 };
 
 // UPDATE POST.
-exports.author_update = function(req, res) {
+exports.author_update = (req, res, next) => {
+  // Create a Author object with data and old id.
+  const author = new Author(
+    {
+      first_name: req.body.first_name,
+      family_name: req.body.family_name,
+      date_of_birth: req.body.date_of_birth,
+      bio: req.body.bio,
+      date_joined: req.body.date_joined,
+      pic_url: req.body.pic_url,
+      _id: req.params.id,
+    },
+  );
 
-    // Create a Author object with data and old id.
-    var author = new Author(
-        {
-            first_name: req.body.first_name,
-            family_name: req.body.family_name,
-            date_of_birth: req.body.date_of_birth,
-            bio: req.body.bio,
-            date_joined: req.body.date_joined,
-            pic_url: req.body.pic_url,
-            _id: req.params.id //This is required, or a new ID will be assigned!
-        });
-
-    // Update the record.
-    Author.findByIdAndUpdate(req.params.id, author, {}, function (err,theauthor) {
-        if (err) { return next(err); }
-        // Successful - set OK status
-        res.status(200).end();
-    });
+  // Update the record.
+  Author.findByIdAndUpdate(req.params.id, author, {}, (err) => {
+    if (err) { return next(err); }
+    // Successful - set OK status
+    return res.status(200).end();
+  });
 };

@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 // // Base function that allows extensions.
 // function BaseSchema() {
@@ -12,10 +12,9 @@ var Schema = mongoose.Schema;
 // }
 // until.inherits(BaseSchema, Schema);
 
-
 // var ContainerSchema = new BaseSchema();
-// var TextContainerSchema = new BaseSchema({ 
-//     text: {type: String, required: true} 
+// var TextContainerSchema = new BaseSchema({
+//     text: {type: String, required: true}
 // });
 // var ImageContainerSchema = new BaseSchema({
 //     image_url: {type: String, required: true},
@@ -27,12 +26,13 @@ var Schema = mongoose.Schema;
 // module.exports = Container.discriminator('TextContainer', TextContainerSchema);
 // module.exports = Container.discriminator('ImageContainer', ImageContainerSchema);
 
-var TextContainerSchema = new Schema(
-    {
-        type: {type: String, required: true, enum: ['Text', 'Image'], default: 'Text'},
-        text: {type: String, required: true} 
-    }
+const TextContainerSchema = new Schema(
+  {
+    type: {
+      type: String, required: true, enum: ['Text', 'Image'], default: 'Text',
+    },
+    text: { type: String, required: true },
+  },
 );
 
 module.exports = mongoose.model('TextContainer', TextContainerSchema);
-
