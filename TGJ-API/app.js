@@ -14,7 +14,7 @@ const app = express();
 // set up mongoose connection
 const mongoose = require('mongoose');
 const mongoDB = 'mongodb+srv://dbUser:dbUserPassword@cluster0.1lj3d.mongodb.net/generic_journal?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false });
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

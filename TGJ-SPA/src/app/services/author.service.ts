@@ -16,6 +16,10 @@ export class AuthorService {
     return this.http.get<Author[]>(this.baseUrl + 'authors');
   }
 
+  authorSearch(searchKey: string): Observable<Author[]> {
+    return this.http.get<Author[]>(this.baseUrl + 'author/search/' + searchKey);
+  }
+
   getAuthorDetail(authorId: string): Observable<AuthorDetails> {
     return this.http.get<AuthorDetails>(this.baseUrl + 'author/' + authorId);
   }

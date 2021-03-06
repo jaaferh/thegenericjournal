@@ -12,7 +12,10 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 })
 export class AuthorListComponent implements OnInit {
   authors: Author[] = [];
+  allAuthors: Author[] = [];
   authorDetails: AuthorDetails[] = [];
+  searchParam = '';
+  searchEmpty = false;
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
@@ -21,8 +24,8 @@ export class AuthorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.authors = data.authors;
-      this.getAuthorDetails();
+      this.allAuthors = data.authors;
+      this.initAuthors(this.allAuthors);
     }, error => {
       this.alertify.error(error);
     });
@@ -38,5 +41,27 @@ export class AuthorListComponent implements OnInit {
       });
     });
     console.log(this.authorDetails);
+  }
+
+  keyUpFunction(e: Event): void {
+    console.log(this.searchParam);
+    if (this.searchParam.length > 0) {
+      this.authorService.authorSearch(this.searchParam).subscribe(data => {
+        this.initAuthors(data);
+        this.searchEmpty = false;
+      });
+    }
+    else {
+      if (!this.searchEmpty) {
+        this.initAuthors(this.allAuthors);
+        this.searchEmpty = true;
+      }
+    }
+  }
+
+  private initAuthors(author: Author[]): void {
+    this.authors = author;
+    this.authorDetails = [];
+    this.getAuthorDetails();
   }
 }

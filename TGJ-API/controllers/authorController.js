@@ -8,10 +8,36 @@ exports.author_list = function(req, res) {
     .sort([['family_name', 'ascending']])
     .exec(function (err, list_authors) {
         if (err) { return next(err); }
-        //Successful
+        // Successful
         res.send(list_authors);
     });
 };
+
+// AUTHOR SEARCH GET
+exports.author_search = function(req, res, next) {
+    var input_name = new RegExp(req.params.key,'i');
+    console.log(input_name);
+
+    Author.find({ '$text': {$search: input_name} })
+    .exec(function(err, fullsearch) {
+        if (err) { return next(err) }
+        // Successful
+        if (!err && fullsearch.length) res.send(fullsearch);
+        if (!err && fullsearch.length === 0) {
+            Author.find({
+                $or: [
+                    {first_name: input_name},
+                    {family_name: input_name}
+                ]
+            })
+            .exec(function (err, partialsearch) {
+                if (err) { return next(err); }
+                // Successful
+                res.send(partialsearch);
+            });
+        }
+    });
+}
 
 // DETAIL GET.
 exports.author_detail = function(req, res, next) {

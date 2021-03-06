@@ -25,6 +25,9 @@ router.delete('/author/:id/delete', author_controller.author_delete);
 // POST request to update Author.
 router.post('/author/:id/update', author_controller.author_update);
 
+// GET request for Author search.
+router.get('/author/search/:key', author_controller.author_search);
+
 // GET request for one Author.
 router.get('/author/:id', author_controller.author_detail);
 

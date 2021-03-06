@@ -15,6 +15,9 @@ var AuthorSchema = new Schema(
     }
 );
 
+// Index for name search
+AuthorSchema.index({ first_name: "text", family_name: "text" });
+
 // Virtual for author's full name
 AuthorSchema
     .virtual('name')

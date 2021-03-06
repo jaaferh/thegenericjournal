@@ -2,6 +2,10 @@
     <h1>Authors</h1>
 </div>
 
+<div class="input-group-overlay showsearch" style="padding-right: 1%;" (keyup)="keyUpFunction($event)">
+    <input class="form-control appended-form-control" type="text" [(ngModel)]="searchParam" placeholder="Search for products">
+</div>
+
 <div class="">
     <!-- <a *ngFor="let author of authors" href="">{{author.name}}</a> -->
     <ul>
