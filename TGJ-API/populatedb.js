@@ -192,6 +192,19 @@ function createTopicAuthors(cb) {
         cb);
 }
 
+function createAuthorsOnly(cb) {
+    async.series([
+        function(callback) {
+            authorCreate('Patrick', 'Rothfuss', '1973-06-06', 'i like this', 
+              '2021-02-21', 'https://res.cloudinary.com/soqudu/image/upload/v1596199359/punjouwntf7c7ld0nvsx.jpg', callback);
+          },
+          function(callback) {
+              authorCreate('Mohammed', 'Ridha', '1988-06-06', 'i like cats', 
+              '2021-02-21', 'https://res.cloudinary.com/soqudu/image/upload/v1596316663/bkg5po7mbhvzwi7sm6qf.jpg', callback);
+          },
+    ], cb)
+}
+
 
 function createComments(cb) {
     async.series([
@@ -252,11 +265,12 @@ function createPosts(cb) {
 
 
 async.series([
-    createTopicAuthors,
-    createComments,
-    createContainers,
-    createContents,
-    createPosts
+    // createTopicAuthors,
+    // createComments,
+    // createContainers,
+    // createContents,
+    // createPosts
+    createAuthorsOnly
 ],
 // Optional callback
 function(err, results) {
