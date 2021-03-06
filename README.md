@@ -39,10 +39,8 @@ ng serve
 
 ## Short-Term Todo:
 
-- Draw Topic and Post pages
-- Create Topic pages
+- Draw Post page
 - Sanitise Author creates and edits using Regex
-
 
 ## Long-Term Todo: 
 
@@ -50,3 +48,4 @@ ng serve
 - Find a way to preserve previous page (data: { detachable: 1 })
 - Add AuthGuard to Routes once Authentication added
 - Add confirmation dialogue on delete
+- Consider alternative for Topic deleting all Posts first

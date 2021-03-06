@@ -15,10 +15,10 @@ exports.author_list = (req, res, next) => {
 
 // AUTHOR SEARCH GET
 exports.author_search = (req, res, next) => {
-  const inpuName = new RegExp(req.params.key, 'i');
-  console.log(inpuName);
+  const inputName = new RegExp(req.params.key, 'i');
+  console.log(inputName);
 
-  Author.find({ $text: { $search: inpuName } })
+  Author.find({ $text: { $search: inputName } })
     .exec((err, fullsearch) => {
       if (err) { return next(err); }
       // Successful
@@ -26,8 +26,8 @@ exports.author_search = (req, res, next) => {
       if (!err && fullsearch.length === 0) {
         return Author.find({
           $or: [
-            { first_name: inpuName },
-            { family_name: inpuName },
+            { first_name: inputName },
+            { family_name: inputName },
           ],
         })
           .exec((error, partialsearch) => {
