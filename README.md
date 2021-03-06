@@ -41,6 +41,7 @@ ng serve
 
 - Draw Topic and Post pages
 - Create Topic pages
+- Sanitise Author creates and edits using Regex
 
 
 ## Long-Term Todo: 
