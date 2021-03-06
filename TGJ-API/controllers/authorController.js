@@ -60,7 +60,7 @@ exports.author_detail = (req, res, next) => {
       return next(error);
     }
     // Successful
-    return res.send({ title: 'Author Detail', author: results.author, author_posts: results.authors_posts });
+    return res.send({ author: results.author, author_posts: results.authors_posts });
   });
 };
 
@@ -104,7 +104,7 @@ exports.author_delete = (req, res, next) => {
 
 // UPDATE POST.
 exports.author_update = (req, res, next) => {
-  // Create a Author object with data and old id.
+  // Create an Author object with data and old id.
   const author = new Author(
     {
       first_name: req.body.first_name,

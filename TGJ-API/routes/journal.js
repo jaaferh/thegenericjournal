@@ -104,15 +104,18 @@ router.get('/posts', postController.post_list);
 /// TOPIC ROUTES ///
 
 // POST request for creating topic.
-router.post('/topic/create', topicController.topic_create_post);
+router.post('/topic/create', topicController.topic_create);
 
 // POST request to delete topic.
-router.post('/topic/:id/delete', topicController.topic_delete_post);
+router.post('/topic/:id/delete', topicController.topic_delete);
 
 // POST request to update topic.
-router.post('/topic/:id/update', topicController.topic_update_post);
+router.post('/topic/:id/update', topicController.topic_update);
+
+// GET request for one topic.
+router.get('/topic/:id', topicController.topic_detail);
 
 // GET request for list of all topic.
-router.get('/topics', topicController.topic_list);
+router.get('/topics', topicController.topic);
 
 module.exports = router;
