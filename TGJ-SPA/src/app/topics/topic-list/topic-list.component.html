@@ -1,0 +1,27 @@
+<div class="header">
+  <h1>Topics</h1>
+</div>
+
+<div class="">
+  <ul>
+      <li *ngFor="let topicDetail of topicDetails">
+          {{topicDetail.topic.name}} (Posts: {{topicDetail.topic_posts.length}})
+          
+          Edit <input type="text" class="form-control" id="name"
+                  [(ngModel)]="topicDetail.topic.name" name="name"
+                  #name="ngModel">
+          <button type="button" class="btn btn-outline-secondary" (click)="updateTopic(topicDetail.topic._id, topicDetail.topic)">Update</button>
+
+          <button type="button" class="btn btn-outline-danger" (click)="deleteTopic(topicDetail.topic._id)">Delete</button>
+
+      </li>
+      <li>
+        <button type="button" class="btn btn-outline-success" (click)="createTopic()">New Topic</button>
+        <input type="text" class="form-control" id="newName"
+                  [(ngModel)]="newTopic.name" name="newName"
+                  #newName="ngModel">
+      </li>
+  </ul>
+</div>
+
+

@@ -44,10 +44,10 @@ exports.topic_create = (req, res, next) => {
       name: req.body.name,
     },
   );
-  topic.save((err) => {
+  topic.save((err, newTopic) => {
     if (err) { return next(err); }
-    // Successful - set OK status
-    return res.status(200).end();
+    // Successful - send newly formed Id
+    return res.send(newTopic);
   });
 };
 
@@ -56,7 +56,7 @@ exports.topic_delete = (req, res, next) => {
   async.series([
     // First delete posts under this topic
     (callback) => {
-      Post.deleteMany({ author: req.params.id }, callback);
+      Post.deleteMany({ topic: req.params.id }, callback);
     },
     // Then delete topic
     (callback) => {

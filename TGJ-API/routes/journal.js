@@ -107,7 +107,7 @@ router.get('/posts', postController.post_list);
 router.post('/topic/create', topicController.topic_create);
 
 // POST request to delete topic.
-router.post('/topic/:id/delete', topicController.topic_delete);
+router.delete('/topic/:id/delete', topicController.topic_delete);
 
 // POST request to update topic.
 router.post('/topic/:id/update', topicController.topic_update);
@@ -116,6 +116,6 @@ router.post('/topic/:id/update', topicController.topic_update);
 router.get('/topic/:id', topicController.topic_detail);
 
 // GET request for list of all topic.
-router.get('/topics', topicController.topic);
+router.get('/topics', topicController.topic_list);
 
 module.exports = router;

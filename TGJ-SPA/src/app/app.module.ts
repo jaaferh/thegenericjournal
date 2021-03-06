@@ -13,6 +13,8 @@ import { AlertifyService } from './services/alertify.service';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { FormsModule } from '@angular/forms';
+import { TopicListComponent } from './topics/topic-list/topic-list.component';
+import { TopicListResolver } from './resolvers/topic-list.resolver';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     AuthorListComponent,
     AuthorDetailComponent,
     AuthorFormComponent,
+    TopicListComponent,
    ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { FormsModule } from '@angular/forms';
     AlertifyService,
     AuthorListResolver,
     AuthorDetailResolver,
+    TopicListResolver,
   ],
   bootstrap: [AppComponent]
 })

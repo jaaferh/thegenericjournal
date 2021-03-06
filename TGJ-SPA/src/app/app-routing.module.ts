@@ -5,6 +5,8 @@ import { AuthorFormComponent } from './authors/author-form/author-form.component
 import { AuthorListComponent } from './authors/author-list/author-list.component';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorListResolver } from './resolvers/author-list.resolver';
+import { TopicListResolver } from './resolvers/topic-list.resolver';
+import { TopicListComponent } from './topics/topic-list/topic-list.component';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
@@ -19,7 +21,9 @@ const routes: Routes = [
       { path: 'author/:id', component: AuthorDetailComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
       { path: 'author/:id/edit', component: AuthorFormComponent,
-          resolve: {authorDetail: AuthorDetailResolver} }
+          resolve: {authorDetail: AuthorDetailResolver} },
+      { path: 'topics', component: TopicListComponent,
+          resolve: {topics: TopicListResolver} },
     ]
   }
 ];
