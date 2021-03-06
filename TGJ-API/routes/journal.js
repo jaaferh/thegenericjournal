@@ -118,9 +118,6 @@ router.post('/topic/:id/delete', topic_controller.topic_delete_post);
 // POST request to update topic.
 router.post('/topic/:id/update', topic_controller.topic_update_post);
 
-// GET request for one topic.
-router.get('/topic/:id', topic_controller.topic_detail);
-
 // GET request for list of all topic.
 router.get('/topics', topic_controller.topic_list);
 

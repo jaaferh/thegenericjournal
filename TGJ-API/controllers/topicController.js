@@ -1,13 +1,15 @@
 var Topic = require('../models/topic');
+var async = require('async');
 
 // ALL TOPICS GET
 exports.topic_list = function(req, res) {
-    res.send('NOT IMPLEMENTED: topic list');
-};
-
-// TOPIC DETAIL GET
-exports.topic_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: topic detail: ' + req.params.id);
+    Topic.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_topics) {
+        if (err) { return next(err); }
+        // Successful
+        res.send(list_topics);
+    });
 };
 
 // CREATE POST.
