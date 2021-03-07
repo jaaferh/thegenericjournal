@@ -19,4 +19,8 @@ export class PostService {
   postSearch(searchKey: string): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl + 'post/search/' + searchKey);
   }
+
+  getPostDetail(postId: string): Observable<Post> {
+    return this.http.get<Post>(this.baseUrl + 'post/' + postId);
+  }
 }

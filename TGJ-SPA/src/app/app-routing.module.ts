@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
+import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorListResolver } from './resolvers/author-list.resolver';
+import { PostDetailResolver } from './resolvers/post-detail.resolver';
 import { PostListResolver } from './resolvers/post-list.resolver';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
@@ -28,6 +30,8 @@ const routes: Routes = [
           resolve: {topics: TopicListResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
+      { path: 'post/:id', component: PostDetailComponent,
+          resolve: {post: PostDetailResolver} },
     ]
   }
 ];

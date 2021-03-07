@@ -17,6 +17,8 @@ import { TopicListComponent } from './topics/topic-list/topic-list.component';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostListResolver } from './resolvers/post-list.resolver';
+import { PostDetailComponent } from './posts/post-detail/post-detail.component';
+import { PostDetailResolver } from './resolvers/post-detail.resolver';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { PostListResolver } from './resolvers/post-list.resolver';
     AuthorFormComponent,
     TopicListComponent,
     PostListComponent,
+    PostDetailComponent,
    ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { PostListResolver } from './resolvers/post-list.resolver';
     AuthorDetailResolver,
     TopicListResolver,
     PostListResolver,
+    PostDetailResolver,
   ],
   bootstrap: [AppComponent]
 })

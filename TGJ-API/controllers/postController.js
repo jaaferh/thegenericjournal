@@ -45,8 +45,17 @@ exports.post_search = (req, res, next) => {
 };
 
 // POST DETAIL GET
-exports.post_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: post detail: ${req.params.id}`);
+exports.post_detail = (req, res, next) => {
+  Post.findById(req.params.id)
+    .populate('author')
+    .populate('topics')
+    .populate('content')
+    .populate('comments')
+    .exec((err, postDetail) => {
+      if (err) { return next(err); }
+      // Successful
+      return res.send(postDetail);
+    });
 };
 
 // CREATE POST.
