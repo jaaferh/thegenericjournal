@@ -1,4 +1,3 @@
-const { everySeries } = require('async');
 const Post = require('../models/post');
 
 // HOMEPAGE GET
@@ -15,14 +14,13 @@ exports.post_list = (req, res, next) => {
     .exec((err, listPosts) => {
       if (err) { return next(err); }
       // Successful
-      return everySeries.send(listPosts);
+      return res.send(listPosts);
     });
 };
 
 // POST SEARCH GET
 exports.post_search = (req, res, next) => {
   const inputTitle = new RegExp(req.params.key, 'i');
-  console.log(inputTitle);
 
   Post.find({ $text: { $search: inputTitle } })
     .exec((err, fullsearch) => {

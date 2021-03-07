@@ -15,6 +15,8 @@ import { AuthorFormComponent } from './authors/author-form/author-form.component
 import { FormsModule } from '@angular/forms';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { PostListResolver } from './resolvers/post-list.resolver';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { TopicListResolver } from './resolvers/topic-list.resolver';
     AuthorDetailComponent,
     AuthorFormComponent,
     TopicListComponent,
+    PostListComponent,
    ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { TopicListResolver } from './resolvers/topic-list.resolver';
     AuthorListResolver,
     AuthorDetailResolver,
     TopicListResolver,
+    PostListResolver,
   ],
   bootstrap: [AppComponent]
 })

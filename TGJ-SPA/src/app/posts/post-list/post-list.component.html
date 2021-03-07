@@ -1,0 +1,26 @@
+<div class="header">
+  <h1>Authors</h1>
+</div>
+
+<div class="input-group-overlay showsearch" style="padding-right: 1%;" (keyup)="keyUpFunction($event)">
+  <input class="form-control appended-form-control" type="text" [(ngModel)]="searchParam" placeholder="Search for Post">
+  <button type="button" class="btn btn-outline-success" (click)="createPost()">New Post</button>
+</div>
+
+<div class="">
+  <ul>
+    <li *ngFor="let post of posts">
+        <img [src]=post.thumbnail>
+        <a [routerLink]="['/post/' + post._id]">
+            {{post.title}}
+        </a>
+        <p *ngFor="let topic of post.topics">
+            {{topic.name}}
+        </p>
+        {{post.date_created}}
+        {{post.summary}}
+    </li>
+</ul>
+</div>
+
+
