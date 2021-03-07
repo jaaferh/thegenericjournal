@@ -87,13 +87,16 @@ router.get('/contents', contentController.content_list);
 /// POST (JOURNAL) ROUTES ///
 
 // POST request for creating post.
-router.post('/post/create', postController.post_create_post);
+router.post('/post/create', postController.post_create);
 
 // POST request to delete post.
-router.post('/post/:id/delete', postController.post_delete_post);
+router.post('/post/:id/delete', postController.post_delete);
 
 // POST request to update post.
-router.post('/post/:id/update', postController.post_update_post);
+router.post('/post/:id/update', postController.post_update);
+
+// GET request for post search.
+router.get('/post/search/:key', postController.post_search);
 
 // GET request for one post.
 router.get('/post/:id', postController.post_detail);
