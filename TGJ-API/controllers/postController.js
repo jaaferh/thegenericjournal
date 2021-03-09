@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const Container = require('../models/container');
 
 // HOMEPAGE GET
 exports.index = (req, res) => {
@@ -49,7 +50,10 @@ exports.post_detail = (req, res, next) => {
   Post.findById(req.params.id)
     .populate('author')
     .populate('topics')
-    .populate('content')
+    .populate({
+      path: 'content.containers',
+      model: 'Container',
+    })
     .populate('comments')
     .exec((err, postDetail) => {
       if (err) { return next(err); }

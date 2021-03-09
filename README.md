@@ -39,7 +39,8 @@ ng serve
 
 ## Short-Term Todo:
 
-- Draw Post page
+- Link API data to component for post-detail
+- Draw Post create/edit page
 - Sanitise Author creates and edits using Regex
 
 ## Long-Term Todo: 
