@@ -39,8 +39,8 @@ ng serve
 
 ## Short-Term Todo:
 
-- Link API data to component for post-detail
 - Draw Post create/edit page
+- Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)
 - Sanitise Author creates and edits using Regex
 
 ## Long-Term Todo: 
