@@ -4,6 +4,7 @@ import { AuthorDetailComponent } from './authors/author-detail/author-detail.com
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
+import { PostFormComponent } from './posts/post-form/post-form.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorListResolver } from './resolvers/author-list.resolver';
@@ -30,7 +31,10 @@ const routes: Routes = [
           resolve: {topics: TopicListResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
+      { path: 'post/new', component: PostFormComponent },
       { path: 'post/:id', component: PostDetailComponent,
+          resolve: {post: PostDetailResolver} },
+      { path: 'post/:id/edit', component: PostFormComponent,
           resolve: {post: PostDetailResolver} },
     ]
   }
