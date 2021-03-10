@@ -1,7 +1,7 @@
 import { Author } from './author.entity';
-import { Content } from './content.entity';
 import { Topic } from './topic.entity';
 import { Comment } from './comment.entity';
+import { Container } from './container.entity';
 
 
 export interface Post {
@@ -10,7 +10,10 @@ export interface Post {
   thumbnail: string;
   author: Author;
   summary: string;
-  content: Content;
+  content: {
+    containers: Container[];
+    last_edited: Date;
+  };
   date_created?: Date;
   topics?: Topic[];
   comments?: Comment[];

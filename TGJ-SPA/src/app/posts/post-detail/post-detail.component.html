@@ -1,3 +1,27 @@
-<p>
-  post-detail works!
-</p>
+<h1>{{post.title}}</h1>
+<p>{{post.summary}}</p>
+<img [src]=post.author.pic_url>
+<p>{{post.author.first_name}} {{post.author.family_name}}</p>
+<p>{{post.date_created}}</p>
+<p>{{post.content.last_edited}}</p>
+
+<p *ngFor="let topic of post.topics">{{topic.name}}</p>
+
+<img [src]=post.thumbnail>
+
+<div *ngFor="let container of post.content.containers">
+  <p *ngIf="container.type == 'Text'">{{container.text}}</p>
+  <img *ngIf="container.type == 'Image'" [src]=container.image_url>
+  <p *ngIf="container.type == 'Image'">{{container.caption}}</p>
+</div>
+
+<button *ngIf="!commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Load Comments</button>
+<button *ngIf="commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Hide Comments</button>
+
+<div *ngIf="commentsVisible"> 
+  <div *ngFor="let comment of post.comments">
+    <p >{{comment.author_nickname}} {{comment.date_posted}}</p>
+    <p>{{comment.text}}</p>
+    <p>{{comment.likes}} {{comment.dislikes}} <button class="button btn-link" (click)="replyClick(comment._id)">Reply</button></p> 
+  </div>
+</div>

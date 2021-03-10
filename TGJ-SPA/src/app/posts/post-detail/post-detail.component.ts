@@ -11,6 +11,7 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostDetailComponent implements OnInit {
   post = {} as Post;
+  commentsVisible = false;
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
@@ -24,6 +25,14 @@ export class PostDetailComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  viewCommentsToggle(): void {
+    this.commentsVisible = !this.commentsVisible;
+  }
+
+  replyClick(commentId: string): void {
+
   }
 
 
