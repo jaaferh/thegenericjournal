@@ -23,4 +23,8 @@ export class PostService {
   getPostDetail(postId: string): Observable<Post> {
     return this.http.get<Post>(this.baseUrl + 'post/' + postId);
   }
+
+  deletePost(postId: string): Observable<object> {
+    return this.http.delete(this.baseUrl + 'post/' + postId + '/delete');
+  }
 }

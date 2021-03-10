@@ -14,11 +14,15 @@
         <a [routerLink]="['/post/' + post._id]">
             {{post.title}}
         </a>
-        <p *ngFor="let topic of post.topics">
+        <div *ngFor="let topic of post.topics">
             {{topic.name}}
-        </p>
+        </div>
         {{post.date_created}}
         {{post.summary}}
+
+        <button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
+
+        <button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>
     </li>
 </ul>
 </div>

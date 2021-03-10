@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
@@ -17,7 +17,8 @@ export class PostListComponent implements OnInit {
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +43,20 @@ export class PostListComponent implements OnInit {
         this.searchEmpty = true;
       }
     }
+  }
+
+  updatePost(postId: string): void {
+    this.router.navigate(['/post/edit/', {id: postId}]);
+  }
+
+  deletePost(postId: string): void {
+    this.postService.deletePost(postId).subscribe(() => {
+      this.alertify.success('Post Deleted Successfully');
+      const postIndex = this.posts.findIndex(post => post._id === postId);
+      this.posts.splice(postIndex, 1);
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   createPost(): void { }

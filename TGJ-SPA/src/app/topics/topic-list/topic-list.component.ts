@@ -40,11 +40,11 @@ export class TopicListComponent implements OnInit {
     console.log(this.topicDetails);
   }
 
-  deleteTopic(id: string): void {
-    this.topicService.deleteTopic(id).subscribe(() => {
+  deleteTopic(topicId: string): void {
+    this.topicService.deleteTopic(topicId).subscribe(() => {
       this.alertify.success('Topic Deleted Successfully');
-      const topicIndex = this.topics.findIndex(topic => topic._id === id);
-      const topicDetIndex = this.topicDetails.findIndex(td => td.topic._id === id);
+      const topicIndex = this.topics.findIndex(topic => topic._id === topicId);
+      const topicDetIndex = this.topicDetails.findIndex(td => td.topic._id === topicId);
       this.topics.splice(topicIndex, 1);
       this.topicDetails.splice(topicDetIndex, 1);
     }, error => {
@@ -52,8 +52,8 @@ export class TopicListComponent implements OnInit {
     });
   }
 
-  updateTopic(id: string, topic: Topic): void {
-    this.topicService.updateTopic(id, topic).subscribe(() => {
+  updateTopic(topicId: string, topic: Topic): void {
+    this.topicService.updateTopic(topicId, topic).subscribe(() => {
       this.alertify.success('Topic Updated Successfully');
     }, error => {
       this.alertify.error(error);
