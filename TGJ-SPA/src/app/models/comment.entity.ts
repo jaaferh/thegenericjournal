@@ -10,6 +10,6 @@ export interface Comment {
 }
 
 export interface CommentTree {
-  parent: Comment;
+  thisComment: Comment;
   children: CommentTree[];
 }

@@ -2,9 +2,9 @@
   <li class="system-main" 
      *ngFor="let comment of comments">
     <div class="system-main__apps">
-      <p>{{comment.parent.author_nickname}} {{comment.parent.date_posted}}</p>
-      <p>{{comment.parent.text}}</p>
-      <p>{{comment.parent.likes}} {{comment.parent.dislikes}} <button class="button btn-link" (click)="replyClick(comment.parent._id)">Reply</button></p> 
+      <p>{{comment.thisComment.author_nickname}} {{comment.thisComment.date_posted}}</p>
+      <p>{{comment.thisComment.text}}</p>
+      <p>{{comment.thisComment.likes}} {{comment.thisComment.dislikes}} <button class="button btn-link" (click)="replyClick(comment.thisComment._id)">Reply</button></p> 
     </div>
     <ul *ngIf="comment.children">
       <app-comment-tree  [comments]="comment.children"></app-comment-tree>

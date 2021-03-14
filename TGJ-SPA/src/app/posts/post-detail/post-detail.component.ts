@@ -49,7 +49,7 @@ export class PostDetailComponent implements OnInit {
     // Fill commentTree with comments with no parents (highest tree level)
     const noParents = this.comments.filter(c => c.parent_comment === null);
     noParents.forEach(c => {
-      this.commentTree.push({parent: c, children: []});
+      this.commentTree.push({thisComment: c, children: []});
     });
 
     // Get the comment hierarchy tree
@@ -58,11 +58,18 @@ export class PostDetailComponent implements OnInit {
 
   private popCommentChildren(commentTree: CommentTree[]): CommentTree[] {
     // Find parent of each child and push to each parent's children list recursively
+    /*
+      Iterate over all comments. If a comment A's parent matches an existing,
+      commentTree X, add comment A to commentTree X's children.
+      Then recurse over the commentTree X's children, this time looking for
+      comments that are children of commentTree X's children and so on.
+    */
     this.comments.forEach(child => {
       if (child.parent_comment != null) {
         commentTree.forEach(ct => {
-          if (ct.parent._id === child.parent_comment?._id) {
-            ct.children.push({parent: child, children: []});
+          const childExists = ct.children.find(ctch => ctch.thisComment._id === child._id);
+          if (ct.thisComment._id === child.parent_comment?._id && !childExists) {
+            ct.children.push({thisComment: child, children: []});
             ct.children = this.popCommentChildren(ct.children);
           }
         });
