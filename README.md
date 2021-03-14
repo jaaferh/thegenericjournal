@@ -50,3 +50,4 @@ ng serve
 - Add AuthGuard to Routes once Authentication added
 - Add confirmation dialogue on delete
 - Consider alternative for Topic deleting all Posts first
+- Document where needed
