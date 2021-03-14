@@ -54,7 +54,12 @@ exports.post_detail = (req, res, next) => {
       path: 'content.containers',
       model: 'Container',
     })
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'parent_comment',
+      },
+    })
     .exec((err, postDetail) => {
       if (err) { return next(err); }
       // Successful

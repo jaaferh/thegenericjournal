@@ -20,6 +20,7 @@ import { PostListResolver } from './resolvers/post-list.resolver';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostDetailResolver } from './resolvers/post-detail.resolver';
 import { PostFormComponent } from './posts/post-form/post-form.component';
+import { CommentTreeComponent } from './comments/tree/comment-tree.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { PostFormComponent } from './posts/post-form/post-form.component';
     PostListComponent,
     PostDetailComponent,
     PostFormComponent,
+    CommentTreeComponent,
    ],
   imports: [
     BrowserModule,
