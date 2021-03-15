@@ -64,11 +64,7 @@ export class TopicListComponent implements OnInit {
     this.topicService.createTopic(this.newTopic).subscribe(data => {
       this.alertify.success('Topic Created Successfully');
       this.topics.push(data);
-      this.topicService.getTopicDetail(data._id).subscribe(topic => {
-        this.topicDetails.push(topic);
-      }, error => {
-        this.alertify.error(error);
-      });
+      this.topicDetails.push({topic: data, topic_posts: []});
       console.log(data);
       this.newTopic.name = '';
     }, error => {

@@ -24,7 +24,7 @@ export class PostService {
     return this.http.get<Post>(this.baseUrl + 'post/' + postId);
   }
 
-  deletePost(postId: string): Observable<object> {
-    return this.http.delete(this.baseUrl + 'post/' + postId + '/delete');
+  deletePost(postId: string): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'post/' + postId + '/delete');
   }
 }
