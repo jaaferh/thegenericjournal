@@ -11,7 +11,7 @@ const PostSchema = new Schema(
     // content: { type: Schema.Types.ObjectId, ref: 'Content', required: true },
     content: {
       containers: [{ type: Schema.Types.ObjectId, ref: 'Container', required: true }],
-      last_edited: { type: Date },
+      last_edited: { type: Date, default: null },
     },
     date_created: { type: Date, default: Date.now },
     topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],

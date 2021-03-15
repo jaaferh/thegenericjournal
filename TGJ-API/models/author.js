@@ -8,10 +8,10 @@ const AuthorSchema = new Schema(
   {
     first_name: { type: String, required: true, maxlength: 100 },
     family_name: { type: String, required: true, maxlength: 100 },
-    date_of_birth: { type: Date },
-    bio: { type: String },
+    date_of_birth: { type: Date, default: null },
+    bio: { type: String, default: null },
     date_joined: { type: Date, default: Date.now },
-    pic_url: { type: String },
+    pic_url: { type: String, default: null },
   },
 );
 

@@ -36,10 +36,10 @@ router.get('/authors', authorController.author_list);
 /// COMMENT ROUTES ///
 
 // POST request for creating comment.
-router.post('/comment/create', commentController.comment_create_post);
+router.post('/comment/create', commentController.comment_create);
 
 // POST request to delete comment.
-router.post('/comment/:id/delete', commentController.comment_delete_post);
+router.delete('/comment/:id/delete', commentController.comment_delete);
 
 // POST request to update comment.
 router.post('/comment/:id/update', commentController.comment_update_post);
