@@ -1,4 +1,5 @@
 const Comment = require('../models/comment');
+const Post = require('../models/post');
 
 // ALL COMMENTS GET
 exports.comment_list = function (req, res) {
@@ -11,13 +12,43 @@ exports.comment_detail = function (req, res) {
 };
 
 // CREATE POST.
-exports.comment_create_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: comment create POST');
+exports.comment_create = (req, res, next) => {
+  // Create a Comment object using request params
+  const comment = new Comment(
+    {
+      parent_comment: req.body.parent_comment,
+      author_nickname: req.body.author_nickname,
+      text: req.body.text,
+      date_posted: req.body.date_posted,
+      last_edited: req.body.last_edited,
+      likes: req.body.likes,
+      dislikes: req.body.dislikes,
+    },
+  );
+  comment.save((err, newComment) => {
+    if (err) { return next(err); }
+    // Successful - Add to post and send newly formed Id
+    Post.findByIdAndUpdate(
+      req.body.postId,
+      { $push: { comments: newComment } },
+      { safe: true, upsert: true, new: true },
+      (error) => {
+        if (error) { return next(error); }
+        return null;
+      },
+    );
+
+    return res.send(newComment);
+  });
 };
 
 // DELETE POST.
-exports.comment_delete_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: comment delete POST');
+exports.comment_delete = (req, res, next) => {
+  Comment.findByIdAndRemove(req.params.id, (err) => {
+    if (err) { return next(err); }
+    // Success - set OK status
+    return res.status(200).end();
+  });
 };
 
 // UPDATE POST.
