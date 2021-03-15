@@ -39,6 +39,7 @@ ng serve
 
 ## Short-Term Todo:
 
+- Finish up the spliceTree function in comment-section.component.ts
 - Draw Post create/edit page
 - Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)
 - Sanitise Author creates and edits using Regex
