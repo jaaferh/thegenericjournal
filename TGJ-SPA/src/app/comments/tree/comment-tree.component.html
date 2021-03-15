@@ -4,10 +4,14 @@
     <div class="system-main__apps">
       <p>{{comment.thisComment.author_nickname}} {{comment.thisComment.date_posted}}</p>
       <p>{{comment.thisComment.text}}</p>
-      <p>{{comment.thisComment.likes}} {{comment.thisComment.dislikes}} <button class="button btn-link" (click)="replyClick(comment.thisComment._id)">Reply</button></p> 
+      <p>
+        {{comment.thisComment.likes}} {{comment.thisComment.dislikes}} 
+        <button class="button btn-link" (click)="replyClick(comment.thisComment._id)">Reply</button>
+        <button class="button btn-link" (click)="deleteComment(comment.thisComment._id)">Delete</button>
+      </p> 
     </div>
     <ul *ngIf="comment.children">
-      <app-comment-tree  [comments]="comment.children"></app-comment-tree>
+      <app-comment-tree (delCommentId)="deleteComment($event)" [comments]="comment.children"></app-comment-tree>
     </ul>
   </li>
 </ul>

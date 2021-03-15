@@ -18,14 +18,9 @@
 <button *ngIf="!commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Load Comments</button>
 <button *ngIf="commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Hide Comments</button>
 
-<!-- <div *ngIf="commentsVisible"> 
-  <div *ngFor="let comment of post.comments">
-    <p >{{comment.author_nickname}} {{comment.date_posted}}</p>
-    <p>{{comment.text}}</p>
-    <p>{{comment.likes}} {{comment.dislikes}} <button class="button btn-link" (click)="replyClick(comment._id)">Reply</button></p> 
-  </div>
-</div> -->
-
 <div *ngIf="commentsVisible">
-  <app-comment-tree [comments]="commentTree"></app-comment-tree>
+  <app-comment-section 
+    [post]="post" 
+    [comments]="commentTree" 
+    [commentNumber]="comments.length"></app-comment-section>
 </div>

@@ -1,0 +1,34 @@
+<p>{{commentNumber}} Comments</p>
+  
+
+<p>Leave a Comment</p>
+
+<form (ngSubmit)="createComment()" #newComForm="ngForm">
+  <div class="form-group">
+    <label for="nickname">Nickname</label>
+    <input class="form-control" type="text" name="nickname" id="nickname"
+        required [(ngModel)]="newComment.author_nickname" #nickname="ngModel">
+    <div [hidden]="nickname.valid || nickname.pristine" 
+        class="alert alert-danger">
+      Nickname is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="text">Comment</label>
+    <input class="form-control" type="text" name="text" id="text"
+        required [(ngModel)]="newComment.text" #text="ngModel">
+    <div [hidden]="text.valid || text.pristine" 
+        class="alert alert-danger">
+      Comment is required
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success" [disabled]="!newComForm.form.valid">Post</button>
+
+</form>
+
+
+<app-comment-tree 
+  [comments]="comments"
+  (delCommentId)="deleteComment($event)"></app-comment-tree>

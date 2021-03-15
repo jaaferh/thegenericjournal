@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
+import { AlertifyService } from 'src/app/services/alertify.service';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-comment-tree',
@@ -8,10 +10,19 @@ import { Comment, CommentTree } from 'src/app/models/comment.entity';
 })
 export class CommentTreeComponent implements OnInit {
   @Input() comments: CommentTree[] = [];
+  @Output() delCommentId = new EventEmitter<string>();
+  newComment = {} as Comment;
 
-  constructor() { }
+  constructor(
+    private commentService: CommentService,
+    private alertify: AlertifyService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  deleteComment(commentId: string): void {
+    this.delCommentId.emit(commentId);
   }
 
   // onexpand(comment: Comment): void {
