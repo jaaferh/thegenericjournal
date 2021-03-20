@@ -49,25 +49,36 @@ export class CommentSectionComponent implements OnInit {
     console.log(commentId);
     this.commentService.deleteComment(commentId).subscribe(() => {
       this.alertify.success('Comment Deleted Successfully');
-      const commentIndex = this.comments.findIndex(com => com.thisComment._id === commentId);
-      this.comments.splice(commentIndex, 1);
-      this.comments = this.spliceTree(commentId, this.comments);
+      this.spliceNode(commentId, this.comments);
       this.commentNumber--;
     }, error => {
       this.alertify.error(error);
     });
   }
 
-  private spliceTree(delCommentId: string, commentTree: CommentTree[]): CommentTree[] {
-    commentTree.forEach(ct => {
-      if (ct.thisComment._id !== delCommentId) {
-        ct.children = this.spliceTree(delCommentId, ct.children);
+  private spliceNode(commentId: string, commentTree: CommentTree[]): void {
+    commentTree.forEach(parentNode => {
+      // Check top level parents
+      const commentIndex = commentTree.findIndex(com => com.thisComment._id === commentId);
+      commentTree.splice(commentIndex, 1);
+
+      // Check children
+      if (parentNode.children != null) {
+        parentNode.children.forEach((child, index) => {
+          if (child.thisComment._id === commentId) {
+            parentNode.children.splice(index, 1);
+            return;
+          }
+          else {
+            this.spliceNode(commentId, parentNode.children);
+          }
+        });
       }
       else {
-        ct.children = [];
+        return;
       }
     });
-    return commentTree;
+    return;
   }
 
 }
