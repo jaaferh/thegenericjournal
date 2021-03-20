@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { CommentService } from 'src/app/services/comment.service';
@@ -11,7 +12,11 @@ import { CommentService } from 'src/app/services/comment.service';
 export class CommentTreeComponent implements OnInit {
   @Input() comments: CommentTree[] = [];
   @Output() delCommentId = new EventEmitter<string>();
-  newComment = {} as Comment;
+  @Output() replyComment = new EventEmitter<Comment>();
+  newReply = {} as Comment;
+  replyBoxesHidden = true;
+
+  @ViewChild('newRepForm') newRepForm!: NgForm;
 
   constructor(
     private commentService: CommentService,
@@ -40,6 +45,17 @@ export class CommentTreeComponent implements OnInit {
   //   }
   // }
 
-  replyClick(commentId: string): void {}
+  replyClick(comment: Comment): void {
+    this.replyBoxesHidden = !this.replyBoxesHidden;
+    this.newReply.parent_comment = comment;
+  }
+
+  createReply(comment: Comment): void {
+    this.replyComment.emit(comment);
+    if (this.newRepForm !== undefined) {
+      this.newRepForm.reset();
+      this.replyBoxesHidden = true;
+    }
+  }
 
 }

@@ -6,12 +6,41 @@
       <p>{{comment.thisComment.text}}</p>
       <p>
         {{comment.thisComment.likes}} {{comment.thisComment.dislikes}} 
-        <button class="button btn-link" (click)="replyClick(comment.thisComment._id)">Reply</button>
+        <button class="button btn-link" (click)="replyClick(comment.thisComment)">Reply</button>
         <button class="button btn-link" (click)="deleteComment(comment.thisComment._id)">Delete</button>
       </p> 
     </div>
+    <div *ngIf="!replyBoxesHidden">
+      <form (ngSubmit)="createReply(newReply)" #newRepForm="ngForm">
+        <div class="form-group">
+          <label for="nickname">Nickname</label>
+          <input class="form-control" type="text" name="nickname" id="nickname"
+              required [(ngModel)]="newReply.author_nickname" #nickname="ngModel">
+          <div [hidden]="nickname.valid || nickname.pristine" 
+              class="alert alert-danger">
+            Nickname is required
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="text">Comment</label>
+          <input class="form-control" type="text" name="text" id="text"
+              required [(ngModel)]="newReply.text" #text="ngModel">
+          <div [hidden]="text.valid || text.pristine" 
+              class="alert alert-danger">
+            Comment is required
+          </div>
+        </div>
+      
+        <button type="submit" class="btn btn-success" [disabled]="!newRepForm.form.valid">Post</button>
+      
+      </form>
+    </div>
     <ul *ngIf="comment.children">
-      <app-comment-tree (delCommentId)="deleteComment($event)" [comments]="comment.children"></app-comment-tree>
+      <app-comment-tree 
+        (delCommentId)="deleteComment($event)" 
+        (replyComment)="createReply($event)"
+        [comments]="comment.children"></app-comment-tree>
     </ul>
   </li>
 </ul>

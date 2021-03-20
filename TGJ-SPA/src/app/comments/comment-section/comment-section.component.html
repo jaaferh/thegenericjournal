@@ -3,7 +3,7 @@
 
 <p>Leave a Comment</p>
 
-<form (ngSubmit)="createComment()" #newComForm="ngForm">
+<form (ngSubmit)="createComment(newComment)" #newComForm="ngForm">
   <div class="form-group">
     <label for="nickname">Nickname</label>
     <input class="form-control" type="text" name="nickname" id="nickname"
@@ -30,5 +30,6 @@
 
 
 <app-comment-tree 
-  [comments]="comments"
-  (delCommentId)="deleteComment($event)"></app-comment-tree>
+  [comments]="commentTree"
+  (delCommentId)="deleteComment($event)"
+  (replyComment)="createComment($event)"></app-comment-tree>
