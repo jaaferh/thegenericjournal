@@ -1,3 +1,89 @@
-<p>
-  post-form works!
-</p>
+<form (ngSubmit)="onSubmit()" #postForm="ngForm">
+  <div class="form-group">
+      <label for="title">First Name</label>
+      <input type="text" class="form-control" id="title"
+          required [(ngModel)]="post.title" name="title"
+          #title="ngModel">
+      <div [hidden]="title.valid || title.pristine"
+          class="alert alert-danger">
+       Title is required
+     </div>
+  </div>
+
+  <div class="form-group">
+      <label for="summary">Summary</label>
+      <input type="text" class="form-control" id="summary"
+          required [(ngModel)]="post.summary" name="summary"
+          #summary="ngModel">
+      <div [hidden]="summary.valid || summary.pristine"
+          class="alert alert-danger">
+       Summary is required
+     </div>
+  </div>
+
+  <div class="form-group">
+    <p *ngFor="let topic of post.topics">
+      {{topic.name}}
+      <button class="button btn-link" (click)="removeTopic(topic._id)">Remove</button>
+    </p>
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control" id="topicAdd"
+                  [(ngModel)]="topicAdd.name" name="topicAdd"
+                  #topicAdd="ngModel">
+    <button class="button btn-link" (click)="addTopic()">Add</button>
+  </div>
+
+  <div class="form-group">
+    <label for="thumbnail">thumbnail</label>
+    <input type="text" class="form-control" id="thumbnail"
+        [(ngModel)]="post.thumbnail" name="form-control"
+        #thumbnail="ngModel">
+  </div>
+
+  <ul>
+    <li *ngFor="let container of post.content.containers">
+      <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
+        <input type="text" class="form-control" id="textContTitle"
+            [(ngModel)]="container.title" name="{{'textContTitle' + container._id}}"
+            #textContTitle="ngModel">
+        <input type="text" class="form-control" id="textContText"
+            [(ngModel)]="container.text" name="{{'textContText' + container._id}}"
+            #textContText="ngModel">
+      </div>
+      <ng-template #imageContainer>
+        <input type="text" class="form-control" id="imgContUrl"
+            [(ngModel)]="container.image_url" name="{{'imgContUrl' + container._id}}"
+            #imgContUrl="ngModel">
+        <input type="text" class="form-control" id="imgContCap"
+            [(ngModel)]="container.caption" name="{{'imgContCap' + container._id}}"
+            #imgContCap="ngModel">
+      </ng-template>
+    </li>
+  </ul>
+
+
+  <button class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
+  <button class="button btn-link" (click)="addContainer('Image')">Add Image Container</button>
+  <p></p>
+<!-- 
+  <div class="form-group">
+      <label for="bio">Bio</label>
+      <input type="text" class="form-control" id="bio"
+          [(ngModel)]="author.bio" name="bio"
+          #bio="ngModel">
+  </div>
+
+  <div class="form-group">
+      <label for="picture">Profile Picture</label>
+      <input type="text" class="form-control" id="picture"
+          [(ngModel)]="author.pic_url" name="picture"
+          #picture="ngModel">
+  </div> -->
+
+  <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
+  <button type="button" class="btn btn-default" (click)="resetForm(); postForm.reset()">Cancel</button>
+
+
+</form>
