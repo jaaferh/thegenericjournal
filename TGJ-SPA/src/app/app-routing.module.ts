@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: 'post/:id', component: PostDetailComponent,
           resolve: {post: PostDetailResolver} },
       { path: 'post/:id/edit', component: PostFormComponent,
-          resolve: {post: PostDetailResolver} },
+          resolve: {post: PostDetailResolver, topics: TopicListResolver} },
     ]
   }
 ];

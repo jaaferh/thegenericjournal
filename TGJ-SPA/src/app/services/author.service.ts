@@ -24,16 +24,16 @@ export class AuthorService {
     return this.http.get<AuthorDetails>(this.baseUrl + 'author/' + authorId);
   }
 
-  createAuthor(author: Author): Observable<object> {
-    return this.http.post(this.baseUrl + 'author/create', author);
+  createAuthor(author: Author): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'author/create', author);
   }
 
-  updateAuthor(authorId: string, author: Author): Observable<object> {
-    return this.http.post(this.baseUrl + 'author/' + authorId + '/update', author);
+  updateAuthor(authorId: string, author: Author): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'author/' + authorId + '/update', author);
   }
 
-  deleteAuthor(authorId: string): Observable<object> {
-    return this.http.delete(this.baseUrl + 'author/' + authorId + '/delete');
+  deleteAuthor(authorId: string): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'author/' + authorId + '/delete');
   }
 
 }

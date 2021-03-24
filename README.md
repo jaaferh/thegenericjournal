@@ -39,7 +39,8 @@ ng serve
 
 ## Short-Term Todo:
 
-- Finish up post form
+- Fix Post form submitting on Container or Topic add.
+- Get doTopicFilter in post-form component to work
 - Comment Edit and like/dislike
 - Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)
 - Sanitise Author creates and edits using Regex
@@ -52,3 +53,5 @@ ng serve
 - Add confirmation dialogue on delete
 - Consider alternative for Topic deleting all Posts first
 - Document where needed
+- Add natural keys to Topics and other relevant schemas
+- Consider a preview for posts before updating/creating

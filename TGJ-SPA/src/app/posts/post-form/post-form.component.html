@@ -22,18 +22,29 @@
   </div>
 
   <div class="form-group">
-    <p *ngFor="let topic of post.topics">
+    <p *ngFor="let topic of post.topics; let i = index">
       {{topic.name}}
-      <button class="button btn-link" (click)="removeTopic(topic._id)">Remove</button>
+      <button class="button btn-link" (click)="removeTopic(i)">Remove</button>
     </p>
   </div>
 
   <div class="form-group">
-    <input type="text" class="form-control" id="topicAdd"
-                  [(ngModel)]="topicAdd.name" name="topicAdd"
-                  #topicAdd="ngModel">
+    <input matInput [matAutocomplete]="auto" id="newTopic"
+    name="newTopic" #newTopic="ngModel" 
+    [(ngModel)]="topicAdd.name" (ngModelChange)="doTopicFilter()">
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let topic of topics" [value]="topic.name" (click)="selectTopic(topic)">
+        {{topic.name}}
+      </mat-option>
+    </mat-autocomplete>
+                  
     <button class="button btn-link" (click)="addTopic()">Add</button>
   </div>
+
+
+
+
 
   <div class="form-group">
     <label for="thumbnail">thumbnail</label>
@@ -43,7 +54,7 @@
   </div>
 
   <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let container of post.content.containers" cdkDrag>
+    <div class="example-box" *ngFor="let container of post.content.containers; let i = index" cdkDrag>
       <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
         <input type="text" class="form-control" id="textContTitle"
             [(ngModel)]="container.title" name="{{'textContTitle' + container._id}}"
@@ -60,48 +71,17 @@
             [(ngModel)]="container.caption" name="{{'imgContCap' + container._id}}"
             #imgContCap="ngModel">
       </ng-template>
+
+      <button type="button" class="btn btn-outline-danger" (click)="deleteContainer(i)">Delete</button>
     </div>
   </div>
   
-  <!-- <ul>
-    <li *ngFor="let container of post.content.containers">
-      <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
-        <input type="text" class="form-control" id="textContTitle"
-            [(ngModel)]="container.title" name="{{'textContTitle' + container._id}}"
-            #textContTitle="ngModel">
-        <input type="text" class="form-control" id="textContText"
-            [(ngModel)]="container.text" name="{{'textContText' + container._id}}"
-            #textContText="ngModel">
-      </div>
-      <ng-template #imageContainer>
-        <input type="text" class="form-control" id="imgContUrl"
-            [(ngModel)]="container.image_url" name="{{'imgContUrl' + container._id}}"
-            #imgContUrl="ngModel">
-        <input type="text" class="form-control" id="imgContCap"
-            [(ngModel)]="container.caption" name="{{'imgContCap' + container._id}}"
-            #imgContCap="ngModel">
-      </ng-template>
-    </li>
-  </ul> -->
+
 
 
   <button class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
   <button class="button btn-link" (click)="addContainer('Image')">Add Image Container</button>
   <p></p>
-<!-- 
-  <div class="form-group">
-      <label for="bio">Bio</label>
-      <input type="text" class="form-control" id="bio"
-          [(ngModel)]="author.bio" name="bio"
-          #bio="ngModel">
-  </div>
-
-  <div class="form-group">
-      <label for="picture">Profile Picture</label>
-      <input type="text" class="form-control" id="picture"
-          [(ngModel)]="author.pic_url" name="picture"
-          #picture="ngModel">
-  </div> -->
 
   <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
   <button type="button" class="btn btn-default" (click)="resetForm(); postForm.reset()">Cancel</button>

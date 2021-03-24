@@ -24,6 +24,9 @@ import { CommentTreeComponent } from './comments/tree/comment-tree.component';
 import { CommentSectionComponent } from './comments/comment-section/comment-section.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FormsModule,
     BrowserAnimationsModule,
     DragDropModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatFormFieldModule,
   ],
   providers: [
     AlertifyService,

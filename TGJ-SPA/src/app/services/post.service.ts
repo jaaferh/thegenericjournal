@@ -27,4 +27,8 @@ export class PostService {
   deletePost(postId: string): Observable<void> {
     return this.http.delete<void>(this.baseUrl + 'post/' + postId + '/delete');
   }
+
+  updatePost(postId: string, post: Post): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'post/' + postId + '/update', post);
+  }
 }
