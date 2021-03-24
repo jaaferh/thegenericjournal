@@ -78,6 +78,26 @@ exports.post_delete = (req, res) => {
 };
 
 // UPDATE POST.
-exports.post_update = (req, res) => {
-  res.send('NOT IMPLEMENTED: post update POST');
+exports.post_update = (req, res, next) => {
+  // Create a Post object with data and old id.
+  const post = new Post(
+    {
+      title: req.body.title,
+      thumbnail: req.body.thumbnail,
+      author: req.body.author,
+      summary: req.body.summary,
+      content: req.body.content,
+      date_created: req.body.date_created,
+      topics: req.body.topics,
+      comments: req.body.comments,
+      _id: req.params.id,
+    },
+  );
+
+  // Update the record.
+  Post.findByIdAndUpdate(req.params.id, post, {}, (err) => {
+    if (err) { return next(err); }
+    // Successful - set OK status
+    return res.status(200).end();
+  });
 };
