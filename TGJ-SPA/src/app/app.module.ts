@@ -22,6 +22,8 @@ import { PostDetailResolver } from './resolvers/post-detail.resolver';
 import { PostFormComponent } from './posts/post-form/post-form.component';
 import { CommentTreeComponent } from './comments/tree/comment-tree.component';
 import { CommentSectionComponent } from './comments/comment-section/comment-section.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { CommentSectionComponent } from './comments/comment-section/comment-sect
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    DragDropModule,
   ],
   providers: [
     AlertifyService,

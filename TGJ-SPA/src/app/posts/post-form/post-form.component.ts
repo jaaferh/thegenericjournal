@@ -5,6 +5,7 @@ import { Post } from 'src/app/models/post.entity';
 import { Topic } from 'src/app/models/topic.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-post-form',
@@ -43,6 +44,11 @@ export class PostFormComponent implements OnInit {
         this.alertify.error(error);
       });
     }
+  }
+
+  drop(event: any): void {
+    moveItemInArray(this.post.content.containers, event.previousIndex, event.currentIndex);
+    console.log(this.post.content.containers);
   }
 
   onSubmit(): void {}

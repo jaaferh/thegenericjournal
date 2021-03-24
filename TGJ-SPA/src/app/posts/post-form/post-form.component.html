@@ -42,7 +42,28 @@
         #thumbnail="ngModel">
   </div>
 
-  <ul>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let container of post.content.containers" cdkDrag>
+      <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
+        <input type="text" class="form-control" id="textContTitle"
+            [(ngModel)]="container.title" name="{{'textContTitle' + container._id}}"
+            #textContTitle="ngModel">
+        <input type="text" class="form-control" id="textContText"
+            [(ngModel)]="container.text" name="{{'textContText' + container._id}}"
+            #textContText="ngModel">
+      </div>
+      <ng-template #imageContainer>
+        <input type="text" class="form-control" id="imgContUrl"
+            [(ngModel)]="container.image_url" name="{{'imgContUrl' + container._id}}"
+            #imgContUrl="ngModel">
+        <input type="text" class="form-control" id="imgContCap"
+            [(ngModel)]="container.caption" name="{{'imgContCap' + container._id}}"
+            #imgContCap="ngModel">
+      </ng-template>
+    </div>
+  </div>
+  
+  <!-- <ul>
     <li *ngFor="let container of post.content.containers">
       <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
         <input type="text" class="form-control" id="textContTitle"
@@ -61,7 +82,7 @@
             #imgContCap="ngModel">
       </ng-template>
     </li>
-  </ul>
+  </ul> -->
 
 
   <button class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
