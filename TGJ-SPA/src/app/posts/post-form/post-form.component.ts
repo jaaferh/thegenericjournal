@@ -7,6 +7,7 @@ import { Topic } from 'src/app/models/topic.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ContainerService } from 'src/app/services/container.service';
 
 @Component({
   selector: 'app-post-form',
@@ -28,6 +29,7 @@ export class PostFormComponent implements OnInit {
   }
   constructor(
     private postService: PostService,
+    private containerService: ContainerService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
     private router: Router
@@ -62,11 +64,18 @@ export class PostFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.post);
-    // this.post.content.containers.forEach(container => {
-    //   if (container._id !== null) {
-
-    //   }
-    // });
+    this.post.content.containers.forEach(container => {
+      if (container._id !== undefined) {
+        this.containerService.updateContainer(container._id, container).subscribe();
+      }
+      else {
+        this.containerService.createContainer(container).subscribe(newC => {
+          container._id = newC._id;
+        }, error => {
+          this.alertify.error(error);
+        });
+      }
+    });
 
     if (this.mode === Mode.Create) {
 
@@ -111,9 +120,17 @@ export class PostFormComponent implements OnInit {
     this.post.content.containers.push(newCont);
   }
 
-  deleteContainer(index: number): void {
-    console.log(this.post.content.containers);
-    this.post.content.containers.splice(index, 1);
+  deleteContainer(containerId: string, index: number): void {
+    if (containerId !== undefined) {
+      this.containerService.deleteContainer(containerId).subscribe(() => {
+        this.post.content.containers.splice(index, 1);
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
+    else {
+      this.post.content.containers.splice(index, 1);
+    }
   }
 
   trackByIndex(index: number, obj: any): any {

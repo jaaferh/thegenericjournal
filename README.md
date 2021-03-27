@@ -39,7 +39,7 @@ ng serve
 
 ## Short-Term Todo:
 
-- Fix Post form submitting on Container or Topic add.
+- Look at implementing an add section for new containers instead of immediately pushing it to the list and relying on ngmodel
 - Get doTopicFilter in post-form component to work
 - Comment Edit and like/dislike
 - Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)

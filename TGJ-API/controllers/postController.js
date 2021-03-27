@@ -79,6 +79,8 @@ exports.post_delete = (req, res) => {
 
 // UPDATE POST.
 exports.post_update = (req, res, next) => {
+  console.log(req.body);
+  console.log(req.body.content);
   // Create a Post object with data and old id.
   const post = new Post(
     {
