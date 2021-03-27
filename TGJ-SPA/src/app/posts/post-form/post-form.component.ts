@@ -61,6 +61,13 @@ export class PostFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.post);
+    // this.post.content.containers.forEach(container => {
+    //   if (container._id !== null) {
+
+    //   }
+    // });
+
     if (this.mode === Mode.Create) {
 
     }
@@ -87,7 +94,11 @@ export class PostFormComponent implements OnInit {
   }
 
   addTopic(): void {
-    this.post.topics?.push(this.topicAdd);
+    const topicChosen = Object.keys(this.topicAdd).length > 0;
+    const topicDupe = this.post.topics?.find(t => t._id === this.topicAdd._id);
+    if (topicChosen && !topicDupe) { // Object not empty
+      this.post.topics?.push(this.topicAdd);
+    }
   }
 
   removeTopic(index: number): void {
@@ -101,7 +112,12 @@ export class PostFormComponent implements OnInit {
   }
 
   deleteContainer(index: number): void {
+    console.log(this.post.content.containers);
     this.post.content.containers.splice(index, 1);
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 
 }
