@@ -53,19 +53,13 @@ router.get('/comments', commentController.comment_list);
 /// CONTAINER ROUTES ///
 
 // POST request for creating container.
-router.post('/container/create', containerController.container_create_post);
+router.post('/container/create', containerController.container_create);
 
 // POST request to delete container.
-router.post('/container/:id/delete', containerController.container_delete_post);
+router.post('/container/:id/delete', containerController.container_delete);
 
 // POST request to update container.
-router.post('/container/:id/update', containerController.container_update_post);
-
-// GET request for one container.
-router.get('/container/:id', containerController.container_detail);
-
-// GET request for list of all container.
-router.get('/containers', containerController.container_list);
+router.post('/container/:id/update', containerController.container_update);
 
 /// CONTENT ROUTES ///
 
