@@ -1,5 +1,7 @@
+const async = require('async');
 const Post = require('../models/post');
 const Container = require('../models/container');
+const Comment = require('../models/comment');
 
 // HOMEPAGE GET
 exports.index = (req, res) => {
@@ -86,8 +88,25 @@ exports.post_create = (req, res, next) => {
 };
 
 // DELETE POST.
-exports.post_delete = (req, res) => {
-  res.send('NOT IMPLEMENTED: post delete POST');
+exports.post_delete = (req, res, next) => {
+  async.series([
+    // Delete Post Containers
+    (callback) => {
+      Container.deleteMany({ post: req.params.id }, callback);
+    },
+    // Delete Post Comments
+    (callback) => {
+      Comment.deleteMany({ post: req.params.id }, callback);
+    },
+    // Now delete Post
+    (callback) => {
+      Post.findByIdAndRemove(req.params.id, callback);
+    },
+  ], (err) => {
+    if (err) { return next(err); }
+    // Success - set OK status
+    return res.status(200).end();
+  });
 };
 
 // UPDATE POST.
