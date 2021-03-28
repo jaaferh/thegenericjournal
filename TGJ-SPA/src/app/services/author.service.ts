@@ -24,8 +24,8 @@ export class AuthorService {
     return this.http.get<AuthorDetails>(this.baseUrl + 'author/' + authorId);
   }
 
-  createAuthor(author: Author): Observable<void> {
-    return this.http.post<void>(this.baseUrl + 'author/create', author);
+  createAuthor(author: Author): Observable<Author> {
+    return this.http.post<Author>(this.baseUrl + 'author/create', author);
   }
 
   updateAuthor(authorId: string, author: Author): Observable<void> {

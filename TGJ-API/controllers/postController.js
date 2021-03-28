@@ -71,20 +71,24 @@ exports.post_detail = (req, res, next) => {
 
 // CREATE POST.
 exports.post_create = (req, res, next) => {
-  /*
-    title: { type: String, required: true },
-    thumbnail: { type: String, required: true },
-    author: { type: Schema.Types.ObjectId, ref: 'Author', required: true },
-    summary: { type: String, required: true },
-    // content: { type: Schema.Types.ObjectId, ref: 'Content', required: true },
-    content: {
-      containers: [{ type: Schema.Types.ObjectId, ref: 'Container', required: true }],
-      last_edited: { type: Date, default: null },
+  // Create a Post object using request params
+  const post = new Post(
+    {
+      title: req.body.title,
+      thumbnail: req.body.thumbnail,
+      author: req.body.author,
+      summary: req.body.summary,
+      content: req.body.content,
+      date_created: req.body.date_created,
+      topics: req.body.topics,
+      comments: req.body.comments,
     },
-    date_created: { type: Date, default: Date.now },
-    topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-  */
+  );
+  post.save((err, newPost) => {
+    if (err) { return next(err); }
+    // Successful - set Ok status
+    return res.send(newPost);
+  });
 };
 
 // DELETE POST.

@@ -24,11 +24,15 @@ export class PostService {
     return this.http.get<Post>(this.baseUrl + 'post/' + postId);
   }
 
-  deletePost(postId: string): Observable<void> {
-    return this.http.delete<void>(this.baseUrl + 'post/' + postId + '/delete');
+  createPost(author: Post): Observable<Post> {
+    return this.http.post<Post>(this.baseUrl + 'author/create', author);
   }
 
   updatePost(postId: string, post: Post): Observable<void> {
     return this.http.post<void>(this.baseUrl + 'post/' + postId + '/update', post);
+  }
+
+  deletePost(postId: string): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'post/' + postId + '/delete');
   }
 }

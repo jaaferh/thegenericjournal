@@ -77,10 +77,10 @@ exports.author_create = (req, res, next) => {
       pic_url: req.body.pic_url,
     },
   );
-  author.save((err) => {
+  author.save((err, newAuthor) => {
     if (err) { return next(err); }
     // Successful - set OK status
-    return res.status(200).end();
+    return res.send(newAuthor);
   });
 };
 
