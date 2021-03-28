@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const ContainerSchema = new Schema(
   {
+    post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
     type: {
       type: String, required: true, enum: ['Text', 'Image'], default: 'Text',
     },

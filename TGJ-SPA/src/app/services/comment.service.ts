@@ -12,8 +12,8 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  createComment(comment: Comment, postId: string): Observable<Comment> {
-    return this.http.post<Comment>(this.baseUrl + 'comment/create', {...comment, postId});
+  createComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(this.baseUrl + 'comment/create', comment);
   }
 
   deleteComment(commentId: string): Observable<void> {

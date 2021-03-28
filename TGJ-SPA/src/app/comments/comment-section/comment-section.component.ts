@@ -35,9 +35,10 @@ export class CommentSectionComponent implements OnInit {
   }
 
   createComment(comment: Comment): void {
+    comment.post = this.post;
     comment.date_posted = new Date();
     console.log(comment);
-    this.commentService.createComment(comment, this.post._id)
+    this.commentService.createComment(comment)
     .subscribe(com => {
       this.alertify.success('Comment Created Successfully');
       this.newComForm.reset();

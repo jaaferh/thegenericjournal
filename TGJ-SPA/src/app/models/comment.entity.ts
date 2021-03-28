@@ -1,5 +1,8 @@
+import { Post } from './post.entity';
+
 export interface Comment {
   _id: string;
+  post: Post;
   parent_comment?: Comment;
   author_nickname: string;
   text: string;

@@ -119,6 +119,7 @@ export class PostFormComponent implements OnInit {
   }
 
   createContainer(): void {
+    this.containerAdd.post = this.post;
     this.containerService.createContainer(this.containerAdd).subscribe(cont => {
       this.alertify.success('Container Created Successfully');
       this.post.content.containers.push(cont);

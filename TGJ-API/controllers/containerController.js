@@ -5,6 +5,7 @@ exports.container_create = (req, res, next) => {
   // Create a Container object using request params
   const container = new Container(
     {
+      post: req.body.post,
       type: req.body.type,
       title: req.body.title,
       text: req.body.text,
@@ -33,6 +34,7 @@ exports.container_update = (req, res, next) => {
   // Create a Container object with data and old id
   const container = new Container(
     {
+      post: req.body.post,
       type: req.body.type,
       title: req.body.title,
       text: req.body.text,

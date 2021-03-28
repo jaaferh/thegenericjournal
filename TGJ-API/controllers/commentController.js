@@ -16,6 +16,7 @@ exports.comment_create = (req, res, next) => {
   // Create a Comment object using request params
   const comment = new Comment(
     {
+      post: req.body.post,
       parent_comment: req.body.parent_comment,
       author_nickname: req.body.author_nickname,
       text: req.body.text,
@@ -29,7 +30,7 @@ exports.comment_create = (req, res, next) => {
     if (err) { return next(err); }
     // Successful - Add to post and send newly formed Id
     Post.findByIdAndUpdate(
-      req.body.postId,
+      req.body.post._id,
       { $push: { comments: newComment } },
       { safe: true, upsert: true, new: true },
       (error) => {
