@@ -47,10 +47,10 @@ export class AuthorFormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.author);
     if (this.mode === Mode.Create) {
-      this.authorService.createAuthor(this.author).subscribe(() => {
+      this.authorService.createAuthor(this.author).subscribe(newA => {
         this.alertify.success('Author Created Successfully');
         this.authorForm.reset(this.author);
-        this.router.navigate(['/author/' + this.author._id]);
+        this.router.navigate(['/author/' + newA._id]);
       }, error => {
         this.alertify.error(error);
       });

@@ -40,13 +40,11 @@ export class PostFormComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.mode = this.id ? Mode.Edit : Mode.Create;
-    console.log(this.id);
 
     if (this.mode === Mode.Edit) {
       this.route.data.subscribe(data => {
         this.post = data.post;
         this.topics = data.topics;
-        console.log(this.post);
       }, error => {
         this.alertify.error(error);
       });
@@ -61,26 +59,27 @@ export class PostFormComponent implements OnInit {
 
   drop(event: any): void {
     moveItemInArray(this.post.content.containers, event.previousIndex, event.currentIndex);
-    console.log(this.post.content.containers);
   }
 
   onSubmit(): void {
-    console.log(this.post);
-    this.post.content.containers.forEach(container => {
-      this.containerService.createContainer(container).subscribe(newC => {
-        container._id = newC._id;
+    if (this.mode === Mode.Create) {
+      this.postService.createPost(this.post).subscribe(newP => {
+        // Update Containers
+        this.updateContainers(newP);
+        this.alertify.success('Post Created Successfully');
+        this.postForm.reset(this.post);
+        this.router.navigate(['/post/' + newP._id]);
       }, error => {
         this.alertify.error(error);
       });
-    });
-
-    if (this.mode === Mode.Create) {
-
     }
     else {
+      // Update Post
       if (this.id != null) {
         this.post.content.last_edited = new Date();
         this.postService.updatePost(this.id, this.post).subscribe(() => {
+          // Update Containers
+          this.updateContainers(this.post);
           this.alertify.success('Post Updated Successfully');
           this.postForm.reset(this.post);
           this.router.navigate(['/post/' + this.id]);
@@ -144,6 +143,14 @@ export class PostFormComponent implements OnInit {
 
   trackByIndex(index: number, obj: any): any {
     return index;
+  }
+
+  private updateContainers(post: Post): void {
+    this.post.content.containers.forEach(container => {
+      container.post = post;
+      console.log(container);
+      this.containerService.updateContainer(container._id, container).subscribe();
+    });
   }
 
 }
