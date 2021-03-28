@@ -22,12 +22,5 @@ const PostSchema = new Schema(
 // Index for title and summary search
 PostSchema.index({ title: 'text', summary: 'text' });
 
-// Virtual for post's URL
-PostSchema
-  .virtual('url')
-  .get(function getUrl() {
-    return `/post/${this._id}`;
-  });
-
 // Export model
 module.exports = mongoose.model('Post', PostSchema);

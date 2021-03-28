@@ -10,12 +10,5 @@ const TopicSchema = new Schema(
   },
 );
 
-// Virtual for topic's URL
-TopicSchema
-  .virtual('url')
-  .get(function getUrl() {
-    return `/topic/${this._id}`;
-  });
-
 // Export model
 module.exports = mongoose.model('Topic', TopicSchema);
