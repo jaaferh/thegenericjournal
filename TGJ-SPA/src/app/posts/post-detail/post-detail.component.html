@@ -23,3 +23,9 @@
     [post]="post" 
     [comments]="comments"></app-comment-section>
 </div>
+
+<br />
+
+<button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
+
+<button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>

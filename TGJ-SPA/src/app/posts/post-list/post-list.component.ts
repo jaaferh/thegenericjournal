@@ -45,20 +45,6 @@ export class PostListComponent implements OnInit {
     }
   }
 
-  updatePost(postId: string): void {
-    this.router.navigate(['/post/:id/edit', {id: postId}]);
-  }
-
-  deletePost(postId: string): void {
-    this.postService.deletePost(postId).subscribe(() => {
-      this.alertify.success('Post Deleted Successfully');
-      const postIndex = this.posts.findIndex(post => post._id === postId);
-      this.posts.splice(postIndex, 1);
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
   createPost(): void {
     this.router.navigate(['post/new']);
   }

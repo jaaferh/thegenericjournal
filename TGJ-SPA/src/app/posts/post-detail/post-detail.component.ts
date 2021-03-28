@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { Post } from 'src/app/models/post.entity';
@@ -19,6 +19,7 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private route: ActivatedRoute,
     private alertify: AlertifyService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +29,19 @@ export class PostDetailComponent implements OnInit {
         this.comments = this.post.comments;
       }
       console.log(this.post);
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  updatePost(postId: string): void {
+    this.router.navigate(['/post/:id/edit', {id: postId}]);
+  }
+
+  deletePost(postId: string): void {
+    this.postService.deletePost(postId).subscribe(() => {
+      this.alertify.success('Post Deleted Successfully');
+      this.router.navigate(['/posts']);
     }, error => {
       this.alertify.error(error);
     });

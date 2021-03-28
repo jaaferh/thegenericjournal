@@ -1,5 +1,5 @@
 <div class="header">
-  <h1>Authors</h1>
+  <h1>Posts</h1>
 </div>
 
 <div class="input-group-overlay showsearch" style="padding-right: 1%;" (keyup)="keyUpFunction($event)">
@@ -19,10 +19,6 @@
         </div>
         {{post.date_created}}
         {{post.summary}}
-
-        <button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
-
-        <button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>
     </li>
 </ul>
 </div>
