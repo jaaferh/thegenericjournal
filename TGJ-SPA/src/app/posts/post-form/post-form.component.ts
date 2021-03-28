@@ -18,6 +18,8 @@ export class PostFormComponent implements OnInit {
   post = {} as Post;
   topics: Topic[] = [];
   topicAdd = {} as Topic;
+  showNewContainer = false;
+  containerAdd = {} as Container;
   mode: Mode = Mode.Create;
   id: string | null = '';
   @ViewChild('postForm') postForm!: NgForm;
@@ -65,16 +67,11 @@ export class PostFormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.post);
     this.post.content.containers.forEach(container => {
-      if (container._id !== undefined) {
-        this.containerService.updateContainer(container._id, container).subscribe();
-      }
-      else {
-        this.containerService.createContainer(container).subscribe(newC => {
-          container._id = newC._id;
-        }, error => {
-          this.alertify.error(error);
-        });
-      }
+      this.containerService.createContainer(container).subscribe(newC => {
+        container._id = newC._id;
+      }, error => {
+        this.alertify.error(error);
+      });
     });
 
     if (this.mode === Mode.Create) {
@@ -115,9 +112,20 @@ export class PostFormComponent implements OnInit {
   }
 
   addContainer(type: string): void {
-    const newCont =  {} as Container;
-    newCont.type = type === 'Text' ? 'Text' : 'Image';
-    this.post.content.containers.push(newCont);
+    // const newCont =  {} as Container;
+    this.showNewContainer = !this.showNewContainer;
+    this.containerAdd.type = type === 'Text' ? 'Text' : 'Image';
+    // this.post.content.containers.push(newCont);
+  }
+
+  createContainer(): void {
+    this.containerService.createContainer(this.containerAdd).subscribe(cont => {
+      this.alertify.success('Container Created Successfully');
+      this.post.content.containers.push(cont);
+      this.showNewContainer = false;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   deleteContainer(containerId: string, index: number): void {

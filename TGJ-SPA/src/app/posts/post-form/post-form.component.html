@@ -80,6 +80,28 @@
 
   <button type="button" class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
   <button type="button" class="button btn-link" (click)="addContainer('Image')">Add Image Container</button>
+
+  <div *ngIf="showNewContainer" class="example-box">
+    <div *ngIf="containerAdd.type == 'Text' else imageContainer" class="form-group">
+      <input type="text" class="form-control" name="contAddTitle"
+          [(ngModel)]="containerAdd.title" 
+          #textContTitle="ngModel">
+      <input type="text" class="form-control" name="contAddText"
+          [(ngModel)]="containerAdd.text" 
+          #textContText="ngModel">
+    </div>
+    <ng-template #imageContainer>
+      <input type="text" class="form-control" name="contAddUrl"
+          [(ngModel)]="containerAdd.image_url" 
+          #imgContUrl="ngModel">
+      <input type="text" class="form-control" name="contAddCap"
+          [(ngModel)]="containerAdd.caption" 
+          #imgContCap="ngModel">
+    </ng-template>
+
+    <button type="button" type="button" class="btn btn-outline-success" (click)="createContainer()">Create</button>
+  </div>
+
   <p></p>
 
   <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
