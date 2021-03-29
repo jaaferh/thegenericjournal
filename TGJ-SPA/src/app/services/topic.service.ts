@@ -20,12 +20,12 @@ constructor(private http: HttpClient) { }
     return this.http.get<TopicDetails>(this.baseUrl + 'topic/' + topicId);
   }
 
-  deleteTopic(topicId: string): Observable<object> {
-    return this.http.delete(this.baseUrl + 'topic/' + topicId + '/delete');
+  deleteTopic(topicId: string): Observable<void> {
+    return this.http.delete<void>(this.baseUrl + 'topic/' + topicId + '/delete');
   }
 
-  updateTopic(topicId: string, topic: Topic): Observable<object> {
-    return this.http.post(this.baseUrl + 'topic/' + topicId + '/update', topic);
+  updateTopic(topicId: string, topic: Topic): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'topic/' + topicId + '/update', topic);
   }
 
   createTopic(topic: Topic): Observable<Topic> {
