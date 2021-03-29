@@ -39,11 +39,11 @@ ng serve
 
 ## Short-Term Todo:
 
-- Get container update to work. Use mergemap => update Container, update Post
+- Comment like/dislike
 - Get doTopicFilter in post-form component to work
-- Comment Edit and like/dislike
 - Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)
 - Sanitise Author creates and edits using Regex
+- Implement comment collapse and hide
 
 ## Long-Term Todo: 
 
