@@ -2,6 +2,7 @@ const async = require('async');
 const Post = require('../models/post');
 const Container = require('../models/container');
 const Comment = require('../models/comment');
+const { ContextBuilder } = require('express-validator/src/context-builder');
 
 // HOMEPAGE GET
 exports.index = (req, res) => {
@@ -71,6 +72,7 @@ exports.post_detail = (req, res, next) => {
 
 // CREATE POST.
 exports.post_create = (req, res, next) => {
+  console.log(req.body.author);
   // Create a Post object using request params
   const post = new Post(
     {
@@ -115,25 +117,57 @@ exports.post_delete = (req, res, next) => {
 
 // UPDATE POST.
 exports.post_update = (req, res, next) => {
-  // Create a Post object with data and old id.
-  const post = new Post(
-    {
-      title: req.body.title,
-      thumbnail: req.body.thumbnail,
-      author: req.body.author,
-      summary: req.body.summary,
-      content: req.body.content,
-      date_created: req.body.date_created,
-      topics: req.body.topics,
-      comments: req.body.comments,
-      _id: req.params.id,
-    },
-  );
+  async.series([
+    (callback) => {
+      // First update the containers
+      req.body.content.containers.forEach((cont) => {
+        const container = new Container(
+          {
+            post: cont.post,
+            type: cont.type,
+            title: cont.title,
+            text: cont.text,
+            image_url: cont.image_url,
+            caption: cont.caption,
+            _id: cont._id,
+          },
+        );
 
-  // Update the record.
-  Post.findByIdAndUpdate(req.params.id, post, {}, (err) => {
+        // Update the record
+        Container.findByIdAndUpdate(cont._id, container, {}, (err) => {
+          if (err) { return next(err); }
+          // Successful - set OK status
+          return null;
+        });
+      });
+      callback(null, null);
+    },
+
+    (callback) => {
+      // Create a Post object with data and old id.
+      const post = new Post(
+        {
+          title: req.body.title,
+          thumbnail: req.body.thumbnail,
+          author: req.body.author,
+          summary: req.body.summary,
+          content: req.body.content,
+          date_created: req.body.date_created,
+          topics: req.body.topics,
+          comments: req.body.comments,
+          _id: req.params.id,
+        },
+      );
+
+      // Update the record.
+      Post.findByIdAndUpdate(req.params.id, post, {}, (err) => {
+        if (err) { return next(err); }
+        // Successful - set OK status
+        return callback(null, null);
+      });
+    },
+  ], (err) => {
     if (err) { return next(err); }
-    // Successful - set OK status
     return res.status(200).end();
   });
 };
