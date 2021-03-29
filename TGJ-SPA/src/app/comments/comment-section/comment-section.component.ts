@@ -37,7 +37,6 @@ export class CommentSectionComponent implements OnInit {
   createComment(comment: Comment): void {
     comment.post = this.post;
     comment.date_posted = new Date();
-    console.log(comment);
     this.commentService.createComment(comment)
     .subscribe(com => {
       this.alertify.success('Comment Created Successfully');
@@ -46,7 +45,6 @@ export class CommentSectionComponent implements OnInit {
       // First push to Comments list
       com.parent_comment = comment.parent_comment; // Could be fixed by populating parent_comment on API POST return.
       this.comments.push(com);
-      console.log(com);
 
       // Then push/repopulate Comment Tree
       if (comment.parent_comment === undefined) {
@@ -62,7 +60,6 @@ export class CommentSectionComponent implements OnInit {
   }
 
   deleteComment(commentId: string): void {
-    console.log(commentId);
     this.commentService.deleteComment(commentId).subscribe(() => {
       this.alertify.success('Comment Deleted Successfully');
       // Remove from Tree
@@ -86,8 +83,6 @@ export class CommentSectionComponent implements OnInit {
       this.commentTree.push({thisComment: c, children: []});
     });
 
-    console.log(this.comments);
-    console.log(noParents);
     // Get the comment hierarchy tree
     this.commentTree = this.popCommentChildren(this.commentTree);
   }

@@ -12,9 +12,11 @@ import { CommentService } from 'src/app/services/comment.service';
 export class CommentTreeComponent implements OnInit {
   @Input() comments: CommentTree[] = [];
   @Output() delCommentId = new EventEmitter<string>();
-  @Output() replyComment = new EventEmitter<Comment>();
+  @Output() replyCommentOut = new EventEmitter<Comment>();
   newReply = {} as Comment;
   replyBoxesHidden = true;
+  editComment = {} as Comment;
+  editHidden = true;
 
   @ViewChild('newRepForm') newRepForm!: NgForm;
 
@@ -28,6 +30,36 @@ export class CommentTreeComponent implements OnInit {
 
   deleteComment(commentId: string): void {
     this.delCommentId.emit(commentId);
+  }
+
+  replyClick(comment: Comment): void {
+    this.replyBoxesHidden = !this.replyBoxesHidden;
+    this.newReply.parent_comment = comment;
+  }
+
+  createReply(newComment: Comment): void {
+    this.replyCommentOut.emit(newComment);
+    if (this.newRepForm !== undefined) {
+      this.newRepForm.reset();
+      this.replyBoxesHidden = true;
+    }
+  }
+
+  editClick(comment: Comment): void {
+    this.editHidden = !this.editHidden;
+    this.editComment = comment;
+  }
+
+  submitEdit(editedComment: Comment): void {
+    editedComment.last_edited = new Date();
+    this.commentService.updateComment(editedComment._id, editedComment).subscribe(() => {
+      this.alertify.success('Comment Edited Successfully');
+      const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
+      this.comments[commentIndex].thisComment.text = editedComment.text;
+      this.editHidden = true;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   // onexpand(comment: Comment): void {
@@ -44,18 +76,5 @@ export class CommentTreeComponent implements OnInit {
   //     }
   //   }
   // }
-
-  replyClick(comment: Comment): void {
-    this.replyBoxesHidden = !this.replyBoxesHidden;
-    this.newReply.parent_comment = comment;
-  }
-
-  createReply(comment: Comment): void {
-    this.replyComment.emit(comment);
-    if (this.newRepForm !== undefined) {
-      this.newRepForm.reset();
-      this.replyBoxesHidden = true;
-    }
-  }
 
 }
