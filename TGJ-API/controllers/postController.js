@@ -2,7 +2,6 @@ const async = require('async');
 const Post = require('../models/post');
 const Container = require('../models/container');
 const Comment = require('../models/comment');
-const { ContextBuilder } = require('express-validator/src/context-builder');
 
 // HOMEPAGE GET
 exports.index = (req, res) => {
@@ -72,7 +71,6 @@ exports.post_detail = (req, res, next) => {
 
 // CREATE POST.
 exports.post_create = (req, res, next) => {
-  console.log(req.body.author);
   // Create a Post object using request params
   const post = new Post(
     {

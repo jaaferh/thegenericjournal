@@ -1,16 +1,6 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
-// ALL COMMENTS GET
-exports.comment_list = function (req, res) {
-  res.send('NOT IMPLEMENTED: comment list');
-};
-
-// COMMENT DETAIL GET
-exports.comment_detail = function (req, res) {
-  res.send(`NOT IMPLEMENTED: comment detail: ${req.params.id}`);
-};
-
 // CREATE POST.
 exports.comment_create = (req, res, next) => {
   // Create a Comment object using request params

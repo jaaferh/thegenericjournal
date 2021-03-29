@@ -24,8 +24,8 @@ export class PostService {
     return this.http.get<Post>(this.baseUrl + 'post/' + postId);
   }
 
-  createPost(author: Post): Observable<Post> {
-    return this.http.post<Post>(this.baseUrl + 'author/create', author);
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(this.baseUrl + 'post/create', post);
   }
 
   updatePost(postId: string, post: Post): Observable<void> {

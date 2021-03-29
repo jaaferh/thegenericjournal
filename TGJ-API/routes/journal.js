@@ -7,7 +7,6 @@ const postController = require('../controllers/postController');
 const authorController = require('../controllers/authorController');
 const topicController = require('../controllers/topicController');
 const containerController = require('../controllers/containerController');
-const contentController = require('../controllers/contentController');
 const commentController = require('../controllers/commentController');
 
 // GET catalog home page.
@@ -44,39 +43,16 @@ router.delete('/comment/:id/delete', commentController.comment_delete);
 // POST request to update comment.
 router.post('/comment/:id/update', commentController.comment_update_post);
 
-// GET request for one comment.
-router.get('/comment/:id', commentController.comment_detail);
-
-// GET request for list of all comment.
-router.get('/comments', commentController.comment_list);
-
 /// CONTAINER ROUTES ///
 
 // POST request for creating container.
 router.post('/container/create', containerController.container_create);
 
 // POST request to delete container.
-router.post('/container/:id/delete', containerController.container_delete);
+router.delete('/container/:id/delete', containerController.container_delete);
 
 // POST request to update container.
 router.post('/container/:id/update', containerController.container_update);
-
-/// CONTENT ROUTES ///
-
-// POST request for creating content.
-router.post('/content/create', contentController.content_create_post);
-
-// POST request to delete content.
-router.post('/content/:id/delete', contentController.content_delete_post);
-
-// POST request to update content.
-router.post('/content/:id/update', contentController.content_update_post);
-
-// GET request for one content.
-router.get('/content/:id', contentController.content_detail);
-
-// GET request for list of all content.
-router.get('/contents', contentController.content_list);
 
 /// POST (JOURNAL) ROUTES ///
 
@@ -84,7 +60,7 @@ router.get('/contents', contentController.content_list);
 router.post('/post/create', postController.post_create);
 
 // POST request to delete post.
-router.post('/post/:id/delete', postController.post_delete);
+router.delete('/post/:id/delete', postController.post_delete);
 
 // POST request to update post.
 router.post('/post/:id/update', postController.post_update);
