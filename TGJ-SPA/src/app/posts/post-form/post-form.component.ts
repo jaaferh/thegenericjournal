@@ -8,6 +8,7 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ContainerService } from 'src/app/services/container.service';
+import { Author } from 'src/app/models/author.entity';
 
 @Component({
   selector: 'app-post-form',
@@ -17,6 +18,7 @@ import { ContainerService } from 'src/app/services/container.service';
 export class PostFormComponent implements OnInit {
   post = {} as Post;
   topics: Topic[] = [];
+  authors: Author[] = [];
   topicAdd = {} as Topic;
   showNewContainer = false;
   containerAdd = {} as Container;
@@ -41,14 +43,15 @@ export class PostFormComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.mode = this.id ? Mode.Edit : Mode.Create;
 
-    if (this.mode === Mode.Edit) {
-      this.route.data.subscribe(data => {
+    this.route.data.subscribe(data => {
+      if (this.mode === Mode.Edit) {
         this.post = data.post;
-        this.topics = data.topics;
-      }, error => {
-        this.alertify.error(error);
-      });
-    }
+      }
+      this.topics = data.topics;
+      this.authors = data.authors;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   doTopicFilter(): void { // Doesn't work
@@ -57,6 +60,8 @@ export class PostFormComponent implements OnInit {
       topic.name.toLowerCase().includes(this.topicAdd.name));
   }
 
+  doAuthorFilter(): void { } // TODO
+
   drop(event: any): void {
     moveItemInArray(this.post.content.containers, event.previousIndex, event.currentIndex);
   }
@@ -64,8 +69,6 @@ export class PostFormComponent implements OnInit {
   onSubmit(): void {
     if (this.mode === Mode.Create) {
       this.postService.createPost(this.post).subscribe(newP => {
-        // Update Containers
-        this.updateContainers(newP);
         this.alertify.success('Post Created Successfully');
         this.postForm.reset(this.post);
         this.router.navigate(['/post/' + newP._id]);
@@ -78,8 +81,6 @@ export class PostFormComponent implements OnInit {
       if (this.id != null) {
         this.post.content.last_edited = new Date();
         this.postService.updatePost(this.id, this.post).subscribe(() => {
-          // Update Containers
-          this.updateContainers(this.post);
           this.alertify.success('Post Updated Successfully');
           this.postForm.reset(this.post);
           this.router.navigate(['/post/' + this.id]);
@@ -108,6 +109,10 @@ export class PostFormComponent implements OnInit {
 
   removeTopic(index: number): void {
     this.post.topics?.splice(index, 1);
+  }
+
+  selectAuthor(author: Author): void {
+    this.post.author = author;
   }
 
   addContainer(type: string): void {
@@ -143,14 +148,6 @@ export class PostFormComponent implements OnInit {
 
   trackByIndex(index: number, obj: any): any {
     return index;
-  }
-
-  private updateContainers(post: Post): void {
-    this.post.content.containers.forEach(container => {
-      container.post = post;
-      console.log(container);
-      this.containerService.updateContainer(container._id, container).subscribe();
-    });
   }
 
 }

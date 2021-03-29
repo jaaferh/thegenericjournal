@@ -31,11 +31,13 @@ const routes: Routes = [
           resolve: {topics: TopicListResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
-      { path: 'post/new', component: PostFormComponent },
+      { path: 'post/new', component: PostFormComponent,
+          resolve: {topics: TopicListResolver, authors: AuthorListResolver} },
       { path: 'post/:id', component: PostDetailComponent,
           resolve: {post: PostDetailResolver} },
       { path: 'post/:id/edit', component: PostFormComponent,
-          resolve: {post: PostDetailResolver, topics: TopicListResolver} },
+          resolve: {post: PostDetailResolver, topics: TopicListResolver,
+              authors: AuthorListResolver} },
     ]
   }
 ];
