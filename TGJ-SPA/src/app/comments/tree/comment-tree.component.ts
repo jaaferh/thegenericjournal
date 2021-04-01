@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { faCoffee, faTeeth } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-comment-tree',
@@ -17,6 +18,7 @@ export class CommentTreeComponent implements OnInit {
   replyBoxesHidden = true;
   editComment = {} as Comment;
   editHidden = true;
+  faIcons = [faCoffee, faTeeth];
 
   @ViewChild('newRepForm') newRepForm!: NgForm;
 
@@ -26,6 +28,24 @@ export class CommentTreeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+  }
+
+  like(comment: Comment): void {
+    this.commentService.like(comment._id).subscribe(() => {
+      const commentIndex = this.comments.findIndex(com => com.thisComment._id === comment._id);
+      this.comments[commentIndex].thisComment.likes++;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  dislike(comment: Comment): void {
+    this.commentService.dislike(comment._id).subscribe(() => {
+      const commentIndex = this.comments.findIndex(com => com.thisComment._id === comment._id);
+      this.comments[commentIndex].thisComment.dislikes++;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   deleteComment(commentId: string): void {
