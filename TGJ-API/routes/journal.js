@@ -43,6 +43,12 @@ router.delete('/comment/:id/delete', commentController.comment_delete);
 // POST request to update comment.
 router.post('/comment/:id/update', commentController.comment_update_post);
 
+// POST request to like comment.
+router.post('/comment/:id/like', commentController.comment_like);
+
+// POST request to dislike comment.
+router.post('/comment/:id/dislike', commentController.comment_dislike);
+
 /// CONTAINER ROUTES ///
 
 // POST request for creating container.

@@ -24,4 +24,12 @@ export class CommentService {
     return this.http.delete<void>(this.baseUrl + 'comment/' + commentId + '/delete');
   }
 
+  like(commentId: string): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'comment/' + commentId + '/like', null);
+  }
+
+  dislike(commentId: string): Observable<void> {
+    return this.http.post<void>(this.baseUrl + 'comment/' + commentId + '/dislike', null);
+  }
+
 }

@@ -66,3 +66,21 @@ exports.comment_update_post = (req, res, next) => {
     return res.status(200).end();
   });
 };
+
+// LIKE POST.
+exports.comment_like = (req, res, next) => {
+  Comment.findByIdAndUpdate(req.params.id,
+    { $inc: { likes: 1 } }, (err) => {
+      if (err) { return next(err); }
+      return res.status(200).end();
+    });
+};
+
+// DISLIKE POST.
+exports.comment_dislike = (req, res, next) => {
+  Comment.findByIdAndUpdate(req.params.id,
+    { $inc: { dislikes: 1 } }, (err) => {
+      if (err) { return next(err); }
+      return res.status(200).end();
+    });
+};

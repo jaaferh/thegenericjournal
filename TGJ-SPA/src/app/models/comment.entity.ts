@@ -8,8 +8,8 @@ export interface Comment {
   text: string;
   date_posted: Date;
   last_edited?: Date;
-  likes?: number;
-  dislikes?: number;
+  likes: number;
+  dislikes: number;
 }
 
 export interface CommentTree {
