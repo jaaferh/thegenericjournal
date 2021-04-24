@@ -44,6 +44,10 @@ export class AuthorFormComponent implements OnInit {
     }
   }
 
+  getUploadedUrl(imageUrl: string): void {
+    this.author.pic_url = imageUrl;
+  }
+
   onSubmit(): void {
     console.log(this.author);
     if (this.mode === Mode.Create) {

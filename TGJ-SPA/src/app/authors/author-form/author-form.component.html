@@ -42,6 +42,8 @@
             #picture="ngModel">
     </div>
 
+    <app-photo-uploader (uploadedImageUrl)="getUploadedUrl($event)"></app-photo-uploader>
+
     <button type="submit" class="btn btn-success" [disabled]="!authorForm.form.valid">Submit</button>
     <button type="button" class="btn btn-default" (click)="resetForm(); authorForm.reset()">Cancel</button>
 
