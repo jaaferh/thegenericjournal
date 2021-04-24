@@ -8,6 +8,7 @@ const authorController = require('../controllers/authorController');
 const topicController = require('../controllers/topicController');
 const containerController = require('../controllers/containerController');
 const commentController = require('../controllers/commentController');
+const cloudinaryController = require('../controllers/cloudinaryController');
 
 // GET catalog home page.
 router.get('/', postController.index);
@@ -96,5 +97,10 @@ router.get('/topic/:id', topicController.topic_detail);
 
 // GET request for list of all topic.
 router.get('/topics', topicController.topic_list);
+
+/// CLOUDINARY ROUTES ///
+
+// POST request to upload photo.
+router.post('/cloudinary/upload', cloudinaryController.photo_upload);
 
 module.exports = router;

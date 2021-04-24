@@ -21,7 +21,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // set up Cross Origin Requests
-const whitelist = ['https://localhost:4200'];
+const whitelist = ['https://localhost:4200', 'https://res.cloudinary.com'];
 
 app.use(cors({
   origin(origin, callback) {
