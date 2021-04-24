@@ -39,9 +39,7 @@ ng serve
 
 ## Short-Term Todo:
 
-- Comment like/dislike
 - Get doTopicFilter in post-form component to work
-- Create a file upload service using cloudinary API. (https://stackoverflow.com/questions/47936183/angular-file-upload)
 - Sanitise Author creates and edits using Regex
 - Implement comment collapse and hide
 
