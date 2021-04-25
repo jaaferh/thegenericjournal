@@ -66,6 +66,18 @@ export class PostFormComponent implements OnInit {
     moveItemInArray(this.post.content.containers, event.previousIndex, event.currentIndex);
   }
 
+  getUploadedThumbnail(imageUrl: string): void {
+    this.post.thumbnail = imageUrl;
+  }
+
+  getUploadedImgCont(containerIndex: number, imageUrl: string): void {
+    this.post.content.containers[containerIndex].image_url = imageUrl;
+  }
+
+  getUploadedImgContAdd(imageUrl: string): void {
+    this.containerAdd.image_url = imageUrl;
+  }
+
   onSubmit(): void {
     if (this.mode === Mode.Create) {
       this.postService.createPost(this.post).subscribe(newP => {

@@ -53,13 +53,10 @@
   </div>
 
 
-
-
   <div class="form-group">
-    <label for="thumbnail">thumbnail</label>
-    <input type="text" class="form-control" id="thumbnail"
-        [(ngModel)]="post.thumbnail" name="form-control"
-        #thumbnail="ngModel">
+    <label for="thumbnail">Thumbnail</label>
+    <img id="thumbnail" [src]=post.thumbnail name="thumbnail">
+    <app-photo-uploader (uploadedImageUrl)="getUploadedThumbnail($event)"></app-photo-uploader>
   </div>
 
   <div *ngIf="mode == 1">
@@ -74,9 +71,11 @@
               #textContText="ngModel">
         </div>
         <ng-template #imageContainer>
-          <input type="text" class="form-control" name="imgContUrl{{i}}"
-              [(ngModel)]="post.content.containers[i].image_url" 
-              #imgContUrl="ngModel">
+          <div class="form-control">
+            <img id="imgContUrl{{i}}" [src]=post.content.containers[i].image_url name="imgContUrl{{i}}">
+            <app-photo-uploader (uploadedImageUrl)="getUploadedImgCont(i, $event)"></app-photo-uploader>
+          </div>
+          
           <input type="text" class="form-control" name="imgContCap{{i}}"
               [(ngModel)]="post.content.containers[i].caption" 
               #imgContCap="ngModel">
@@ -103,9 +102,10 @@
             #textContText="ngModel">
       </div>
       <ng-template #imageContainer>
-        <input type="text" class="form-control" name="contAddUrl"
-            [(ngModel)]="containerAdd.image_url" 
-            #imgContUrl="ngModel">
+        <div class="form-control">
+          <img id="contAddUrl" [src]=containerAdd.image_url name="contAddUrl">
+          <app-photo-uploader (uploadedImageUrl)="getUploadedImgContAdd($event)"></app-photo-uploader>
+        </div>
         <input type="text" class="form-control" name="contAddCap"
             [(ngModel)]="containerAdd.caption" 
             #imgContCap="ngModel">
