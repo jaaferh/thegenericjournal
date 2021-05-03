@@ -39,16 +39,14 @@ ng serve
 
 ## Short-Term Todo:
 
+- Add confirmation dialogue on delete
 - Fix the security issue with cloudinary (mixed insecure display content)
 - Get doTopicFilter in post-form component to work
-- Sanitise Author creates and edits using Regex
 - Implement comment collapse and hide
+- Find a way to preserve previous page (data: { detachable: 1 })
 
 ## Long-Term Todo: 
 
-- Look at an alternative to Pagination.
-- Add confirmation dialogue on delete
-- Find a way to preserve previous page (data: { detachable: 1 })
 - Add AuthGuard to Routes once Authentication added
 - Consider alternative for Topic deleting all Posts first
 - Document where needed
