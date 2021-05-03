@@ -16,7 +16,6 @@ exports.author_list = (req, res, next) => {
 // AUTHOR SEARCH GET
 exports.author_search = (req, res, next) => {
   const inputName = new RegExp(req.params.key, 'i');
-  console.log(inputName);
 
   Author.find({ $text: { $search: inputName } })
     .exec((err, fullsearch) => {

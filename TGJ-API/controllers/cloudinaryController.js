@@ -18,7 +18,7 @@ exports.photo_upload = (req, res, next) => {
   upload(req, res, (err) => {
     if (err) { return next(err); }
     if (req.file) {
-      return cloudinary.uploader.upload_stream({ resource_type: 'raw' }, (error, result) => {
+      return cloudinary.uploader.upload_stream((error, result) => {
         if (error) { return next(error); }
         const imageUrl = result.url;
         return res.send(imageUrl);
