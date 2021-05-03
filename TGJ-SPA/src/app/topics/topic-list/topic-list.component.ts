@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Topic, TopicDetails } from 'src/app/models/topic.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { TopicService } from 'src/app/services/topic.service';
@@ -16,8 +16,7 @@ export class TopicListComponent implements OnInit {
   constructor(
     private topicService: TopicService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService,
-    private router: Router
+    private alertify: AlertifyService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +36,6 @@ export class TopicListComponent implements OnInit {
         this.alertify.error(error);
       });
     });
-    console.log(this.topicDetails);
   }
 
   deleteTopic(topicId: string): void {
@@ -61,25 +59,19 @@ export class TopicListComponent implements OnInit {
   }
 
   createTopic(): void {
-    this.topicService.createTopic(this.newTopic).subscribe(data => {
-      this.alertify.success('Topic Created Successfully');
-      this.topics.push(data);
-      this.topicDetails.push({topic: data, topic_posts: []});
-      console.log(data);
-      this.newTopic.name = '';
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
-  /*
-  this.authorService.createAuthor(this.author).subscribe(() => {
-        this.alertify.success('Author Created Successfully');
-        this.authorForm.reset(this.author);
-        this.router.navigate(['/author/' + this.author._id]);
+    const topicExists = this.topics.some(t => t.name.toLowerCase() === this.newTopic.name.toLowerCase());
+    if (topicExists) {
+      return this.alertify.error('Topic already exists');
+    }
+    if (Object.keys(this.newTopic).length) {
+      this.topicService.createTopic(this.newTopic).subscribe(data => {
+        this.alertify.success('Topic Created Successfully');
+        this.topics.push(data);
+        this.topicDetails.push({topic: data, topic_posts: []});
+        this.newTopic.name = '';
       }, error => {
         this.alertify.error(error);
       });
-  */
-
+    }
+  }
 }
