@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
@@ -10,7 +10,7 @@ import { faCoffee, faTeeth } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './comment-tree.component.html',
   styleUrls: ['./comment-tree.component.scss']
 })
-export class CommentTreeComponent implements OnInit {
+export class CommentTreeComponent {
   @Input() comments: CommentTree[] = [];
   @Output() delCommentId = new EventEmitter<string>();
   @Output() replyCommentOut = new EventEmitter<Comment>();
@@ -26,9 +26,6 @@ export class CommentTreeComponent implements OnInit {
     private commentService: CommentService,
     private alertify: AlertifyService
   ) { }
-
-  ngOnInit(): void {
-  }
 
   like(comment: Comment): void {
     this.commentService.like(comment._id).subscribe(() => {
