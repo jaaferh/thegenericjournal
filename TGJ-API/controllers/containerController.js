@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const Container = require('../models/container');
 
 // CREATE POST.
@@ -51,3 +52,8 @@ exports.container_update = (req, res, next) => {
     return res.status(200).end();
   });
 };
+
+// CONTAINER VALIDATION
+exports.container_validate = [
+  body('first_name').trim().isLength({ min: 1 }).escape(),
+];

@@ -32,12 +32,10 @@ export class AuthorFormComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.mode = this.id ? Mode.Edit : Mode.Create;
-    console.log(this.id);
 
     if (this.mode === Mode.Edit) {
       this.route.data.subscribe(data => {
         this.author = data.authorDetail.author;
-        console.log(this.author);
       }, error => {
         this.alertify.error(error);
       });
@@ -49,7 +47,6 @@ export class AuthorFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.author);
     if (this.mode === Mode.Create) {
       this.authorService.createAuthor(this.author).subscribe(newA => {
         this.alertify.success('Author Created Successfully');

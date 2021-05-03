@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
@@ -84,3 +85,9 @@ exports.comment_dislike = (req, res, next) => {
       return res.status(200).end();
     });
 };
+
+// COMMENT VALIDATION
+exports.comment_validate = [
+  body('author_nickname').trim().isLength({ min: 1 }).escape(),
+  body('text').trim().isLength({ min: 1 }).escape(),
+];

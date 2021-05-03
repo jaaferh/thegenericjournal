@@ -16,13 +16,13 @@ router.get('/', postController.index);
 /// AUTHOR ROUTES ///
 
 // POST request for creating Author.
-router.post('/author/create', authorController.author_create);
+router.post('/author/create', authorController.author_validate, authorController.author_create);
 
 // POST request to delete Author.
 router.delete('/author/:id/delete', authorController.author_delete);
 
 // POST request to update Author.
-router.post('/author/:id/update', authorController.author_update);
+router.post('/author/:id/update', authorController.author_validate, authorController.author_update);
 
 // GET request for Author search.
 router.get('/author/search/:key', authorController.author_search);
@@ -53,24 +53,24 @@ router.post('/comment/:id/dislike', commentController.comment_dislike);
 /// CONTAINER ROUTES ///
 
 // POST request for creating container.
-router.post('/container/create', containerController.container_create);
+router.post('/container/create', containerController.container_validate, containerController.container_create);
 
 // POST request to delete container.
 router.delete('/container/:id/delete', containerController.container_delete);
 
 // POST request to update container.
-router.post('/container/:id/update', containerController.container_update);
+router.post('/container/:id/update', containerController.container_validate, containerController.container_update);
 
 /// POST (JOURNAL) ROUTES ///
 
 // POST request for creating post.
-router.post('/post/create', postController.post_create);
+router.post('/post/create', postController.post_validate, postController.post_create);
 
 // POST request to delete post.
 router.delete('/post/:id/delete', postController.post_delete);
 
 // POST request to update post.
-router.post('/post/:id/update', postController.post_update);
+router.post('/post/:id/update', postController.post_validate, postController.post_update);
 
 // GET request for post search.
 router.get('/post/search/:key', postController.post_search);
@@ -84,13 +84,13 @@ router.get('/posts', postController.post_list);
 /// TOPIC ROUTES ///
 
 // POST request for creating topic.
-router.post('/topic/create', topicController.topic_create);
+router.post('/topic/create', topicController.topic_validate, topicController.topic_create);
 
 // POST request to delete topic.
 router.delete('/topic/:id/delete', topicController.topic_delete);
 
 // POST request to update topic.
-router.post('/topic/:id/update', topicController.topic_update);
+router.post('/topic/:id/update', topicController.topic_validate, topicController.topic_update);
 
 // GET request for one topic.
 router.get('/topic/:id', topicController.topic_detail);

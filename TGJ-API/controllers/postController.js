@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const async = require('async');
 const Post = require('../models/post');
 const Container = require('../models/container');
@@ -169,3 +170,9 @@ exports.post_update = (req, res, next) => {
     return res.status(200).end();
   });
 };
+
+// POST VALIDATION
+exports.post_validate = [
+  body('title').trim().isLength({ min: 1 }).escape(),
+  body('summary').trim().isLength({ min: 1 }).escape(),
+];

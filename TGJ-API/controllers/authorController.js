@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const async = require('async');
 const Author = require('../models/author');
 const Post = require('../models/post');
@@ -123,3 +124,11 @@ exports.author_update = (req, res, next) => {
     return res.status(200).end();
   });
 };
+
+// AUTHOR VALIDATION
+exports.author_validate = [
+  body('first_name').trim().isLength({ min: 1 }).escape(),
+  body('family_name').trim().isLength({ min: 1 }).escape(),
+  body('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(), // checkFalsy: True means accept empty string or null as empty value
+  body('bio').trim().optional({ checkFalsy: true }).escape(),
+];

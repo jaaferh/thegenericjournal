@@ -1,3 +1,4 @@
+const { body } = require('express-validator');
 const async = require('async');
 const Topic = require('../models/topic');
 const Post = require('../models/post');
@@ -86,3 +87,8 @@ exports.topic_update = (req, res, next) => {
     return res.status(200).end();
   });
 };
+
+// TOPIC VALIDATION
+exports.topic_validate = [
+  body('name').trim().isLength({ min: 1 }).escape(),
+];
