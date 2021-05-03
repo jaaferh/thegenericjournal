@@ -9,7 +9,7 @@
 <div class="">
     <!-- <a *ngFor="let author of authors" href="">{{author.name}}</a> -->
     <ul>
-        <li *ngFor="let authorDetail of authorDetails">
+        <li *ngFor="let authorDetail of authorDetails | paginate: { itemsPerPage: 10, currentPage: p }">
             <img [src]=authorDetail.author.pic_url>
             <a href="/author/{{authorDetail.author._id}}">
                 {{authorDetail.author.name}}
@@ -18,6 +18,8 @@
             {{authorDetail.author_posts.length}}
         </li>
     </ul>
+
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
 <a class="btn-link" [routerLink]="['/author/new']">New Author</a>

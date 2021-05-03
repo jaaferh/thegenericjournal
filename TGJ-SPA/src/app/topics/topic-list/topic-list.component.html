@@ -4,7 +4,7 @@
 
 <div class="">
   <ul>
-      <li *ngFor="let topicDetail of topicDetails">
+      <li *ngFor="let topicDetail of topicDetails | paginate: { itemsPerPage: 10, currentPage: p }">
           {{topicDetail.topic.name}} (Posts: {{topicDetail.topic_posts.length}})
           
           Edit <input type="text" class="form-control" id="name"
@@ -22,6 +22,8 @@
                   #newName="ngModel">
       </li>
   </ul>
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
 

@@ -32,6 +32,7 @@ import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import * as  Cloudinary from 'cloudinary-core';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PhotoUploaderComponent } from './photo-upload/photo-uploader/photo-uploader.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PhotoUploaderComponent } from './photo-upload/photo-uploader/photo-uplo
     FontAwesomeModule,
     FileUploadModule,
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'soqudu' }),
+    NgxPaginationModule,
   ],
   providers: [
     AlertifyService,

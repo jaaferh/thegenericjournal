@@ -16,6 +16,7 @@ export class AuthorListComponent implements OnInit {
   authorDetails: AuthorDetails[] = [];
   searchParam = '';
   searchEmpty = false;
+  p = 1;
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,

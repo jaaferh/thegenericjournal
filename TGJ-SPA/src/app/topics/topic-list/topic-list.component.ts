@@ -13,6 +13,7 @@ export class TopicListComponent implements OnInit {
   topics: Topic[] = [];
   topicDetails: TopicDetails[] = [];
   newTopic = {} as Topic;
+  p = 1;
   constructor(
     private topicService: TopicService,
     private route: ActivatedRoute,

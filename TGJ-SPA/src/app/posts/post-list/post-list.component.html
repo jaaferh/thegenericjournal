@@ -9,7 +9,7 @@
 
 <div class="">
   <ul>
-    <li *ngFor="let post of posts">
+    <li *ngFor="let post of posts | paginate: { itemsPerPage: 10, currentPage: p }">
         <img [src]=post.thumbnail>
         <a [routerLink]="['/post/' + post._id]">
             {{post.title}}
@@ -20,7 +20,9 @@
         {{post.date_created}}
         {{post.summary}}
     </li>
-</ul>
+  </ul>
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>
 
 

@@ -14,6 +14,7 @@ export class PostListComponent implements OnInit {
   posts: Post[] = [];
   searchParam = '';
   searchEmpty = false;
+  p = 1;
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
