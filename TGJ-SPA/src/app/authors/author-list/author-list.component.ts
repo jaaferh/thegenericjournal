@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Author, AuthorDetails } from 'src/app/models/author.entity';
 import { AuthorService } from 'src/app/services/author.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class AuthorListComponent implements OnInit {
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
+    private router: Router,
     private alertify: AlertifyService
   ) { }
 
@@ -41,7 +42,7 @@ export class AuthorListComponent implements OnInit {
         this.alertify.error(error);
       });
     });
-    console.log(this.authorDetails);
+    // this.sortAuthorDetails();
   }
 
   keyUpFunction(e: Event): void {
@@ -60,9 +61,20 @@ export class AuthorListComponent implements OnInit {
     }
   }
 
+  routeToAuthor(authorId: string): void {
+    this.router.navigate(['/author', authorId]);
+  }
+
   private initAuthors(author: Author[]): void {
     this.authors = author;
     this.authorDetails = [];
     this.getAuthorDetails();
   }
+
+  // private sortAuthorDetails(): void {
+  //   this.authorDetails.sort((a, b) => 
+  //   (a.author.first_name > b.author.first_name) ? 1 : (a.author.first_name === b.author.first_name) ?
+  //   ((a.author.family_name > b.author.family_name) ? 1 : (a.author.family_name == b.author.family_name) ? 
+  //   ((a.author._id > b.author._id) ? 1 : -1) : -1) : -1);    
+  // }
 }

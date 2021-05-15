@@ -86,6 +86,7 @@
     position: fixed;
     top: 0; // Moves to top of window
     width: 100%;
+    z-index: 100000;
 
     .navmenu {
         background-color: white;

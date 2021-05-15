@@ -1,26 +1,42 @@
-<div class="header">
-    <h1>Authors</h1>
+<div class="container">
+    <div class="list-header">
+        <h1>Authors</h1>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="input-group-overlay showsearch col-10" 
+             style="padding-right: 1%;" 
+             (keyup)="keyUpFunction($event) ">
+            <input class="form-control appended-form-control" 
+                type="text" 
+                [(ngModel)]="searchParam" 
+                placeholder="Search for Authors">
+        </div>
+        <div class="col-2">
+            <button class="btn-success input-group-text btn-fill" 
+                    type="button" 
+                    [routerLink]="['/author/new']">New Author</button>
+        </div>
+    </div>
+    
+    <div class="row grid mb-4">
+        <div class="col-4" 
+                *ngFor="let authorDetail of authorDetails | paginate: { itemsPerPage: 6, currentPage: p }"
+                (click)="routeToAuthor(authorDetail.author._id)">
+            <div class="img-container">
+                <img class="image" [src]=authorDetail.author.pic_url>
+                <div class="middle">
+                    <span class="text">
+                        {{authorDetail.author.name}}
+                    </span>
+                </div>
+                <div class="caption">
+                    <p>Bio: {{authorDetail.author.bio}}</p>
+                    <p>Number of Posts: {{authorDetail.author_posts.length}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <pagination-controls class="text-center pt-3" (pageChange)="p = $event"></pagination-controls>
 </div>
-
-<div class="input-group-overlay showsearch" style="padding-right: 1%;" (keyup)="keyUpFunction($event) ">
-    <input class="form-control appended-form-control" type="text" [(ngModel)]="searchParam" placeholder="Search for products">
-</div>
-
-<div class="">
-    <!-- <a *ngFor="let author of authors" href="">{{author.name}}</a> -->
-    <ul>
-        <li *ngFor="let authorDetail of authorDetails | paginate: { itemsPerPage: 10, currentPage: p }">
-            <img [src]=authorDetail.author.pic_url>
-            <a href="/author/{{authorDetail.author._id}}">
-                {{authorDetail.author.name}}
-            </a>
-            {{authorDetail.author.bio}}
-            {{authorDetail.author_posts.length}}
-        </li>
-    </ul>
-
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-
-<a class="btn-link" [routerLink]="['/author/new']">New Author</a>
-

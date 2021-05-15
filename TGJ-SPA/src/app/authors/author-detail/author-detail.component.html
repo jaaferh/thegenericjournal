@@ -1,34 +1,37 @@
-<div class="header">
-    <h1>Author:</h1>
-</div>
-
-
-<div class="">
-    <img [src]=authorDetails.author.pic_url>
-    <p>
-        {{authorDetails.author.first_name}} {{authorDetails.author.family_name}}
-        {{authorDetails.author.date_of_birth}}
-        {{authorDetails.author.date_joined}}
-        {{authorDetails.author.bio}}
-    </p>
+<div class="container">
+    <div class="header">
+        <h1>Author:</h1>
+    </div>
     
     
-    <ul>
-        <li *ngFor="let post of authorDetails.author_posts">
-            <img [src]=post.thumbnail>
-            <a [routerLink]="['/post/' + post._id]">
-                {{post.title}}
-            </a>
-            <p *ngFor="let topic of post.topics">
-                {{topic.name}}
-            </p>
-            {{post.date_created}}
-            {{post.summary}}
-        </li>
-    </ul>
-
-    <!-- <button type="button" class="btn btn-default" (click)="">Delete</button> -->
-    <a class="btn-link" [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</a>
-    <button type="button" class="btn btn-outline-danger" (click)="deleteAuthor(authorDetails.author._id)">Delete</button>
-
+    <div class="">
+        <img [src]=authorDetails.author.pic_url>
+        <p>
+            {{authorDetails.author.first_name}} {{authorDetails.author.family_name}}
+            {{authorDetails.author.date_of_birth}}
+            {{authorDetails.author.date_joined}}
+            {{authorDetails.author.bio}}
+        </p>
+        
+        
+        <ul>
+            <li *ngFor="let post of authorDetails.author_posts">
+                <img [src]=post.thumbnail>
+                <a [routerLink]="['/post/' + post._id]">
+                    {{post.title}}
+                </a>
+                <p *ngFor="let topic of post.topics">
+                    {{topic.name}}
+                </p>
+                {{post.date_created}}
+                {{post.summary}}
+            </li>
+        </ul>
+    
+        <!-- <button type="button" class="btn btn-default" (click)="">Delete</button> -->
+        <a class="btn-link" [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</a>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteAuthor(authorDetails.author._id)">Delete</button>
+    
+    </div>
+    
 </div>
