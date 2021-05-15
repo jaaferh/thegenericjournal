@@ -39,6 +39,7 @@ ng serve
 
 ## Short-Term Todo:
 
+- Add 'back to top' button
 - Add confirmation dialogue on delete
 - Fix the security issue with cloudinary (mixed insecure display content)
 - Get doTopicFilter in post-form component to work

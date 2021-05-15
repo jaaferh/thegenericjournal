@@ -32,6 +32,7 @@ import * as  Cloudinary from 'cloudinary-core';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PhotoUploaderComponent } from './photo-upload/photo-uploader/photo-uploader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommentTreeComponent,
     CommentSectionComponent,
     PhotoUploaderComponent,
+    FooterComponent,
    ],
   imports: [
     BrowserModule,
