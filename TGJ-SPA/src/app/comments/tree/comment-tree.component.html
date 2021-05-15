@@ -22,8 +22,8 @@
       </ng-template>
       
       <p>
-        <button class="button" (click)="like(comment.thisComment)"><fa-icon [icon]="faIcons[0]"></fa-icon></button> {{comment.thisComment.likes}} 
-        <button class="button" (click)="dislike(comment.thisComment)"><fa-icon [icon]="faIcons[1]"></fa-icon></button> {{comment.thisComment.dislikes}} 
+        <button class="button" (click)="like(comment.thisComment)"><i class="fa fa-coffee"></i></button> {{comment.thisComment.likes}} 
+        <button class="button" (click)="dislike(comment.thisComment)"><i class="fas fa-teeth"></i></button> {{comment.thisComment.dislikes}} 
         <button class="button btn-link" (click)="replyClick(comment.thisComment)">Reply</button>
         <button class="button btn-link" (click)="editClick(comment.thisComment)">Edit</button>
         <button class="button btn-link" (click)="deleteComment(comment.thisComment._id)">Delete</button>
