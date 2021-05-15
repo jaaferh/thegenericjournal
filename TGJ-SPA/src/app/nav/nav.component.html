@@ -14,15 +14,27 @@
         <li class="nav-item">
           <a class="nav-link" href="posts">Posts <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2 col-6" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </li>
         </ul>
     </div>
 </nav> -->
 
 <div class="headernav" [ngClass]="stick ? 'sticky-padding' : ''">
   <header role="banner">
-    <div class="page-header" routerLink="/">
-      <div class="text-center">
-        <h1>THE GENERIC JOURNAL</h1>
+    <div class="page-header fullnav" routerLink="/">
+      <h1></h1>
+    </div>
+    <div class="page-header smallnav row">
+      <h1 class="col-6" routerLink="/"></h1>
+      <div class="menu-toggle col-6">
+        <button class="input-group-text bg-white border-0" id="search-addon" (click)="toggleShowNav()">
+          <i class="fa fa-bars fa-2x"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -30,7 +42,7 @@
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> -->
-    <div class="navmenu">
+    <div [ngClass]="showNav ? 'hideNav' : ''" class="navmenu" >
       <ul>
         <li class="navitem">
           <a class="nav-link" href="authors">Authors <span class="sr-only">(current)</span></a>
@@ -42,10 +54,14 @@
           <a class="nav-link" href="posts">Posts <span class="sr-only">(current)</span></a>
         </li>
         <li class="lastitem m-auto">
-          <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+
+          <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+              aria-describedby="search-addon" />
+            <span class="input-group-text bg-white border-0" id="search-addon">
+              <i class="fa fa-search"></i>
+            </span>
+          </div>
         </li>
       </ul>
     </div>

@@ -12,25 +12,20 @@ export class NavComponent implements AfterViewInit {
       this.checkSticky();
     }
   stick = false;
+  showNav = true;
   navbarTopOffset = 0;
   constructor() { }
-
-  // ngOnInit(): void {
-  //   console.log(this.navbar.nativeElement.getBoundingClientRect());
-  // }
 
   ngAfterViewInit(): void {
     this.navbarTopOffset = this.navbar.nativeElement.getBoundingClientRect().top;
   }
 
   checkSticky(): void {
-    // const navbarTopOffset = this.navbar.nativeElement.getBoundingClientRect().top;
     this.stick = window.pageYOffset > this.navbarTopOffset ? true : false;
-    console.log('window ' + window.pageYOffset);
-    console.log('navbar ' + this.navbarTopOffset);
-    // console.log(this.stick);
   }
 
-  
+  toggleShowNav(): void {
+    this.showNav = !this.showNav;
+  }
 
 }

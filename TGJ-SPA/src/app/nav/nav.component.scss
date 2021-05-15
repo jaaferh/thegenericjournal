@@ -7,11 +7,8 @@
     padding-bottom: 6%
 }
 
-.page-header h1 {
-    margin-bottom: 0; // Remove default mb
-    font-family: 'Girassol', cursive;
-    font-weight: 900;
-    font-size: 70px;
+.smallnav {
+    display: none;
 }
 
 .page-header {
@@ -21,6 +18,19 @@
     border-bottom: 3px solid lightgray;
     border-top: 3px solid lightgray;
     background-color: white;
+    text-align: center;
+
+    h1::before {
+        content: 'THE GENERIC JOURNAL';
+    }
+
+    h1 {
+        margin-bottom: 0; // Remove default mb
+        font-family: 'Girassol', cursive;
+        font-weight: 900;
+        font-size: 70px;
+    }
+
 }
 
 .navmenu {
@@ -30,61 +40,119 @@
     box-shadow: 0px 10px 20px -20px #111; 
     border-bottom: 3px solid lightgray;
     margin-bottom: 3%; // Pushes content down
+
+    ul {
+        padding: 0; // Removing default p
+        margin-bottom: 0; // Removing default mb
+        display: inline-flex;
+        list-style-type: none;
+    
+        .lastitem {
+            padding-left: 20px;
+            padding-right: 20px;
+            font-size: larger;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
+    
+        .navitem {
+            @extend .lastitem;
+            border-right: 1px solid gray;
+    
+            .nav-link {
+                color: gray;
+                font-size: 1.1em;
+                position: relative;
+            }
+    
+            // Adds a hidden full stop which will expand to a line on hover
+            .nav-link::after {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                background-color: #000000;
+                color: transparent;
+                width: 0%;
+                content: '.';
+                height: 3px;
+            }
+    
+            .nav-link:hover::after {
+                width: 100%;
+                transition: all 0.2s;
+            }
+        }
+    }
 }
 
 .sticky {
     position: fixed;
     top: 0; // Moves to top of window
     width: 100%;
+
+    .navmenu {
+        background-color: white;
+        padding-bottom: 0.2%;
+        padding-top: 0.2%;
+        transition: all 0.2s;
+    }
 }
 
-.sticky .navmenu {
-    background-color: white;
-    padding-bottom: 0.2%;
-    padding-top: 0.2%;
-    transition: all 0.2s;
+.hideNav {
+    display: none;
 }
 
-.navmenu ul {
-    padding: 0; // Removing default p
-    margin-bottom: 0; // Removing default mb
-    display: inline-flex;
-    list-style-type: none;
+@media screen and (max-width: 580px) {
+    .smallnav {
+        display: flex;
+    }
+
+    .fullnav {
+        display: none;
+    }
+
+    .page-header {
+        cursor: default;
+        padding-left: 3%;
+        padding-right: 3%;
+        h1::before {
+            content: 'TGJ';
+        }
+
+        h1 {
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .menu-toggle {
+            display: inline-flex;
+            justify-content: right;
+
+            button {
+                cursor: pointer;
+                outline: none;
+            }
+            
+        }
+    }
+
+    .navmenu ul {
+        display: list-item;
+
+        .navitem {
+            border-right: none;
+        }
+
+        .lastitem {
+            padding-left: 30%;
+            padding-right: 30%;
+        }
+    }
 }
 
-.navmenu ul .lastitem {
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: larger;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-.navmenu ul .navitem {
-    @extend .lastitem;
-    border-right: 1px solid gray;
-}
-
-.navmenu ul .navitem .nav-link {
-    color: gray;
-    font-size: 1.1em;
-    position: relative;
-}
-
-// Adds a hidden full stop which will expand to a line on hover
-.navmenu ul .navitem .nav-link::after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: #000000;
-    color: transparent;
-    width: 0%;
-    content: '.';
-    height: 3px;
-}
-
-.navmenu ul .navitem .nav-link:hover::after {
-    width: 100%;
-    transition: all 0.2s;
+@media screen and (min-width: 581px) {
+    .navmenu {
+        display: block;
+    }
 }
