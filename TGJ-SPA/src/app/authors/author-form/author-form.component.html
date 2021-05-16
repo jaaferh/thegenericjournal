@@ -1,56 +1,63 @@
-<form (ngSubmit)="onSubmit()" #authorForm="ngForm">
-    <div class="form-group">
-        <label for="first_name">First Name</label>
-        <input type="text" class="form-control" id="first_name"
-            required [(ngModel)]="author.first_name" name="first_name"
-            #first_name="ngModel">
-        <div [hidden]="first_name.valid || first_name.pristine"
-            class="alert alert-danger">
-         First name is required
-       </div>
-    </div>
-
-    <div class="form-group">
-        <label for="family_name">Family Name</label>
-        <input type="text" class="form-control" id="family_name"
-            required [(ngModel)]="author.family_name" name="family_name"
-            #family_name="ngModel">
-        <div [hidden]="family_name.valid || family_name.pristine"
-            class="alert alert-danger">
-         Family Name is required
-       </div>
-    </div>
-
-    <div class="form-group">
-        <label for="dob">Date of Birth</label>
-        <input type="date" class="form-control" id="dob"
-            [(ngModel)]="author.date_of_birth" name="dob"
-            #dob="ngModel">
-    </div>
-
-    <div class="form-group">
-        <label for="bio">Bio</label>
-        <input type="text" class="form-control" id="bio"
-            [(ngModel)]="author.bio" name="bio"
-            #bio="ngModel">
-    </div>
-
-    <div class="form-group">
-        <label for="pic_url">Profile Picture</label>
-        <input type="text" class="form-control" id="pic_url"
-            [(ngModel)]="author.pic_url" name="pic_url"
-            #pic_url="ngModel">
-    </div>
-
-    <div class="form-group">
-        <label id="pic_url" name="pic_url" for="picture"></label>
-        <img [src]=author.pic_url>
-    </div>
-
-    <app-photo-uploader (uploadedImageUrl)="getUploadedUrl($event)"></app-photo-uploader>
-
-    <button type="submit" class="btn btn-success" [disabled]="!authorForm.form.valid">Submit</button>
-    <button type="button" class="btn btn-default" (click)="resetForm(); authorForm.reset()">Cancel</button>
-
-
-</form>
+<div class="container pb-5">
+    <form (ngSubmit)="onSubmit()" #authorForm="ngForm">
+        <div class="row">
+            <div class="col-6 pr-5">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name"
+                        required [(ngModel)]="author.first_name" name="first_name"
+                        #first_name="ngModel">
+                    <div [hidden]="first_name.valid || first_name.pristine"
+                        class="alert alert-danger">
+                     First name is required
+                   </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="family_name">Family Name</label>
+                    <input type="text" class="form-control" id="family_name"
+                        required [(ngModel)]="author.family_name" name="family_name"
+                        #family_name="ngModel">
+                    <div [hidden]="family_name.valid || family_name.pristine"
+                        class="alert alert-danger">
+                     Family Name is required
+                   </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob"
+                        [(ngModel)]="author.date_of_birth" name="dob"
+                        #dob="ngModel">
+                </div>
+            
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <input type="text" class="form-control" id="bio"
+                        [(ngModel)]="author.bio" name="bio"
+                        #bio="ngModel">
+                </div>
+            
+                <!-- <div class="form-group">
+                    <label for="pic_url">Profile Picture</label>
+                    <input type="text" class="form-control" id="pic_url"
+                        [(ngModel)]="author.pic_url" name="pic_url"
+                        #pic_url="ngModel">
+                </div> -->
+            </div>
+        
+            <div class="col-6 pl-5">
+                <div class="form-group">
+                    <label id="pic_url" name="pic_url" for="picture"></label>
+                    <img *ngIf="author.pic_url" class="image" [src]=author.pic_url>
+                </div>
+                <app-photo-uploader (uploadedImageUrl)="getUploadedUrl($event)"></app-photo-uploader>
+            </div>
+        </div>
+    
+        <div class="float-right">
+            <button type="button" class="btn btn-default mr-2" (click)="authorForm.reset(); navigateAuthors()">Cancel</button>
+            <button type="submit" class="btn btn-success mr-2" [disabled]="!authorForm.form.valid">Submit</button>
+        </div>
+    </form>
+</div>

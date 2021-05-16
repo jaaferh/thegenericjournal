@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Author, AuthorDetails } from 'src/app/models/author.entity';
+import { Author } from 'src/app/models/author.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthorService } from 'src/app/services/author.service';
 
@@ -26,12 +27,14 @@ export class AuthorFormComponent implements OnInit {
     private authorService: AuthorService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.mode = this.id ? Mode.Edit : Mode.Create;
+    this.author.pic_url = 'http://res.cloudinary.com/soqudu/image/upload/v1621168850/xyniooa0hep6j8eeboin.png';
 
     if (this.mode === Mode.Edit) {
       this.route.data.subscribe(data => {
@@ -69,8 +72,8 @@ export class AuthorFormComponent implements OnInit {
     }
   }
 
-  resetForm(): void {
-    this.authorForm.reset(this.author);
+  navigateAuthors(): void {
+    this.location.back();
   }
 }
 

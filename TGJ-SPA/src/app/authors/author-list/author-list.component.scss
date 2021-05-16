@@ -38,10 +38,13 @@
         }
     }
 
-    .caption > p {
-        padding: 1rem 0 1rem 5%;
-        margin-bottom: 0;
-        // margin: 1rem 0 1rem 0;
+    .caption {
+        padding-bottom: 1rem;
+
+        > p {
+            padding: 1rem 0 0 5%;
+            margin-bottom: 0;
+        }
     }
 
     &:hover .image {
