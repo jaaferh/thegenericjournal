@@ -23,7 +23,6 @@ export class AuthorDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.authorDetails = data.authorDetail;
-      console.log(this.authorDetails);
     }, error => {
       this.alertify.error(error);
     });

@@ -28,7 +28,6 @@ export class PostDetailComponent implements OnInit {
       if (this.post.comments) {
         this.comments = this.post.comments;
       }
-      console.log(this.post);
     }, error => {
       this.alertify.error(error);
     });

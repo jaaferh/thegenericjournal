@@ -46,7 +46,6 @@ export class AuthorListComponent implements OnInit {
   }
 
   keyUpFunction(e: Event): void {
-    console.log(this.searchParam);
     if (this.searchParam.length > 0) {
       this.authorService.authorSearch(this.searchParam).subscribe(data => {
         this.initAuthors(data);

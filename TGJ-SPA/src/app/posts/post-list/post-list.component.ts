@@ -31,7 +31,6 @@ export class PostListComponent implements OnInit {
   }
 
   keyUpFunction(e: Event): void {
-    console.log(this.searchParam);
     if (this.searchParam.length > 0) {
       this.postService.postSearch(this.searchParam).subscribe(data => {
         this.posts = data;

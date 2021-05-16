@@ -41,7 +41,6 @@ export class PhotoUploaderComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        console.log(response);
         this.alertify.success('Image Uploaded Successfully');
         this.uploadedImageUrl.emit(response);
       }
