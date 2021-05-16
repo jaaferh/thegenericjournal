@@ -27,15 +27,15 @@
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
                     <input type="date" class="form-control" id="dob"
-                        [(ngModel)]="author.date_of_birth" name="dob"
+                        [ngModel]="author.date_of_birth | date:'yyyy-MM-dd'" name="dob"
                         #dob="ngModel">
                 </div>
             
                 <div class="form-group">
                     <label for="bio">Bio</label>
-                    <input type="text" class="form-control" id="bio"
+                    <textarea type="text" class="form-control" id="bio"
                         [(ngModel)]="author.bio" name="bio"
-                        #bio="ngModel">
+                        #bio="ngModel" rows="7"></textarea>
                 </div>
             
                 <!-- <div class="form-group">
