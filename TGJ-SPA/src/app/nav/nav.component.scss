@@ -16,15 +16,15 @@
     background-color: white;
     text-align: center;
 
-    h1::before {
-        content: 'THE GENERIC JOURNAL';
-    }
-
     h1 {
         margin-bottom: 0; // Remove default mb
         font-family: 'Girassol', cursive;
         font-weight: 900;
-        font-size: 70px;
+        font-size: 4.375rem;
+
+        &::before {
+            content: 'THE GENERIC JOURNAL';
+        }
     }
 
 }
@@ -44,8 +44,8 @@
         list-style-type: none;
     
         .lastitem {
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
             font-size: larger;
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
         }
@@ -58,25 +58,25 @@
                 color: gray;
                 font-size: 1.1em;
                 position: relative;
-            }
-    
-            // Adds a hidden full stop which will expand to a line on hover
-            .nav-link::after {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                margin: auto;
-                background-color: #000000;
-                color: transparent;
-                width: 0%;
-                content: '.';
-                height: 3px;
-            }
-    
-            .nav-link:hover::after {
-                width: 100%;
-                transition: all 0.2s;
+
+                // Adds a hidden full stop which will expand to a line on hover
+                &::after {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    background-color: #000000;
+                    color: transparent;
+                    width: 0%;
+                    content: '.';
+                    height: 3px;
+                }
+        
+                &:hover::after {
+                    width: 100%;
+                    transition: all 0.2s;
+                }
             }
         }
     }
@@ -113,13 +113,14 @@
         cursor: default;
         padding-left: 3%;
         padding-right: 3%;
-        h1::before {
-            content: 'TGJ';
-        }
 
         h1 {
             cursor: pointer;
             text-align: left;
+
+            &::before {
+                content: 'TGJ';
+            }
         }
 
         .menu-toggle {

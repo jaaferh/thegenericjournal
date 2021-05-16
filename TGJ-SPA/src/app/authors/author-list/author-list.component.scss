@@ -15,7 +15,7 @@
         opacity: 1;
         display: block;
         width: 100%;
-        height: 350px;
+        height: 21.875rem;
         transition: .5s ease;
         backface-visibility: hidden;
     }
@@ -33,7 +33,7 @@
 
         .text {
             color: white;
-            font-size: 20px;
+            font-size: 1.25rem;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }
     }
@@ -43,12 +43,13 @@
         margin-bottom: 0;
         // margin: 1rem 0 1rem 0;
     }
+
+    &:hover .image {
+        opacity: 0.3;
+    }
+      
+    &:hover .middle {
+        opacity: 1;
+    }
 }
   
-.img-container:hover .image {
-    opacity: 0.3;
-}
-  
-.img-container:hover .middle {
-    opacity: 1;
-}
