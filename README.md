@@ -43,14 +43,22 @@ ng serve
 - Set limit to Bio characters
 - Add confirmation dialogue on delete
 - Fix the security issue with cloudinary (mixed insecure display content)
-- Get doTopicFilter in post-form component to work
+- Get doTopicFilter in post-form component to display properly
 - Implement comment collapse and hide
 - Find a way to preserve previous page (data: { detachable: 1 })
+- Make sure suitable for mobile
+- Deploy a DEV build to Heroku
 
 ## Long-Term Todo: 
 
+- Add authentication using JWT tokens
 - Add AuthGuard to Routes once Authentication added
 - Consider alternative for Topic deleting all Posts first
 - Document where needed
 - Add natural keys to Topics and other relevant schemas
 - Consider a preview for posts before updating/creating
+
+## Extra Plans:
+
+- Experiment with Docker
+- Create Progressive WebApp version of the site using Chrome Lighthouse
