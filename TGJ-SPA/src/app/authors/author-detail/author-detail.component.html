@@ -1,37 +1,33 @@
-<div class="container">
-    <div class="header">
-        <h1>Author:</h1>
+<div class="container pb-5">
+    <div class="list-header">
+        <h1>Author</h1>
     </div>
-    
-    
-    <div class="">
+
+    <div class="links">
+        <!-- <a class="btn-link" [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</a> -->
+        <button class="btn-secondary input-group-text"
+                type="button"
+                [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</button>
+        <button class="btn-danger input-group-text" 
+                type="button" 
+                (click)="deleteAuthor(authorDetails.author._id)">Delete</button>
+    </div>
+
+    <div class="image">
         <img [src]=authorDetails.author.pic_url>
-        <p>
-            {{authorDetails.author.first_name}} {{authorDetails.author.family_name}}
-            {{authorDetails.author.date_of_birth}}
-            {{authorDetails.author.date_joined}}
-            {{authorDetails.author.bio}}
-        </p>
-        
-        
-        <ul>
-            <li *ngFor="let post of authorDetails.author_posts">
-                <img [src]=post.thumbnail>
-                <a [routerLink]="['/post/' + post._id]">
-                    {{post.title}}
-                </a>
-                <p *ngFor="let topic of post.topics">
-                    {{topic.name}}
-                </p>
-                {{post.date_created}}
-                {{post.summary}}
-            </li>
-        </ul>
-    
-        <!-- <button type="button" class="btn btn-default" (click)="">Delete</button> -->
-        <a class="btn-link" [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</a>
-        <button type="button" class="btn btn-outline-danger" (click)="deleteAuthor(authorDetails.author._id)">Delete</button>
-    
     </div>
+    
+    <div class="subheader">
+        <h2>{{authorDetails.author.first_name}} {{authorDetails.author.family_name}}</h2>
+    </div>
+    <div class="details">
+        <p *ngIf="authorDetails.author.date_of_birth">Age: {{age}}</p>
+        <p>Date Joined: {{authorDetails.author.date_joined | date}}</p>
+        <p>Bio: {{authorDetails.author.bio}}</p>
+    </div>
+
+    <hr class="mb-5">
+
+    <app-author-detail-posts [authorPosts]="authorDetails.author_posts"></app-author-detail-posts>
     
 </div>

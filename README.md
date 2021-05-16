@@ -40,6 +40,7 @@ ng serve
 ## Short-Term Todo:
 
 - Add 'back to top' button
+- Set limit to Bio characters
 - Add confirmation dialogue on delete
 - Fix the security issue with cloudinary (mixed insecure display content)
 - Get doTopicFilter in post-form component to work

@@ -1,0 +1,32 @@
+.links {
+    display: flex;
+    justify-content: right;
+
+    > button {
+        margin-right: 1%;
+    }
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3%;
+
+    > img {
+        text-align: center;
+        width: 18vw;
+        height: 18vw;
+    }
+}
+
+.subheader {
+    text-align: center;
+}
+
+.details {
+    text-align: center;
+    margin-bottom: 5%;
+    > p {
+        margin-bottom: 0;
+    }
+}

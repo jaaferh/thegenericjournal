@@ -1,0 +1,27 @@
+<div *ngFor="let post of authorPosts">
+    <div class="row">
+        <div class="banner-image col-3">
+            <img [src]=post.thumbnail>
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col title-wrapper">
+                    <a [routerLink]="['/post/' + post._id]">
+                        {{post.title}}
+                    </a>
+                    <div *ngFor="let topic of post.topics | slice:0:3" class="topic">
+                        {{topic.name}}
+                    </div>
+                    <div class="date-wrapper">
+                        {{post.date_created | date}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{post.summary}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

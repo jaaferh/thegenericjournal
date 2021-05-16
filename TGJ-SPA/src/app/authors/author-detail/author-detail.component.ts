@@ -13,6 +13,7 @@ import { AuthorService } from 'src/app/services/author.service';
 export class AuthorDetailComponent implements OnInit {
   authorDetails!: AuthorDetails;
   topics: Topic[] = [];
+  age = 0;
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
@@ -23,6 +24,7 @@ export class AuthorDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.authorDetails = data.authorDetail;
+      this.calculateAge();
     }, error => {
       this.alertify.error(error);
     });
@@ -35,5 +37,16 @@ export class AuthorDetailComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  private calculateAge(): void {
+    if (this.authorDetails.author.date_of_birth) {
+      const today = new Date();
+      const authorDOB = new Date(this.authorDetails.author.date_of_birth);
+      const dateDiff = Math.floor(today.getTime() - authorDOB.getTime());
+      const day = 1000 * 60 * 60 * 24;
+      const months = Math.floor(dateDiff/day/31);
+      this.age = Math.floor(months/12);
+    }
   }
 }
