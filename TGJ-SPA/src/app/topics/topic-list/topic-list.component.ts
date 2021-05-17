@@ -13,6 +13,8 @@ export class TopicListComponent implements OnInit {
   topics: Topic[] = [];
   topicDetails: TopicDetails[] = [];
   newTopic = {} as Topic;
+  visibleTopics: boolean[] = [];
+  showNew = false;
   p = 1;
   constructor(
     private topicService: TopicService,
@@ -51,12 +53,20 @@ export class TopicListComponent implements OnInit {
     });
   }
 
-  updateTopic(topicId: string, topic: Topic): void {
+  saveTopic(topicId: string, topic: Topic): void {
     this.topicService.updateTopic(topicId, topic).subscribe(() => {
       this.alertify.success('Topic Updated Successfully');
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  updateClick(index: number): void {
+    console.log(this.visibleTopics[index]);
+    if (this.visibleTopics[index] === undefined)
+      this.visibleTopics[index] = true;
+    else 
+      this.visibleTopics[index] = !this.visibleTopics[index];
   }
 
   createTopic(): void {
