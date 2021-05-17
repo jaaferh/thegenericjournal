@@ -1,29 +1,52 @@
-<div class="header">
-  <h1>Topics</h1>
+<div class="container pb-3">
+	<div class="list-header">
+		<h1>Topics</h1>
+	</div>
+	
+	<div class="mb-4">
+		<ul>
+			<li class="row" *ngFor="let topicDetail of topicDetails | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+				<div class="col-4 flex-wrapper">
+					<p>{{topicDetail.topic.name}}</p>
+					<p class="post">(Posts: {{topicDetail.topic_posts.length}})</p>
+
+					<div class="buttons">
+						<button type="button" class="btn btn-outline-secondary" 
+								[id]="'update' + i" [name]="'update' + i" 
+								[ngClass]="!visibleTopics[i] ? 'fa fa-edit' : 'fa fa-times'"
+								(click)="updateClick(i)"></button> 
+						
+						<button type="button" class="btn btn-outline-danger fa fa-trash" 
+								[id]="'delete' + i" [name]="'delete' + i"
+								(click)="deleteTopic(topicDetail.topic._id)"></button>
+					</div>
+				</div>
+				 
+				<div class="col-8 flex-wrapper input-save">
+					<input *ngIf="visibleTopics[i]" type="text" class="form-control" 
+							[id]="'name' + i" [(ngModel)]="topicDetail.topic.name" 
+							[name]="'name' + i" #name="ngModel">
+
+					<div class="buttons">
+						<button *ngIf="visibleTopics[i]" type="button" class="btn btn-outline-success fa fa-check" 
+								[id]="'save' + i" [name]="'save' + i"
+								(click)="saveTopic(topicDetail.topic._id, topicDetail.topic)"></button>
+					</div>
+					
+				</div>
+
+			</li>
+			<li>
+				<div class="new-wrapper">
+					<button type="button" class="btn btn-outline-success" (click)="showNew = !showNew" 
+							[ngClass]="!showNew ? 'fa fa-plus' : 'fa fa-times'"></button>
+					<input *ngIf="showNew" type="text" class="form-control" id="newName"
+							[(ngModel)]="newTopic.name" name="newName" #newName="ngModel">
+					<button *ngIf="showNew" type="button" class="btn btn-outline-success fa fa-check" 
+							(click)="createTopic()"></button>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
 </div>
-
-<div class="">
-  <ul>
-      <li *ngFor="let topicDetail of topicDetails | paginate: { itemsPerPage: 10, currentPage: p }">
-          {{topicDetail.topic.name}} (Posts: {{topicDetail.topic_posts.length}})
-          
-          Edit <input type="text" class="form-control" id="name"
-                  [(ngModel)]="topicDetail.topic.name" name="name"
-                  #name="ngModel">
-          <button type="button" class="btn btn-outline-secondary" (click)="updateTopic(topicDetail.topic._id, topicDetail.topic)">Update</button>
-
-          <button type="button" class="btn btn-outline-danger" (click)="deleteTopic(topicDetail.topic._id)">Delete</button>
-
-      </li>
-      <li>
-        <button type="button" class="btn btn-outline-success" (click)="createTopic()">New Topic</button>
-        <input type="text" class="form-control" id="newName"
-                  [(ngModel)]="newTopic.name" name="newName"
-                  #newName="ngModel">
-      </li>
-  </ul>
-
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-
-
