@@ -7,11 +7,12 @@ const Post = require('../models/post');
 exports.author_list = (req, res, next) => {
   Author.find()
     .sort([['family_name', 'ascending']])
-    .exec((err, listAuthors) => {
-      if (err) { return next(err); }
-      // Successful
-      return res.send(listAuthors);
-    });
+    .then((listAuthors) => {
+      res.send(listAuthors);
+    })
+    .catch((err) => {
+      next(err);
+    }); // Example of using Promise .then().catch() instead of .exec((err,result))
 };
 
 // AUTHOR SEARCH GET
@@ -130,5 +131,6 @@ exports.author_validate = [
   body('first_name').trim().isLength({ min: 1 }).escape(),
   body('family_name').trim().isLength({ min: 1 }).escape(),
   body('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(), // checkFalsy: True means accept empty string or null as empty value
-  body('bio').trim().optional({ checkFalsy: true }).escape(),
+  body('bio').trim().optional({ checkFalsy: true }).isLength({ max: 255 })
+    .escape(),
 ];
