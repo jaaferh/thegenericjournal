@@ -15,6 +15,7 @@ export class AuthorFormComponent implements OnInit {
   mode: Mode = Mode.Create;
   id: string | null = '';
   author = {} as Author;
+  newDate: any;
   @ViewChild('authorForm') authorForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any): void {
@@ -42,6 +43,12 @@ export class AuthorFormComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       });
+    }
+  }
+
+  dateChange(dateString: string): void {
+    if (dateString) {
+      this.author.date_of_birth = new Date(dateString);
     }
   }
 

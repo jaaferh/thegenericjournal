@@ -26,9 +26,9 @@
             
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
-                    <input type="date" class="form-control" id="dob"
-                        [ngModel]="author.date_of_birth | date:'yyyy-MM-dd'" name="dob"
-                        #dob="ngModel">
+                    <input type="date" class="form-control" id="dob" name="dob"
+                        [ngModel]="author.date_of_birth | date:'yyyy-MM-dd'" 
+                        (ngModelChange)="dateChange($event)" #dob="ngModel">
                 </div>
             
                 <div class="form-group">
@@ -56,7 +56,7 @@
         </div>
     
         <div class="float-right">
-            <button type="button" class="btn btn-default mr-2" (click)="authorForm.reset(); navigateAuthors()">Cancel</button>
+            <button type="button" class="btn btn-default mr-2" (click)="navigateAuthors()">Cancel</button>
             <button type="submit" class="btn btn-success mr-2" [disabled]="!authorForm.form.valid">Submit</button>
         </div>
     </form>

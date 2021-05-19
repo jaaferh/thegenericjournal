@@ -41,9 +41,8 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
+- Replace callbacks with promises in controllers
 - Add 'back to top' button
-- Set limit to Bio and Topic characters 
-- Add confirmation dialogue on delete
 - Sort lists properly
 - Fix the security issue with cloudinary (mixed insecure display content)
 - Get doTopicFilter in post-form component to display properly
