@@ -25,7 +25,7 @@
 				<div class="col-8 flex-wrapper input-save">
 					<input *ngIf="visibleTopics[i]" type="text" class="form-control" 
 							[id]="'name' + i" [(ngModel)]="topicDetail.topic.name" 
-							[name]="'name' + i" #name="ngModel">
+							[name]="'name' + i" #name="ngModel" maxlength="25">
 
 					<div class="buttons">
 						<button *ngIf="visibleTopics[i]" type="button" class="btn btn-outline-success fa fa-check" 
@@ -41,7 +41,7 @@
 					<button type="button" class="btn btn-outline-success" (click)="showNew = !showNew" 
 							[ngClass]="!showNew ? 'fa fa-plus' : 'fa fa-times'"></button>
 					<input *ngIf="showNew" type="text" class="form-control" id="newName"
-							[(ngModel)]="newTopic.name" name="newName" #newName="ngModel">
+							[(ngModel)]="newTopic.name" name="newName" #newName="ngModel" maxlength="25">
 					<button *ngIf="showNew" type="button" class="btn btn-outline-success fa fa-check" 
 							(click)="createTopic()"></button>
 				</div>

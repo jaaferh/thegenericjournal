@@ -90,5 +90,5 @@ exports.topic_update = (req, res, next) => {
 
 // TOPIC VALIDATION
 exports.topic_validate = [
-  body('name').trim().isLength({ min: 1 }).escape(),
+  body('name').trim().isLength({ min: 1, max: 25 }).escape(),
 ];

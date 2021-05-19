@@ -174,5 +174,5 @@ exports.post_update = (req, res, next) => {
 // POST VALIDATION
 exports.post_validate = [
   body('title').trim().isLength({ min: 1 }).escape(),
-  body('summary').trim().isLength({ min: 1 }).escape(),
+  body('summary').trim().isLength({ min: 1, max: 500 }).escape(),
 ];

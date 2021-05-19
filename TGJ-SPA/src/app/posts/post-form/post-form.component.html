@@ -14,7 +14,7 @@
       <label for="summary">Summary</label>
       <input type="text" class="form-control" id="summary"
           required [(ngModel)]="post.summary" name="summary"
-          #summary="ngModel">
+          #summary="ngModel" maxlength="500">
       <div [hidden]="summary.valid || summary.pristine"
           class="alert alert-danger">
        Summary is required

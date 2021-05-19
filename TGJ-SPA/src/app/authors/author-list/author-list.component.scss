@@ -44,6 +44,9 @@
         > p {
             padding: 1rem 0 0 5%;
             margin-bottom: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     }
 
