@@ -44,7 +44,9 @@ export class CommentTreeComponent {
   }
 
   deleteComment(commentId: string): void {
-    this.delCommentId.emit(commentId);
+    if (confirm('Are you sure you want to delete this comment?')) {
+      this.delCommentId.emit(commentId);
+    }
   }
 
   replyClick(comment: Comment): void {

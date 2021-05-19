@@ -50,6 +50,7 @@ export class AuthorFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.table(this.author);
     if (this.mode === Mode.Create) {
       this.authorService.createAuthor(this.author).subscribe(newA => {
         this.alertify.success('Author Created Successfully');

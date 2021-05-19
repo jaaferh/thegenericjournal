@@ -38,12 +38,14 @@ export class PostDetailComponent implements OnInit {
   }
 
   deletePost(postId: string): void {
-    this.postService.deletePost(postId).subscribe(() => {
-      this.alertify.success('Post Deleted Successfully');
-      this.router.navigate(['/posts']);
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.postService.deletePost(postId).subscribe(() => {
+        this.alertify.success('Post Deleted Successfully');
+        this.router.navigate(['/posts']);
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
   }
 
   viewCommentsToggle(): void {

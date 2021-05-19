@@ -42,15 +42,17 @@ export class TopicListComponent implements OnInit {
   }
 
   deleteTopic(topicId: string): void {
-    this.topicService.deleteTopic(topicId).subscribe(() => {
-      this.alertify.success('Topic Deleted Successfully');
-      const topicIndex = this.topics.findIndex(topic => topic._id === topicId);
-      const topicDetIndex = this.topicDetails.findIndex(td => td.topic._id === topicId);
-      this.topics.splice(topicIndex, 1);
-      this.topicDetails.splice(topicDetIndex, 1);
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (confirm('Are you sure you want to delete this topic?')) {
+      this.topicService.deleteTopic(topicId).subscribe(() => {
+        this.alertify.success('Topic Deleted Successfully');
+        const topicIndex = this.topics.findIndex(topic => topic._id === topicId);
+        const topicDetIndex = this.topicDetails.findIndex(td => td.topic._id === topicId);
+        this.topics.splice(topicIndex, 1);
+        this.topicDetails.splice(topicDetIndex, 1);
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
   }
 
   saveTopic(topicId: string, topic: Topic): void {

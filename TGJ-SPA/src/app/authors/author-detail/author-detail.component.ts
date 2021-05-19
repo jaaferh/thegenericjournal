@@ -31,12 +31,14 @@ export class AuthorDetailComponent implements OnInit {
   }
 
   deleteAuthor(id: string): void {
-    this.authorService.deleteAuthor(id).subscribe(() => {
-      this.alertify.success('Author Deleted Successfully');
-      this.router.navigate(['/authors']);
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (confirm('Are you sure you want to delete this author?')) {
+      this.authorService.deleteAuthor(id).subscribe(() => {
+        this.alertify.success('Author Deleted Successfully');
+        this.router.navigate(['/authors']);
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
   }
 
   private calculateAge(): void {
