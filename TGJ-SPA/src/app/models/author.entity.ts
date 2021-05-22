@@ -11,6 +11,11 @@ export interface Author {
   name?: string;
 }
 
+export interface AuthorsPosts {
+  authors: Author[];
+  posts: Post[];
+}
+
 export interface AuthorDetails {
   author: Author;
   author_posts: Post[];

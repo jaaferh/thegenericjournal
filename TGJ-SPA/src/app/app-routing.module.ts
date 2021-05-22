@@ -21,7 +21,7 @@ const routes: Routes = [
     canActivate: [], // AuthGuard
     children: [
       { path: 'authors', component: AuthorListComponent,
-          resolve: {authors: AuthorListResolver} },
+          resolve: {authorsPosts: AuthorListResolver} },
       { path: 'author/new', component: AuthorFormComponent },
       { path: 'author/:id', component: AuthorDetailComponent,
           resolve: {authorDetail: AuthorDetailResolver} },

@@ -20,6 +20,7 @@ exports.author_search = (req, res, next) => {
   const inputName = new RegExp(req.params.key, 'i');
 
   Author.find({ $text: { $search: inputName } })
+    .sort([['first_name', 'ascending']])
     .exec((err, fullsearch) => {
       if (err) { return next(err); }
       // Successful
@@ -38,6 +39,23 @@ exports.author_search = (req, res, next) => {
           });
       }
       return null;
+    });
+};
+
+// AUTHOR_POSTS GET
+exports.author_posts = (req, res, next) => {
+  Author.find()
+    .sort([['first_name', 'ascending']])
+    .exec((err, listAuthors) => {
+      if (err) { return next(err); }
+      // Successful
+      return Post.find()
+        .populate('author')
+        .exec((error, listPosts) => {
+          if (error) { return next(error); }
+          // Successful
+          return res.send({ authors: listAuthors, posts: listPosts });
+        });
     });
 };
 

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Author, AuthorDetails } from '../models/author.entity';
+import { Author, AuthorDetails, AuthorsPosts } from '../models/author.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,14 @@ export class AuthorService {
     return this.http.get<Author[]>(this.baseUrl + 'authors');
   }
 
+  getAuthorPosts(): Observable<AuthorsPosts> {
+    return this.http.get<AuthorsPosts>(this.baseUrl + 'authors/posts').pipe(
+      map(ap => this.modifyAuthorsPosts(ap)));
+  }
+
   authorSearch(searchKey: string): Observable<Author[]> {
-    return this.http.get<Author[]>(this.baseUrl + 'author/search/' + searchKey);
+    return this.http.get<Author[]>(this.baseUrl + 'author/search/' + searchKey).pipe(
+      map(a => this.modifyAuthors(a)));
   }
 
   getAuthorDetail(authorId: string): Observable<AuthorDetails> {
@@ -34,6 +41,16 @@ export class AuthorService {
 
   deleteAuthor(authorId: string): Observable<void> {
     return this.http.delete<void>(this.baseUrl + 'author/' + authorId + '/delete');
+  }
+
+  private modifyAuthorsPosts(authorPost: AuthorsPosts): AuthorsPosts {
+    authorPost.authors.forEach(a => a.name = a.first_name + ' ' + a.family_name);
+    return authorPost;
+  }
+
+  private modifyAuthors(authors: Author[]): Author[] {
+    authors.forEach(a => a.name = a.first_name + ' ' + a.family_name);
+    return authors;
   }
 
 }

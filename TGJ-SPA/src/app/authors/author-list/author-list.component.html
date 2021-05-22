@@ -20,19 +20,15 @@
     </div>
     
     <div class="row grid mb-4">
-        <div class="col-4" 
-                *ngFor="let authorDetail of authorDetails | paginate: { itemsPerPage: 6, currentPage: p }"
-                (click)="routeToAuthor(authorDetail.author._id)">
+        <div class="col-md-4 mb-5" 
+                *ngFor="let authorDetail of authorsPosts.authors | paginate: { itemsPerPage: 6, currentPage: p }"
+                (click)="routeToAuthor(authorDetail._id)">
             <div class="img-container">
-                <img class="image" [src]=authorDetail.author.pic_url>
-                <div class="middle">
-                    <span class="text">
-                        {{authorDetail.author.name}}
-                    </span>
-                </div>
+                <img class="image" [src]=authorDetail.pic_url>
                 <div class="caption">
-                    <p>Bio: {{authorDetail.author.bio}}</p>
-                    <p>Number of Posts: {{authorDetail.author_posts.length}}</p>
+                    <p class="font-weight-bold">{{authorDetail.name}}</p>
+                    <p>Bio: {{authorDetail.bio}}</p>
+                    <p>Number of Posts: {{getPostCount(authorDetail)}}</p>
                 </div>
             </div>
         </div>

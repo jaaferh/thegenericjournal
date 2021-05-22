@@ -33,6 +33,9 @@ router.get('/author/:id', authorController.author_detail);
 // GET request for list of all Authors.
 router.get('/authors', authorController.author_list);
 
+// GET request for list of all Authors and All Posts.
+router.get('/authors/posts', authorController.author_posts);
+
 /// COMMENT ROUTES ///
 
 // POST request for creating comment.
