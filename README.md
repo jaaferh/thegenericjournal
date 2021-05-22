@@ -41,14 +41,13 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
-- Replace callbacks with promises in controllers
+- Fix styling issues on resize/mobile
 - Add 'back to top' button
 - Sort lists properly
 - Fix the security issue with cloudinary (mixed insecure display content)
 - Get doTopicFilter in post-form component to display properly
 - Implement comment collapse and hide
 - Find a way to preserve previous page (data: { detachable: 1 })
-- Make sure suitable for mobile
 - Deploy a DEV build to Heroku
 
 ## Long-Term Todo: 
