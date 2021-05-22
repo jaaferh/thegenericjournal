@@ -9,20 +9,25 @@ ul {
             display: flex;
             align-items: center;
 
-            p {
-                margin-bottom: 0;
+            .title-count {
+                display: flex;
+                align-items: center;
+                p {
+                    margin-bottom: 0;
+                }
             }
+           
 
             .post {
                 color: gray;
                 margin-left: 0.5rem;
             }
 
-            .buttons {
+            .inputs {
                 display: flex;
                 align-items: center;
                 
-                > * {
+                > button {
                     margin-left: 0.5rem;
                 }
             }
@@ -44,4 +49,11 @@ button {
     height: 2rem;
     padding: 0.5rem;
     width: 2.2rem;
+}
+
+@media (max-width: 500px) {
+    .flex-wrapper {
+      flex-direction: column;
+      margin-bottom: 5%;
+    }
 }
