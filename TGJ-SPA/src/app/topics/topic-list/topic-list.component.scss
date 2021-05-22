@@ -54,6 +54,10 @@ button {
 @media (max-width: 500px) {
     .flex-wrapper {
       flex-direction: column;
+      margin-top: 5%;
       margin-bottom: 5%;
+    }
+    ul {
+        padding: 0;
     }
 }
