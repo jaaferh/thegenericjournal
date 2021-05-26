@@ -1,6 +1,7 @@
 .links {
     display: flex;
     justify-content: right;
+    margin-bottom: 5%;
 
     > button {
         margin-right: 1%;
@@ -14,8 +15,10 @@
 
     > img {
         text-align: center;
-        width: 18vw;
-        height: 18vw;
+        object-fit: cover;
+        width: clamp(20rem, 18vw, 40rem);
+        height: clamp(20rem, 18vw, 40rem);
+        border-radius: 50%;
     }
 }
 

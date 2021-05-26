@@ -11,8 +11,7 @@
     cursor: pointer;
     padding-bottom: 2%;
     padding-top: 2%;
-    border-bottom: 3px solid lightgray;
-    border-top: 3px solid lightgray;
+    border-top: 2px solid lightgray;
     background-color: white;
     text-align: center;
 
@@ -34,6 +33,7 @@
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     box-shadow: 0px 10px 20px -20px #111; 
+    border-top: 3px solid lightgray;
     border-bottom: 3px solid lightgray;
     margin-bottom: 3%; // Pushes content down
     background-color: hsl(0, 0%, 98%);
@@ -93,6 +93,7 @@
         padding-bottom: 0.2%;
         padding-top: 0.2%;
         transition: all 0.2s;
+        border-top: 2px solid lightgray;
 
         ul {
             .navitem {
@@ -130,6 +131,7 @@
         padding-left: 3%;
         padding-right: 3%;
         margin-right: 0;
+        border-bottom: 3px solid lightgray;;
 
         h1 {
             cursor: pointer;
@@ -152,16 +154,19 @@
         }
     }
 
-    .navmenu ul {
-        display: list-item;
+    .navmenu {
+        border-top: 0;
+        ul {
+            display: list-item;
 
-        .navitem {
-            border-right: none;
-        }
+            .navitem {
+                border-right: none;
+            }
 
-        .lastitem {
-            padding-left: 30%;
-            padding-right: 30%;
+            .lastitem {
+                padding-left: 30%;
+                padding-right: 30%;
+            }
         }
     }
 }
