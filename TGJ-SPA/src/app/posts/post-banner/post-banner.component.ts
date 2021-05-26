@@ -7,7 +7,8 @@ import { Post } from 'src/app/models/post.entity';
   styleUrls: ['./post-banner.component.scss']
 })
 export class PostBannerComponent {
-  @Input() authorPosts = [] as Post[];
+  @Input() posts = [] as Post[];
+  p = 1;
 
   constructor() { }
 
