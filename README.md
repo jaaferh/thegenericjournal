@@ -41,6 +41,7 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
+- Implement error catching properly in controllers
 - Fix styling issues on resize/mobile
 - Add 'back to top' button
 - Sort lists properly

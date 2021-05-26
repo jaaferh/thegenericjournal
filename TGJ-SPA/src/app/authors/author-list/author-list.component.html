@@ -1,52 +1,38 @@
 <div class="container pb-3">
-  <div class="list-header">
-    <h1>Authors</h1>
-  </div>
-
-  <div class="row mb-5">
-    <div
-      class="input-group-overlay showsearch col-9 col-sm-10"
-      style="padding-right: 1%"
-      (keyup)="keyUpFunction($event)"
-    >
-      <input
-        class="form-control appended-form-control"
-        type="text"
-        [(ngModel)]="searchParam"
-        placeholder="Search for Authors"
-      />
+    <div class="list-header">
+        <h1>Authors</h1>
     </div>
-    <div class="col-3 col-sm-2">
-      <button
-        class="btn-success input-group-text btn-fill fa fa-plus"
-        type="button"
-        [routerLink]="['/author/new']"
-      ></button>
-    </div>
-  </div>
-
-  <div class="row grid mb-4">
-    <div
-      class="col-md-4 mb-5"
-      *ngFor="
-        let authorDetail of authorsPosts.authors
-          | paginate: { itemsPerPage: 6, currentPage: p }
-      "
-      (click)="routeToAuthor(authorDetail._id)"
-    >
-      <div class="img-container">
-        <img class="image" [src]="authorDetail.pic_url" />
-        <div class="caption">
-          <p class="font-weight-bold">{{ authorDetail.name }}</p>
-          <p>Bio: {{ authorDetail.bio }}</p>
-          <p>Number of Posts: {{ getPostCount(authorDetail) }}</p>
+    
+    <div class="row mb-5">
+        <div class="input-group-overlay showsearch col-9 col-sm-10" 
+             style="padding-right: 1%;" 
+             (keyup)="keyUpFunction($event) ">
+            <input class="form-control appended-form-control" 
+                   type="text" 
+                   [(ngModel)]="searchParam" 
+                   placeholder="Search for Authors">
         </div>
-      </div>
+        <div class="col-3 col-sm-2">
+            <button class="btn-success input-group-text btn-fill fa fa-plus" 
+                    type="button" 
+                    [routerLink]="['/author/new']"></button>
+        </div>
     </div>
-  </div>
+    
+    <div class="row grid mb-4">
+        <div class="col-md-4 mb-5" 
+             *ngFor="let authorDetail of authorsPosts.authors | paginate: { itemsPerPage: 6, currentPage: p }"
+             (click)="routeToAuthor(authorDetail._id)">
+            <div class="img-container">
+                <img class="image" [src]=authorDetail.pic_url>
+                <div class="caption">
+                    <p class="font-weight-bold">{{authorDetail.name}}</p>
+                    <p>Bio: {{authorDetail.bio}}</p>
+                    <p>Number of Posts: {{getPostCount(authorDetail)}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <pagination-controls
-    class="text-center"
-    (pageChange)="p = $event"
-  ></pagination-controls>
+    <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
 </div>

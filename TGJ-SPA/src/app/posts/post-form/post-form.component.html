@@ -1,123 +1,129 @@
-<form (ngSubmit)="onSubmit()" #postForm="ngForm">
-  <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" id="title"
-          required [(ngModel)]="post.title" name="title"
-          #title="ngModel">
-      <div [hidden]="title.valid || title.pristine"
-          class="alert alert-danger">
-       Title is required
-     </div>
+<div class="container pb-5">
+  <div class="list-header">
+    <h1>New Post</h1>
   </div>
 
-  <div class="form-group">
-      <label for="summary">Summary</label>
-      <input type="text" class="form-control" id="summary"
-          required [(ngModel)]="post.summary" name="summary"
-          #summary="ngModel" maxlength="500">
-      <div [hidden]="summary.valid || summary.pristine"
-          class="alert alert-danger">
-       Summary is required
-     </div>
-  </div>
-
-  <div class="form-group">
-    <p *ngFor="let topic of post.topics; let i = index">
-      {{topic.name}}
-      <button type="button" class="button btn-link" (click)="removeTopic(i)">Remove</button>
-    </p>
-  </div>
-
-  <div class="form-group">
-    <input matInput [matAutocomplete]="autoTopic" id="newTopic"
-    name="newTopic" (change)="doTopicFilter()" placeholder="Add Topic">
-
-    <mat-autocomplete #autoTopic="matAutocomplete">
-      <mat-option *ngFor="let topic of topics" [value]="topic.name" (click)="selectTopic(topic)">
+  <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title"
+            required [(ngModel)]="post.title" name="title"
+            #title="ngModel">
+        <div [hidden]="title.valid || title.pristine"
+            class="alert alert-danger">
+         Title is required
+       </div>
+    </div>
+  
+    <div class="form-group">
+        <label for="summary">Summary</label>
+        <input type="text" class="form-control" id="summary"
+            required [(ngModel)]="post.summary" name="summary"
+            #summary="ngModel" maxlength="500">
+        <div [hidden]="summary.valid || summary.pristine"
+            class="alert alert-danger">
+         Summary is required
+       </div>
+    </div>
+  
+    <div class="form-group">
+      <p *ngFor="let topic of post.topics; let i = index">
         {{topic.name}}
-      </mat-option>
-    </mat-autocomplete>
-                  
-    <button type="button" class="button btn-link" (click)="addTopic()">Add</button>
-  </div>
-
-  <div class="form-group">
-    <input matInput [matAutocomplete]="autoAuthor" id="author"
-    name="author" (change)="doAuthorFilter()" placeholder="Select Author">
-
-    <mat-autocomplete #autoAuthor="matAutocomplete">
-      <mat-option *ngFor="let author of authors" [value]="author.first_name" (click)="selectAuthor(author)">
-        {{author.first_name}} {{author.family_name}}
-      </mat-option>
-    </mat-autocomplete>
-  </div>
-
-
-  <div class="form-group">
-    <label for="thumbnail">Thumbnail</label>
-    <img id="thumbnail" [src]=post.thumbnail name="thumbnail">
-    <app-photo-uploader (uploadedImageUrl)="getUploadedThumbnail($event)"></app-photo-uploader>
-  </div>
-
-  <div *ngIf="mode == 1">
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let container of post.content.containers; let i = index" cdkDrag>
-        <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
-          <input type="text" class="form-control" name="txtContTitle{{i}}"
-              [(ngModel)]="post.content.containers[i].title" 
+        <button type="button" class="button btn-link" (click)="removeTopic(i)">Remove</button>
+      </p>
+    </div>
+  
+    <div class="form-group">
+      <input matInput [matAutocomplete]="autoTopic" id="newTopic"
+      name="newTopic" (change)="doTopicFilter()" placeholder="Add Topic">
+  
+      <mat-autocomplete #autoTopic="matAutocomplete">
+        <mat-option *ngFor="let topic of topics" [value]="topic.name" (click)="selectTopic(topic)">
+          {{topic.name}}
+        </mat-option>
+      </mat-autocomplete>
+                    
+      <button type="button" class="button btn-link" (click)="addTopic()">Add</button>
+    </div>
+  
+    <div class="form-group">
+      <input matInput [matAutocomplete]="autoAuthor" id="author"
+      name="author" (change)="doAuthorFilter()" placeholder="Select Author">
+  
+      <mat-autocomplete #autoAuthor="matAutocomplete">
+        <mat-option *ngFor="let author of authors" [value]="author.first_name" (click)="selectAuthor(author)">
+          {{author.first_name}} {{author.family_name}}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+  
+  
+    <div class="form-group">
+      <label for="thumbnail">Thumbnail</label>
+      <img id="thumbnail" [src]=post.thumbnail name="thumbnail">
+      <app-photo-uploader (uploadedImageUrl)="getUploadedThumbnail($event)"></app-photo-uploader>
+    </div>
+  
+    <div *ngIf="mode == 1">
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let container of post.content.containers; let i = index" cdkDrag>
+          <div *ngIf="container.type == 'Text' else imageContainer" class="form-group">
+            <input type="text" class="form-control" name="txtContTitle{{i}}"
+                [(ngModel)]="post.content.containers[i].title" 
+                #textContTitle="ngModel">
+            <input type="text" class="form-control" name="textContText{{i}}"
+                [(ngModel)]="post.content.containers[i].text" 
+                #textContText="ngModel">
+          </div>
+          <ng-template #imageContainer>
+            <div class="form-control">
+              <img id="imgContUrl{{i}}" [src]=post.content.containers[i].image_url name="imgContUrl{{i}}">
+              <app-photo-uploader (uploadedImageUrl)="getUploadedImgCont(i, $event)"></app-photo-uploader>
+            </div>
+            
+            <input type="text" class="form-control" name="imgContCap{{i}}"
+                [(ngModel)]="post.content.containers[i].caption" 
+                #imgContCap="ngModel">
+          </ng-template>
+    
+          <button type="button" type="button" class="btn btn-outline-danger" (click)="deleteContainer(container._id, i)">Delete</button>
+        </div>
+      </div>  
+  
+    
+  
+  
+  
+      <button type="button" class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
+      <button type="button" class="button btn-link" (click)="addContainer('Image')">Add Image Container</button>
+  
+      <div *ngIf="showNewContainer" class="example-box">
+        <div *ngIf="containerAdd.type == 'Text' else imageContainer" class="form-group">
+          <input type="text" class="form-control" name="contAddTitle"
+              [(ngModel)]="containerAdd.title" 
               #textContTitle="ngModel">
-          <input type="text" class="form-control" name="textContText{{i}}"
-              [(ngModel)]="post.content.containers[i].text" 
+          <input type="text" class="form-control" name="contAddText"
+              [(ngModel)]="containerAdd.text" 
               #textContText="ngModel">
         </div>
         <ng-template #imageContainer>
           <div class="form-control">
-            <img id="imgContUrl{{i}}" [src]=post.content.containers[i].image_url name="imgContUrl{{i}}">
-            <app-photo-uploader (uploadedImageUrl)="getUploadedImgCont(i, $event)"></app-photo-uploader>
+            <img id="contAddUrl" [src]=containerAdd.image_url name="contAddUrl">
+            <app-photo-uploader (uploadedImageUrl)="getUploadedImgContAdd($event)"></app-photo-uploader>
           </div>
-          
-          <input type="text" class="form-control" name="imgContCap{{i}}"
-              [(ngModel)]="post.content.containers[i].caption" 
+          <input type="text" class="form-control" name="contAddCap"
+              [(ngModel)]="containerAdd.caption" 
               #imgContCap="ngModel">
         </ng-template>
   
-        <button type="button" type="button" class="btn btn-outline-danger" (click)="deleteContainer(container._id, i)">Delete</button>
+        <button type="button" type="button" class="btn btn-outline-success" (click)="createContainer()">Create</button>
       </div>
-    </div>  
-
-  
-
-
-
-    <button type="button" class="button btn-link" (click)="addContainer('Text')">Add Text Container</button>
-    <button type="button" class="button btn-link" (click)="addContainer('Image')">Add Image Container</button>
-
-    <div *ngIf="showNewContainer" class="example-box">
-      <div *ngIf="containerAdd.type == 'Text' else imageContainer" class="form-group">
-        <input type="text" class="form-control" name="contAddTitle"
-            [(ngModel)]="containerAdd.title" 
-            #textContTitle="ngModel">
-        <input type="text" class="form-control" name="contAddText"
-            [(ngModel)]="containerAdd.text" 
-            #textContText="ngModel">
-      </div>
-      <ng-template #imageContainer>
-        <div class="form-control">
-          <img id="contAddUrl" [src]=containerAdd.image_url name="contAddUrl">
-          <app-photo-uploader (uploadedImageUrl)="getUploadedImgContAdd($event)"></app-photo-uploader>
-        </div>
-        <input type="text" class="form-control" name="contAddCap"
-            [(ngModel)]="containerAdd.caption" 
-            #imgContCap="ngModel">
-      </ng-template>
-
-      <button type="button" type="button" class="btn btn-outline-success" (click)="createContainer()">Create</button>
     </div>
-  </div>
-  <p></p>
-
-  <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
-  <button type="button" class="btn btn-default" (click)="resetForm(); postForm.reset()">Cancel</button>
-
-
-</form>
+    <p></p>
+  
+    <button type="submit" class="btn btn-success" [disabled]="!postForm.form.valid">Submit</button>
+    <button type="button" class="btn btn-default" (click)="resetForm(); postForm.reset()">Cancel</button>
+  
+  
+  </form>
+</div>

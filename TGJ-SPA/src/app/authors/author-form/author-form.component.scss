@@ -1,4 +1,7 @@
 .image { 
-    width: 20vw;
-    height: 20vw;
+    // width: 20vw;
+    // height: 20vw;
+    object-fit: cover;
+    width: clamp(15rem, 20vw, 30rem);
+    height: clamp(15rem, 20vw, 30rem);
 }

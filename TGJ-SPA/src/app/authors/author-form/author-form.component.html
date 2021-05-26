@@ -1,7 +1,11 @@
 <div class="container pb-5">
+    <div class="list-header">
+        <h1>New Author</h1>
+    </div>
+
     <form (ngSubmit)="onSubmit()" #authorForm="ngForm">
         <div class="row">
-            <div class="col-6 pr-5">
+            <div class="col-md-6 pr-5">
                 <div class="form-group">
                     <label for="first_name">First Name</label>
                     <input type="text" class="form-control" id="first_name"
@@ -46,7 +50,7 @@
                 </div> -->
             </div>
         
-            <div class="col-6 pl-5">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label id="pic_url" name="pic_url" for="picture"></label>
                     <img *ngIf="author.pic_url" class="image" [src]=author.pic_url>
