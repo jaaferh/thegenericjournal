@@ -44,8 +44,4 @@ export class PostListComponent implements OnInit {
       }
     }
   }
-
-  createPost(): void {
-    this.router.navigate(['post/new']);
-  }
 }

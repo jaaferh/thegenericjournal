@@ -48,7 +48,7 @@ export class PostFormComponent implements OnInit {
         this.post = data.post;
       }
       this.topics = data.topics;
-      this.authors = data.authors;
+      this.authors = data.authorsPosts.authors;
     }, error => {
       this.alertify.error(error);
     });

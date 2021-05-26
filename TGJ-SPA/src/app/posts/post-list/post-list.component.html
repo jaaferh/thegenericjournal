@@ -1,28 +1,29 @@
-<div class="header">
-  <h1>Posts</h1>
+<div class="container pb-5">
+  <div class="list-header">
+    <h1>Posts</h1>
+  </div>
+
+  <div class="row mb-5">
+    <div
+      class="input-group-overlay showsearch col-9 col-sm-10"
+      style="padding-right: 1%"
+      (keyup)="keyUpFunction($event)"
+    >
+      <input
+        class="form-control appended-form-control"
+        type="text"
+        [(ngModel)]="searchParam"
+        placeholder="Search for Post"
+      />
+    </div>
+    <div class="col-3 col-sm-2">
+      <button
+        type="button"
+        class="btn-success input-group-text btn-fill fa fa-plus"
+        [routerLink]="['/post/new']"
+      ></button>
+    </div>
+  </div>
+
+  <app-post-banner [posts]="posts"></app-post-banner>
 </div>
-
-<div class="input-group-overlay showsearch" style="padding-right: 1%;" (keyup)="keyUpFunction($event)">
-  <input class="form-control appended-form-control" type="text" [(ngModel)]="searchParam" placeholder="Search for Post">
-  <button type="button" class="btn btn-outline-success" (click)="createPost()">New Post</button>
-</div>
-
-<div class="">
-  <ul>
-    <li *ngFor="let post of posts | paginate: { itemsPerPage: 10, currentPage: p }">
-        <img [src]=post.thumbnail>
-        <a [routerLink]="['/post/' + post._id]">
-            {{post.title}}
-        </a>
-        <div *ngFor="let topic of post.topics">
-            {{topic.name}}
-        </div>
-        {{post.date_created}}
-        {{post.summary}}
-    </li>
-  </ul>
-
-  <pagination-controls (pageChange)="p = $event"></pagination-controls>
-</div>
-
-
