@@ -33,7 +33,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { PhotoUploaderComponent } from './photo-upload/photo-uploader/photo-uploader.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FooterComponent } from './footer/footer.component';
-import { AuthorDetailPostsComponent } from './authors/author-detail/author-detail-post/author-detail-posts.component';
+import { PostBannerComponent } from './posts/post-banner/post-banner.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { AuthorDetailPostsComponent } from './authors/author-detail/author-detai
     CommentSectionComponent,
     PhotoUploaderComponent,
     FooterComponent,
-    AuthorDetailPostsComponent,
+    PostBannerComponent,
    ],
   imports: [
     BrowserModule,
