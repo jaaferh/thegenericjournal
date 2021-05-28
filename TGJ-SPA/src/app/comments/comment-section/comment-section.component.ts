@@ -47,8 +47,15 @@ export class CommentSectionComponent implements OnInit {
       this.comments.push(com);
 
       // Then push/repopulate Comment Tree
+      const comTree: CommentTree = {
+        thisComment: com,
+        children: [],
+        replyHidden: true,
+        editHidden: true,
+      }
+
       if (comment.parent_comment === undefined) {
-        this.commentTree.push({thisComment: com, children: []});
+        this.commentTree.push(comTree);
       }
       else {
         this.initCommentTree();
@@ -80,7 +87,13 @@ export class CommentSectionComponent implements OnInit {
     // Fill commentTree with comments with no parents (highest tree level)
     const noParents = this.comments.filter(c => c.parent_comment === null);
     noParents.forEach(c => {
-      this.commentTree.push({thisComment: c, children: []});
+      const comTree: CommentTree = {
+        thisComment: c,
+        children: [],
+        replyHidden: true,
+        editHidden: true,
+      }
+      this.commentTree.push(comTree);
     });
 
     // Get the comment hierarchy tree
@@ -100,7 +113,13 @@ export class CommentSectionComponent implements OnInit {
         commentTree.forEach(ct => {
           const childExists = ct.children.find(ctch => ctch.thisComment._id === child._id);
           if (ct.thisComment._id === child.parent_comment?._id && !childExists) {
-            ct.children.push({thisComment: child, children: []});
+            const comTree: CommentTree = {
+              thisComment: child,
+              children: [],
+              replyHidden: true,
+              editHidden: true,
+            }
+            ct.children.push(comTree);
             ct.children = this.popCommentChildren(ct.children);
           }
         });

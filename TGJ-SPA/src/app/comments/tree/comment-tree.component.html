@@ -1,63 +1,72 @@
 <ul class="tree-view">
-  <li class="system-main" 
-     *ngFor="let comment of comments">
-    <div class="system-main__apps">
-      <p>{{comment.thisComment.author_nickname}} {{comment.thisComment.date_posted}} {{comment.thisComment.last_edited}}</p>
-      <div *ngIf="editHidden else editContainer">
-        <p>{{comment.thisComment.text}}</p>
-      </div>
+	<li class="" 
+		 *ngFor="let comment of comments; let i = index">
+		<div class="">
+			<p>
+				{{comment.thisComment.author_nickname}} 
+				{{comment.thisComment.date_posted | date}} 
+				{{comment.thisComment.last_edited | date}}
+			</p>
+			<div *ngIf="comment.editHidden else editContainer">
+				<p>{{comment.thisComment.text}}</p>
+			</div>
 
-      <ng-template #editContainer>
-        <form (ngSubmit)="submitEdit(editComment)" #editCommentForm="ngForm">
-          <input type="text" class="form-control" name="editText"
-              [(ngModel)]="comment.thisComment.text" 
-              #editText="ngModel">
-          <div [hidden]="editText.valid || editText.pristine" 
-              class="alert alert-danger">
-            Comment is required
-          </div>
+			<ng-template #editContainer>
+				<form (ngSubmit)="submitEdit(editComment, i)" #editCommentForm="ngForm">
+					<input type="text" class="form-control" name="editText"
+							[(ngModel)]="comment.thisComment.text" 
+							#editText="ngModel">
+					<div [hidden]="editText.valid || editText.pristine" 
+							class="alert alert-danger">
+						Comment is required
+					</div>
 
-          <button type="submit" class="btn btn-success" [disabled]="!editCommentForm.form.valid">Update</button>
-        </form>
-      </ng-template>
-      
-      <p>
-        <button class="button" (click)="like(comment.thisComment)"><i class="fa fa-coffee"></i></button> {{comment.thisComment.likes}} 
-        <button class="button" (click)="dislike(comment.thisComment)"><i class="fas fa-teeth"></i></button> {{comment.thisComment.dislikes}} 
-        <button class="button btn-link" (click)="replyClick(comment.thisComment)">Reply</button>
-        <button class="button btn-link" (click)="editClick(comment.thisComment)">Edit</button>
-        <button class="button btn-link" (click)="deleteComment(comment.thisComment._id)">Delete</button>
-      </p> 
-    </div>
-    <div *ngIf="!replyBoxesHidden">
-      <div class="form-group">
-        <label for="nickname">Nickname</label>
-        <input class="form-control" type="text" name="nickname" id="nickname"
-            required [(ngModel)]="newReply.author_nickname" #nickname="ngModel">
-        <div [hidden]="nickname.valid || nickname.pristine" 
-            class="alert alert-danger">
-          Nickname is required
-        </div>
-      </div>
-    
-      <div class="form-group">
-        <label for="text">Comment</label>
-        <input class="form-control" type="text" name="text" id="text"
-            required [(ngModel)]="newReply.text" #text="ngModel">
-        <div [hidden]="text.valid || text.pristine" 
-            class="alert alert-danger">
-          Comment is required
-        </div>
-      </div>
-    
-      <button type="button" class="btn btn-success" [disabled]="!newRepForm.form.valid" (click)="createReply(newReply)">Post</button>
-      
-    </div>
-    <ul *ngIf="comment.children">
-      <app-comment-tree 
-        (delCommentId)="deleteComment($event)" 
-        (replyCommentOut)="createReply($event)"
-        [comments]="comment.children"></app-comment-tree>
-    </ul>
-  </li>
+					<button type="submit" class="btn btn-success" [disabled]="!editCommentForm.form.valid">Update</button>
+				</form>
+			</ng-template>
+			
+			<p>
+				<button class="button" (click)="like(comment.thisComment)">
+					<i class="fa fa-coffee"></i>
+				</button> {{comment.thisComment.likes}} 
+				<button class="button" (click)="dislike(comment.thisComment)">
+					<i class="fas fa-teeth"></i>
+				</button> {{comment.thisComment.dislikes}} 
+				<button class="button btn-link" (click)="replyClick(comment.thisComment, i)">Reply</button>
+				<button class="button btn-link" (click)="editClick(comment.thisComment, i)">Edit</button>
+				<button class="button btn-link" (click)="deleteComment(comment.thisComment._id)">Delete</button>
+			</p> 
+		</div>
+		<div *ngIf="!comment.replyHidden">
+			<form (ngSubmit)="createReply(newReply, i)" #newRepForm="ngForm">
+				<div class="form-group">
+					<label for="nickname">Nickname</label>
+					<input class="form-control" type="text" name="nickname" id="nickname"
+							required [(ngModel)]="newReply.author_nickname" #nickname="ngModel">
+					<div [hidden]="nickname.valid || nickname.pristine" 
+							class="alert alert-danger">
+						Nickname is required
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<label for="text">Comment</label>
+					<input class="form-control" type="text" name="text" id="text"
+							required [(ngModel)]="newReply.text" #text="ngModel">
+					<div [hidden]="text.valid || text.pristine" 
+							class="alert alert-danger">
+						Comment is required
+					</div>
+				</div>
+			
+				<button type="submit" class="btn btn-success" [disabled]="!newRepForm.form.valid">Post</button>
+			</form>
+		</div>
+		<ul *ngIf="comment.children">
+			<app-comment-tree 
+				(delCommentId)="deleteComment($event)" 
+				(replyCommentOut)="createReply($event, i)"
+				[comments]="comment.children"></app-comment-tree>
+		</ul>
+	</li>
 </ul>

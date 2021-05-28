@@ -15,4 +15,6 @@ export interface Comment {
 export interface CommentTree {
   thisComment: Comment;
   children: CommentTree[];
+  replyHidden: boolean;
+  editHidden: boolean;
 }

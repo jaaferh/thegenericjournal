@@ -14,9 +14,9 @@ export class CommentTreeComponent {
   @Output() delCommentId = new EventEmitter<string>();
   @Output() replyCommentOut = new EventEmitter<Comment>();
   newReply = {} as Comment;
-  replyBoxesHidden = true;
+  // replyBoxesHidden = true;
   editComment = {} as Comment;
-  editHidden = true;
+  // editHidden = true;
 
   @ViewChild('newRepForm') newRepForm!: NgForm;
 
@@ -49,31 +49,31 @@ export class CommentTreeComponent {
     }
   }
 
-  replyClick(comment: Comment): void {
-    this.replyBoxesHidden = !this.replyBoxesHidden;
+  replyClick(comment: Comment, index: number): void {
+    this.comments[index].replyHidden = !this.comments[index].replyHidden;
     this.newReply.parent_comment = comment;
   }
 
-  createReply(newComment: Comment): void {
+  createReply(newComment: Comment, index: number): void {
     this.replyCommentOut.emit(newComment);
     if (this.newRepForm !== undefined) {
       this.newRepForm.reset();
-      this.replyBoxesHidden = true;
+      this.comments[index].replyHidden = true;
     }
   }
 
-  editClick(comment: Comment): void {
-    this.editHidden = !this.editHidden;
+  editClick(comment: Comment, index: number): void {
+    this.comments[index].editHidden = !this.comments[index].editHidden;
     this.editComment = comment;
   }
 
-  submitEdit(editedComment: Comment): void {
+  submitEdit(editedComment: Comment, index: number): void {
     editedComment.last_edited = new Date();
     this.commentService.updateComment(editedComment._id, editedComment).subscribe(() => {
       this.alertify.success('Comment Edited Successfully');
       const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
       this.comments[commentIndex].thisComment.text = editedComment.text;
-      this.editHidden = true;
+      this.comments[index].editHidden = true;
     }, error => {
       this.alertify.error(error);
     });
