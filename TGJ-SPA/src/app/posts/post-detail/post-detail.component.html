@@ -1,31 +1,33 @@
-<h1>{{post.title}}</h1>
-<p>{{post.summary}}</p>
-<img [src]=post.author.pic_url>
-<p>{{post.author.first_name}} {{post.author.family_name}}</p>
-<p>{{post.date_created}}</p>
-<p>{{post.content.last_edited}}</p>
-
-<p *ngFor="let topic of post.topics">{{topic.name}}</p>
-
-<img [src]=post.thumbnail>
-
-<div *ngFor="let container of post.content.containers">
-  <p *ngIf="container.type == 'Text'">{{container.title}} {{container.text}}</p>
-  <img *ngIf="container.type == 'Image'" [src]=container.image_url>
-  <p *ngIf="container.type == 'Image'">{{container.caption}}</p>
+<div class="container">
+  <h1>{{post.title}}</h1>
+  <p>{{post.summary}}</p>
+  <img [src]=post.author.pic_url>
+  <p>{{post.author.first_name}} {{post.author.family_name}}</p>
+  <p>{{post.date_created}}</p>
+  <p>{{post.content.last_edited}}</p>
+  
+  <p *ngFor="let topic of post.topics">{{topic.name}}</p>
+  
+  <img [src]=post.thumbnail>
+  
+  <div *ngFor="let container of post.content.containers">
+    <p *ngIf="container.type == 'Text'">{{container.title}} {{container.text}}</p>
+    <img *ngIf="container.type == 'Image'" [src]=container.image_url>
+    <p *ngIf="container.type == 'Image'">{{container.caption}}</p>
+  </div>
+  
+  <button *ngIf="!commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Load Comments</button>
+  <button *ngIf="commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Hide Comments</button>
+  
+  <div *ngIf="commentsVisible">
+    <app-comment-section 
+      [post]="post" 
+      [comments]="comments"></app-comment-section>
+  </div>
+  
+  <br />
+  
+  <button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
+  
+  <button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>
 </div>
-
-<button *ngIf="!commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Load Comments</button>
-<button *ngIf="commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Hide Comments</button>
-
-<div *ngIf="commentsVisible">
-  <app-comment-section 
-    [post]="post" 
-    [comments]="comments"></app-comment-section>
-</div>
-
-<br />
-
-<button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
-
-<button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>

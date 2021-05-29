@@ -59,9 +59,11 @@
             </div>
         </div>
     
-        <div class="float-right">
-            <button type="button" class="btn btn-default mr-2" (click)="navigateAuthors()">Cancel</button>
-            <button type="submit" class="btn btn-success mr-2" [disabled]="!authorForm.form.valid">Submit</button>
+        <div class="buttons">
+            <button type="button" class="btn-secondary input-group-text mr-2" 
+                    (click)="navigateAuthors()">Cancel</button>
+            <button type="submit" class="btn-success input-group-text mr-2" 
+                    [disabled]="!authorForm.form.valid">Submit</button>
         </div>
     </form>
 </div>

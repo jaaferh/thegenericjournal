@@ -3,3 +3,14 @@
     width: clamp(15rem, 20vw, 30rem);
     height: clamp(15rem, 20vw, 30rem);
 }
+
+.buttons {
+    display: flex;
+    justify-content: right;
+
+    > button:disabled {
+        background-color: #eaedf0;
+        border: 1px solid #ced4da;
+        color: gray;
+    }
+}

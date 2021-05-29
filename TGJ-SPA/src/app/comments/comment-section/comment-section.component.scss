@@ -1,0 +1,21 @@
+.com-num {
+    font-size: large;
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+
+    > button {
+        &:disabled {
+            background-color: #eaedf0;
+            border: 1px solid #ced4da;
+            color: gray;
+        }
+
+        // &:focus {
+        //     box-shadow: none;
+        //     outline: none;
+        // }
+    }
+}
