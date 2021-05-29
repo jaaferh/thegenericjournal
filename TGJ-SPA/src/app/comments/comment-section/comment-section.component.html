@@ -3,7 +3,7 @@
 
 <h4 class="pb-3">Leave a Comment</h4>
 
-<form (ngSubmit)="createComment(newComment)" #newComForm="ngForm">
+<form class="mb-4" (ngSubmit)="createComment(newComment)" #newComForm="ngForm">
   <div class="form-group">
     <input class="form-control w-50" type="text" name="nickname" id="nickname"
            required [(ngModel)]="newComment.author_nickname" #nickname="ngModel"

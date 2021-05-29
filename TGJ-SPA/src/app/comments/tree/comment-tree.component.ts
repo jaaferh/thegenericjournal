@@ -76,6 +76,7 @@ export class CommentTreeComponent {
         this.alertify.success('Comment Edited Successfully');
         const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
         this.comments[commentIndex].thisComment.text = editedComment.text;
+        this.comments[commentIndex].thisComment.last_edited = new Date();
         this.comments[index].editHidden = true;
       }, error => {
         this.alertify.error(error);

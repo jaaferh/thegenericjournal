@@ -2,11 +2,11 @@
 	<li class="" 
 		 *ngFor="let comment of comments; let i = index">
 		<div class="">
-			<div class="name-date-wrapper">
+			<div class="row name-date-wrapper">
 				<p class="nickname">{{comment.thisComment.author_nickname}}</p>
-				<p class="dates">{{comment.thisComment.date_posted | date}}</p>
+				<p class="dates">{{comment.thisComment.date_posted | date:'dd/MM/yy'}}</p>
 				<p *ngIf="comment.thisComment.last_edited" class="dates">
-					(edited: {{comment.thisComment.last_edited | date}})
+					(edited: {{comment.thisComment.last_edited | date:'dd/MM/yy'}})
 				</p>
 				<span class="" (click)="editClick(i)">Edit</span>
 			</div>
@@ -42,9 +42,8 @@
 		<div *ngIf="!comment.replyHidden">
 			<form (ngSubmit)="createReply(newReply, i)" #newRepForm="ngForm">
 				<div class="form-group">
-					<label for="nickname">Nickname</label>
-					<input class="form-control" type="text" name="nickname" id="nickname"
-							required [(ngModel)]="newReply.author_nickname" #nickname="ngModel">
+					<input class="form-control w-50" type="text" name="nickname" id="nickname"
+							required [(ngModel)]="newReply.author_nickname" #nickname="ngModel" placeholder="Nickname">
 					<div [hidden]="nickname.valid || nickname.pristine" 
 							class="alert alert-danger mt-2">
 						Nickname is required
@@ -52,9 +51,8 @@
 				</div>
 			
 				<div class="form-group">
-					<label for="text">Comment</label>
 					<textarea class="form-control" type="text" name="text" id="text"
-							required [(ngModel)]="newReply.text" #text="ngModel" rows="3"></textarea>
+							required [(ngModel)]="newReply.text" #text="ngModel" rows="3" placeholder="Comment"></textarea>
 					<div [hidden]="text.valid || text.pristine" 
 							class="alert alert-danger mt-2">
 						Comment is required
