@@ -24,7 +24,7 @@
 					</div>
 
 					<div class="buttons">
-						<button type="submit" class="input-group-text btn-success" 
+						<button type="submit" class="btn input-group-text btn-success" 
 								[disabled]="editComment.text.length < 1 || editCommentForm.form.pristine">
 							Update
 						</button>
@@ -60,15 +60,21 @@
 				</div>
 			
 				<div class="buttons">
-					<button type="submit" class="input-group-text btn-success" [disabled]="!newRepForm.form.valid">Post</button>
+					<button type="submit" class="btn input-group-text btn-success" [disabled]="!newRepForm.form.valid">Post</button>
 				</div>
 			</form>
 		</div>
-		<ul *ngIf="comment.children">
+		<ul *ngIf="comment.children.length > 0 && !comment.hideChildren">
 			<app-comment-tree 
 				(delCommentId)="deleteComment($event)" 
 				(replyCommentOut)="createReply($event, i)"
 				[comments]="comment.children"></app-comment-tree>
 		</ul>
+
+		<div *ngIf="comment.children.length > 0" class="options mb-2">
+			<span *ngIf="comment.hideChildren" (click)="comment.hideChildren = false">Show More</span>
+			<span *ngIf="!comment.hideChildren" (click)="comment.hideChildren = true">Show Less</span>
+		</div>
 	</li>
 </ul>
+

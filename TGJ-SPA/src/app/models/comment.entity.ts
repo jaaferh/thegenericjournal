@@ -17,4 +17,6 @@ export interface CommentTree {
   children: CommentTree[];
   replyHidden: boolean;
   editHidden: boolean;
+  hideChildren: boolean;
+  level: number;
 }

@@ -46,12 +46,16 @@ export class CommentSectionComponent implements OnInit {
       com.parent_comment = comment.parent_comment; // Could be fixed by populating parent_comment on API POST return.
       this.comments.push(com);
 
+      const comLevel = this.commentTree.find(ct => ct.thisComment._id === com.parent_comment?._id)?.level;
+
       // Then push/repopulate Comment Tree
       const comTree: CommentTree = {
         thisComment: com,
         children: [],
         replyHidden: true,
         editHidden: true,
+        hideChildren: false,
+        level: comLevel? comLevel + 1 : 0,
       }
 
       if (comment.parent_comment === undefined) {
@@ -92,12 +96,14 @@ export class CommentSectionComponent implements OnInit {
         children: [],
         replyHidden: true,
         editHidden: true,
+        hideChildren: false,
+        level: 1,
       }
       this.commentTree.push(comTree);
     });
 
     // Get the comment hierarchy tree
-    this.commentTree = this.popCommentChildren(this.commentTree);
+    this.commentTree = this.popCommentChildren(this.commentTree, 2);
   }
 
   // Find parent of each child and push to each parent's children list recursively
@@ -107,7 +113,7 @@ export class CommentSectionComponent implements OnInit {
     Then recurse over the commentTree X's children, this time looking for
     comments that are children of commentTree X's children and so on.
   */
-  private popCommentChildren(commentTree: CommentTree[]): CommentTree[] {
+  private popCommentChildren(commentTree: CommentTree[], level: number): CommentTree[] {
     this.comments.forEach(child => {
       if (child.parent_comment != null) {
         commentTree.forEach(ct => {
@@ -118,9 +124,11 @@ export class CommentSectionComponent implements OnInit {
               children: [],
               replyHidden: true,
               editHidden: true,
+              hideChildren: level == 4,
+              level: level, // Children dont have to each be true
             }
             ct.children.push(comTree);
-            ct.children = this.popCommentChildren(ct.children);
+            ct.children = this.popCommentChildren(ct.children, level + 1);
           }
         });
       }
