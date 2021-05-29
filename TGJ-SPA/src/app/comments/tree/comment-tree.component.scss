@@ -1,0 +1,48 @@
+.tree-view {
+    padding-left: 0;
+    li {
+        list-style-type: none;
+    }
+}
+
+.name-date-wrapper {
+    display: flex;
+    align-items: center;
+
+    * {
+        margin-right: 1%;
+    }
+
+    .nickname {
+        font-weight: 550;
+    }
+
+    .dates {
+        color: gray;
+    }
+
+    span {
+        margin-bottom: 1rem;
+    }
+}
+
+span {
+    cursor: pointer;
+
+    &:hover {
+        color: gray;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+
+    > button {
+        &:disabled {
+            background-color: #eaedf0;
+            border: 1px solid #ced4da;
+            color: gray;
+        }
+    }
+}

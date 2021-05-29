@@ -9,7 +9,7 @@
            required [(ngModel)]="newComment.author_nickname" #nickname="ngModel"
            placeholder="Nickname">
     <div [hidden]="nickname.valid || nickname.pristine" 
-        class="alert alert-danger">
+        class="alert alert-danger mt-2">
       Nickname is required
     </div>
   </div>
@@ -19,7 +19,7 @@
            required [(ngModel)]="newComment.text" #text="ngModel"
            placeholder="Comment" rows="3"></textarea>
     <div [hidden]="text.valid || text.pristine" 
-        class="alert alert-danger">
+        class="alert alert-danger mt-2">
       Comment is required
     </div>
   </div>

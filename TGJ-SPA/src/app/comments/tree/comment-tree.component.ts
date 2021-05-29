@@ -14,11 +14,10 @@ export class CommentTreeComponent {
   @Output() delCommentId = new EventEmitter<string>();
   @Output() replyCommentOut = new EventEmitter<Comment>();
   newReply = {} as Comment;
-  // replyBoxesHidden = true;
   editComment = {} as Comment;
-  // editHidden = true;
 
   @ViewChild('newRepForm') newRepForm!: NgForm;
+  @ViewChild('editCommentForm') editCommentForm!: NgForm;
 
   constructor(
     private commentService: CommentService,
@@ -62,21 +61,26 @@ export class CommentTreeComponent {
     }
   }
 
-  editClick(comment: Comment, index: number): void {
+  editClick(index: number): void {
     this.comments[index].editHidden = !this.comments[index].editHidden;
-    this.editComment = comment;
+    console.log(this.comments[index].thisComment);
+    this.editComment = Object.assign({}, this.comments[index].thisComment);
+    if (this.editCommentForm)
+      this.editCommentForm.control.markAsPristine();
   }
 
   submitEdit(editedComment: Comment, index: number): void {
-    editedComment.last_edited = new Date();
-    this.commentService.updateComment(editedComment._id, editedComment).subscribe(() => {
-      this.alertify.success('Comment Edited Successfully');
-      const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
-      this.comments[commentIndex].thisComment.text = editedComment.text;
-      this.comments[index].editHidden = true;
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (editedComment.text.length > 0) {
+      editedComment.last_edited = new Date();
+      this.commentService.updateComment(editedComment._id, editedComment).subscribe(() => {
+        this.alertify.success('Comment Edited Successfully');
+        const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
+        this.comments[commentIndex].thisComment.text = editedComment.text;
+        this.comments[index].editHidden = true;
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
   }
 
   // onexpand(comment: Comment): void {
