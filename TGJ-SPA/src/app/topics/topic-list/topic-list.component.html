@@ -17,16 +17,16 @@
 								[id]="'name' + i" [(ngModel)]="topicDetail.topic.name" 
 								[name]="'name' + i" #name="ngModel" maxlength="25">
 
-						<button *ngIf="visibleTopics[i]" type="button" class="input-group-text btn-outline-success fa fa-check" 
+						<button *ngIf="visibleTopics[i]" type="button" class="btn input-group-text btn-outline-success fa fa-check" 
 								[id]="'save' + i" [name]="'save' + i"
 								(click)="saveTopic(topicDetail.topic._id, topicDetail.topic)"></button>
 						
-						<button type="button" class="input-group-text btn-outline-secondary" 
+						<button type="button" class="btn input-group-text btn-outline-secondary" 
 								[id]="'update' + i" [name]="'update' + i" 
 								[ngClass]="!visibleTopics[i] ? 'fa fa-edit' : 'fa fa-times'"
 								(click)="updateClick(i)"></button> 
 						
-						<button type="button" class="input-group-text btn-outline-danger fa fa-trash" 
+						<button type="button" class="btn input-group-text btn-outline-danger fa fa-trash" 
 								[id]="'delete' + i" [name]="'delete' + i"
 								(click)="deleteTopic(topicDetail.topic._id)"></button>
 					</div>
@@ -38,11 +38,11 @@
 			</li>
 			<li>
 				<div class="new-wrapper">
-					<button type="button" class="input-group-text btn-outline-success" (click)="showNew = !showNew" 
+					<button type="button" class="btn input-group-text btn-outline-success" (click)="showNew = !showNew" 
 							[ngClass]="!showNew ? 'fa fa-plus' : 'fa fa-times'"></button>
 					<input *ngIf="showNew" type="text" class="form-control" id="newName"
 							[(ngModel)]="newTopic.name" name="newName" #newName="ngModel" maxlength="25">
-					<button *ngIf="showNew" type="button" class="input-group-text btn-outline-success fa fa-check" 
+					<button *ngIf="showNew" type="button" class="btn input-group-text btn-outline-success fa fa-check" 
 							(click)="createTopic()"></button>
 				</div>
 			</li>
