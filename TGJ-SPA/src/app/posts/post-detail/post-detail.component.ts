@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { pluck } from 'rxjs/operators';
+import { ToasterService } from 'angular2-toaster';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { Post } from 'src/app/models/post.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private router: Router,
   ) { }
 
@@ -29,7 +28,7 @@ export class PostDetailComponent implements OnInit {
         this.comments = this.post.comments;
       }
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
@@ -40,10 +39,10 @@ export class PostDetailComponent implements OnInit {
   deletePost(postId: string): void {
     if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(postId).subscribe(() => {
-        this.alertify.success('Post Deleted Successfully');
+        this.toaster.pop('success', 'Post Deleted Successfully');
         void this.router.navigate(['/posts']);
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
   }

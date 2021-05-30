@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToasterService } from 'angular2-toaster';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
-import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-photo-uploader',
@@ -15,7 +15,7 @@ export class PhotoUploaderComponent implements OnInit {
   @Output() uploadedImageUrl = new EventEmitter<string>();
 
   constructor(
-    private alertify: AlertifyService,
+    private toaster: ToasterService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class PhotoUploaderComponent implements OnInit {
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       if (response) {
-        this.alertify.success('Image Uploaded Successfully');
+        this.toaster.pop('success', 'Image Uploaded Successfully');
         this.uploadedImageUrl.emit(response);
       }
     };

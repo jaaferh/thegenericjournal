@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Author, AuthorDetails, AuthorsPosts } from 'src/app/models/author.entity';
+import { Component, OnInit } from '@angular/core';
+import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 import { AuthorService } from 'src/app/services/author.service';
-import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertifyService } from 'src/app/services/alertify.service';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-author-list',
@@ -20,7 +19,7 @@ export class AuthorListComponent implements OnInit {
     private authorService: AuthorService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +27,7 @@ export class AuthorListComponent implements OnInit {
       this.allAuthorsPosts = data.authorsPosts as AuthorsPosts;
       this.authorsPosts = {...this.allAuthorsPosts};
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 

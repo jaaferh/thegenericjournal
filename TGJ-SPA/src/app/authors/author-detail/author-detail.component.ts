@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 import { AuthorDetails } from 'src/app/models/author.entity';
 import { Topic } from 'src/app/models/topic.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthorService } from 'src/app/services/author.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class AuthorDetailComponent implements OnInit {
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private router: Router
   ) { }
 
@@ -26,17 +26,17 @@ export class AuthorDetailComponent implements OnInit {
       this.authorDetails = data.authorDetail as AuthorDetails;
       this.calculateAge();
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
   deleteAuthor(id: string): void {
     if (confirm('Are you sure you want to delete this author?')) {
       this.authorService.deleteAuthor(id).subscribe(() => {
-        this.alertify.success('Author Deleted Successfully');
+        this.toaster.pop('success', 'Author Deleted Successfully');
         void this.router.navigate(['/authors']);
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
   }

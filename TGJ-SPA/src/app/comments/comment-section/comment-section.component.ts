@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild, HostListener, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToasterService } from 'angular2-toaster';
 import { CommentTree, Comment } from 'src/app/models/comment.entity';
 import { Post } from 'src/app/models/post.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class CommentSectionComponent implements OnInit {
 
   constructor(
     private commentService: CommentService,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class CommentSectionComponent implements OnInit {
     comment.date_posted = new Date();
     this.commentService.createComment(comment)
     .subscribe(com => {
-      this.alertify.success('Comment Created Successfully');
+      this.toaster.pop('success', 'Comment Created Successfully');
       this.newComForm.reset();
 
       // First push to Comments list
@@ -66,13 +66,13 @@ export class CommentSectionComponent implements OnInit {
       }
       this.commentNumber++;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
   deleteComment(commentId: string): void {
     this.commentService.deleteComment(commentId).subscribe(() => {
-      this.alertify.success('Comment Deleted Successfully');
+      this.toaster.pop('success', 'Comment Deleted Successfully');
       // Remove from Tree
       this.spliceNode(commentId, this.commentTree);
       // Remove from Comment list
@@ -80,7 +80,7 @@ export class CommentSectionComponent implements OnInit {
       this.comments.splice(commentIndex, 1);
       this.commentNumber--;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 

@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorListResolver } from './resolvers/author-list.resolver';
-import { AlertifyService } from './services/alertify.service';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +33,7 @@ import { PhotoUploaderComponent } from './photo-upload/photo-uploader/photo-uplo
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FooterComponent } from './footer/footer.component';
 import { PostBannerComponent } from './posts/post-banner/post-banner.component';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
   declarations: [
@@ -66,9 +66,9 @@ import { PostBannerComponent } from './posts/post-banner/post-banner.component';
     FileUploadModule,
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'soqudu' }),
     NgxPaginationModule,
+    ToasterModule.forRoot()
   ],
   providers: [
-    AlertifyService,
     AuthorListResolver,
     AuthorDetailResolver,
     TopicListResolver,

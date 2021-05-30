@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
 import { Post } from 'src/app/models/post.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit {
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private router: Router
   ) { }
 
@@ -26,7 +26,7 @@ export class PostListComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.allPosts = this.posts = data.posts as Post[];
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 

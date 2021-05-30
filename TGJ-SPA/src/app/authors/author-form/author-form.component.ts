@@ -3,8 +3,8 @@ import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Author, AuthorDetails } from 'src/app/models/author.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthorService } from 'src/app/services/author.service';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-author-form',
@@ -26,7 +26,7 @@ export class AuthorFormComponent implements OnInit {
 
   constructor(
     private authorService: AuthorService,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
@@ -42,7 +42,7 @@ export class AuthorFormComponent implements OnInit {
         const resAuthorDetail =  data.authorDetail as AuthorDetails;
         this.author = resAuthorDetail.author;
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
   }
@@ -61,22 +61,22 @@ export class AuthorFormComponent implements OnInit {
     console.table(this.author);
     if (this.mode === Mode.Create) {
       this.authorService.createAuthor(this.author).subscribe(newA => {
-        this.alertify.success('Author Created Successfully');
+        this.toaster.pop('success', 'Author Created Successfully');
         this.authorForm.reset(this.author);
         void this.router.navigate(['/author', newA._id]);
         
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
     else {
       if (this.id != null) {
         this.authorService.updateAuthor(this.id, this.author).subscribe(() => {
-          this.alertify.success('Author Updated Successfully');
+          this.toaster.pop('success', 'Author Updated Successfully');
           this.authorForm.reset(this.author);
           void this.router.navigate(['/author', this.id]);
         }, error => {
-          this.alertify.error(error);
+          this.toaster.pop('error', error);
         });
       }
     }

@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.entity';
 import { Container } from 'src/app/models/container.entity';
 import { Topic } from 'src/app/models/topic.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ContainerService } from 'src/app/services/container.service';
 import { Author, AuthorsPosts } from 'src/app/models/author.entity';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-post-form',
@@ -34,7 +34,7 @@ export class PostFormComponent implements OnInit {
   constructor(
     private postService: PostService,
     private containerService: ContainerService,
-    private alertify: AlertifyService,
+    private toaster: ToasterService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -51,7 +51,7 @@ export class PostFormComponent implements OnInit {
       const resAuthorPosts = data.authorsPosts as AuthorsPosts;
       this.authors = resAuthorPosts.authors;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
@@ -82,11 +82,11 @@ export class PostFormComponent implements OnInit {
   onSubmit(): void {
     if (this.mode === Mode.Create) {
       this.postService.createPost(this.post).subscribe(newP => {
-        this.alertify.success('Post Created Successfully');
+        this.toaster.pop('success', 'Post Created Successfully');
         this.postForm.reset(this.post);
         void this.router.navigate(['/post/' + newP._id]);
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
     else {
@@ -94,11 +94,11 @@ export class PostFormComponent implements OnInit {
       if (this.id != null) {
         this.post.content.last_edited = new Date();
         this.postService.updatePost(this.id, this.post).subscribe(() => {
-          this.alertify.success('Post Updated Successfully');
+          this.toaster.pop('success', 'Post Updated Successfully');
           this.postForm.reset(this.post);
           void this.router.navigate(['/post', this.id]);
         }, error => {
-          this.alertify.error(error);
+          this.toaster.pop('error', error);
         });
       }
     }
@@ -138,11 +138,11 @@ export class PostFormComponent implements OnInit {
   createContainer(): void {
     this.containerAdd.post = this.post;
     this.containerService.createContainer(this.containerAdd).subscribe(cont => {
-      this.alertify.success('Container Created Successfully');
+      this.toaster.pop('success', 'Container Created Successfully');
       this.post.content.containers.push(cont);
       this.showNewContainer = false;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
@@ -151,7 +151,7 @@ export class PostFormComponent implements OnInit {
       this.containerService.deleteContainer(containerId).subscribe(() => {
         this.post.content.containers.splice(index, 1);
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       });
     }
     else {

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ToasterService } from 'angular2-toaster';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
-import { AlertifyService } from 'src/app/services/alertify.service';
 import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class CommentTreeComponent {
 
   constructor(
     private commentService: CommentService,
-    private alertify: AlertifyService
+    private toaster: ToasterService
   ) { }
 
   like(comment: Comment): void {
@@ -29,7 +29,7 @@ export class CommentTreeComponent {
       const commentIndex = this.comments.findIndex(com => com.thisComment._id === comment._id);
       this.comments[commentIndex].thisComment.likes++;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
@@ -38,7 +38,7 @@ export class CommentTreeComponent {
       const commentIndex = this.comments.findIndex(com => com.thisComment._id === comment._id);
       this.comments[commentIndex].thisComment.dislikes++;
     }, error => {
-      this.alertify.error(error);
+      this.toaster.pop('error', error);
     });
   }
 
@@ -74,30 +74,14 @@ export class CommentTreeComponent {
     if (editedComment.text.length > 0) {
       editedComment.last_edited = new Date();
       this.commentService.updateComment(editedComment._id, editedComment).subscribe(() => {
-        this.alertify.success('Comment Edited Successfully');
+        this.toaster.pop('success', 'Comment Edited Successfully');
         const commentIndex = this.comments.findIndex(com => com.thisComment._id === editedComment._id);
         this.comments[commentIndex].thisComment.text = editedComment.text;
         this.comments[commentIndex].thisComment.last_edited = new Date();
         this.comments[index].editHidden = true;
       }, error => {
-        this.alertify.error(error);
+        this.toaster.pop('error', error);
       }); 
     } 
   }
-
-  // onexpand(comment: Comment): void {
-  //   if (comment.expanded) {
-  //     comment.expanded = !comment.expanded;
-  //     return;
-  //   } else {
-  //     if (comment.children) {
-  //       if (comment.children.length > 0) {
-  //         comment.expanded = true;
-  //       } else {
-  //         comment.expanded = false;
-  //       }
-  //     }
-  //   }
-  // }
-
 }
