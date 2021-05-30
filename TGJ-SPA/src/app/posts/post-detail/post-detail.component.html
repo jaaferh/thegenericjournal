@@ -1,23 +1,50 @@
 <div class="container pb-5">
-  <h1>{{post.title}}</h1>
-  <p>{{post.summary}}</p>
-  <img [src]=post.author.pic_url>
-  <p>{{post.author.first_name}} {{post.author.family_name}}</p>
-  <p>{{post.date_created}}</p>
-  <p>{{post.content.last_edited}}</p>
+  <div class="mb-1">
+    <h1>{{post.title}}</h1>
+    <p>{{post.summary}}</p>
+    </div>
+  <div class="author-date-wrapper row">
+    <div class="col">
+      <img [src]=post.author.pic_url>  
+      <span>{{post.author.first_name}} {{post.author.family_name}}</span>
+    </div>
+    <div class="col mb-4 mt-4">
+      <p>{{post.date_created | date:'longDate'}}</p>
+      <p>Last Edited: {{post.content.last_edited | date:'longDate'}}</p>  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-9">
+      <div class="topic-wrapper">
+        <div *ngFor="let topic of post.topics" class="topic" >{{topic.name}}</div>
+      </div>    
+    </div>
+    <div class="col-3 edit-del-wrapper">
+      <button type="button" class="btn btn-gray btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
+      <button type="button" class="btn btn-gray btn-outline-danger" (click)="deletePost(post._id)">Delete</button>    
+    </div>
+  </div>
+
+
+  <div class="thumbnail-wrapper">
+    <img [src]=post.thumbnail>
+  </div>  
   
-  <p *ngFor="let topic of post.topics">{{topic.name}}</p>
-  
-  <img [src]=post.thumbnail>
-  
-  <div *ngFor="let container of post.content.containers">
-    <p *ngIf="container.type == 'Text'">{{container.title}} {{container.text}}</p>
-    <img *ngIf="container.type == 'Image'" [src]=container.image_url>
-    <p *ngIf="container.type == 'Image'">{{container.caption}}</p>
+  <div *ngFor="let container of post.content.containers" class="container-wrapper">
+    <h3 *ngIf="container.type == 'Text'" class="cont-title">{{container.title}}</h3>
+    <p>{{container.text}}</p>
+    <div class="image-cont">
+      <img *ngIf="container.type == 'Image'" [src]=container.image_url>
+      <p *ngIf="container.type == 'Image'" class="caption">{{container.caption}}</p>
+    </div>
   </div>
   
-  <button *ngIf="!commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Load Comments</button>
-  <button *ngIf="commentsVisible" type="button" class="btn btn-outline-secondary" (click)="viewCommentsToggle()">Hide Comments</button>
+  <div class="comments-toggle-wrapper">
+    <button type="button" 
+            class="btn btn-gray btn-outline-secondary " 
+            (click)="viewCommentsToggle()">{{!commentsVisible ? 'Load Comments' : 'Hide Comments'}}</button>
+  </div>
   
   <div *ngIf="commentsVisible">
     <app-comment-section 
@@ -27,7 +54,4 @@
   
   <br />
   
-  <button type="button" class="btn btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
-  
-  <button type="button" class="btn btn-outline-danger" (click)="deletePost(post._id)">Delete</button>
 </div>

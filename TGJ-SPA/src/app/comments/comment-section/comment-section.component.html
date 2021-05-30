@@ -1,7 +1,7 @@
-<p class="text-center com-num">{{commentNumber}} Comments</p>
-  
-
-<h4 class="pb-3">Leave a Comment</h4>
+<div class="num-title">
+  <p>{{commentNumber}} Comments</p>
+  <h5 class="pb-3">Leave a Comment</h5>
+ </div>
 
 <form class="mb-4" (ngSubmit)="createComment(newComment)" #newComForm="ngForm">
   <div class="form-group">
