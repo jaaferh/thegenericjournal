@@ -17,7 +17,8 @@ export class NavComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.navbarTopOffset = this.navbar.nativeElement.getBoundingClientRect().top;
+    const navBarNativElement = this.navbar.nativeElement as Element;
+    this.navbarTopOffset = navBarNativElement.getBoundingClientRect().top;  
   }
 
   checkSticky(): void {

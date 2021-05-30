@@ -10,7 +10,7 @@ describe('AuthorFormComponent', () => {
   let fixture: ComponentFixture<AuthorFormComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ AuthorFormComponent ]
     })
     .compileComponents();

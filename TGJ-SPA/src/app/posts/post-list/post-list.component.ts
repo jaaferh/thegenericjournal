@@ -24,7 +24,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.allPosts = this.posts = data.posts;
+      this.allPosts = this.posts = data.posts as Post[];
     }, error => {
       this.alertify.error(error);
     });

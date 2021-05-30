@@ -10,7 +10,7 @@ describe('PostFormComponent', () => {
   let fixture: ComponentFixture<PostFormComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ PostFormComponent ]
     })
     .compileComponents();

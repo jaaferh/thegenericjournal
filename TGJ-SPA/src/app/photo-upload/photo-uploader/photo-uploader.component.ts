@@ -22,9 +22,9 @@ export class PhotoUploaderComponent implements OnInit {
     this.initialiseUploader();
   }
 
-  fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
+  // fileOverBase(e: any): void { // boolean type
+  //   this.hasBaseDropZoneOver = e;
+  // }
 
   initialiseUploader(): void {
     this.uploader = new FileUploader({

@@ -10,7 +10,7 @@ describe('PostDetailComponent', () => {
   let fixture: ComponentFixture<PostDetailComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ PostDetailComponent ]
     })
     .compileComponents();

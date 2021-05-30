@@ -23,7 +23,7 @@ export class AuthorDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.authorDetails = data.authorDetail;
+      this.authorDetails = data.authorDetail as AuthorDetails;
       this.calculateAge();
     }, error => {
       this.alertify.error(error);
@@ -34,7 +34,7 @@ export class AuthorDetailComponent implements OnInit {
     if (confirm('Are you sure you want to delete this author?')) {
       this.authorService.deleteAuthor(id).subscribe(() => {
         this.alertify.success('Author Deleted Successfully');
-        this.router.navigate(['/authors']);
+        void this.router.navigate(['/authors']);
       }, error => {
         this.alertify.error(error);
       });

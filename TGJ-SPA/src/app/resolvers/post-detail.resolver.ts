@@ -18,7 +18,7 @@ export class PostDetailResolver implements Resolve<Post> {
         return this.postService.getPostDetail(route.params.id).pipe(
           catchError(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['/posts']);
+            void this.router.navigate(['/posts']);
             return [];
           })
         );

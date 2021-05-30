@@ -24,7 +24,7 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.post = data.post;
+      this.post = data.post as Post;
       if (this.post.comments) {
         this.comments = this.post.comments;
       }
@@ -34,14 +34,14 @@ export class PostDetailComponent implements OnInit {
   }
 
   updatePost(postId: string): void {
-    this.router.navigate(['/post/:id/edit', {id: postId}]);
+    void this.router.navigate(['/post/:id/edit', {id: postId}]);
   }
 
   deletePost(postId: string): void {
     if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(postId).subscribe(() => {
         this.alertify.success('Post Deleted Successfully');
-        this.router.navigate(['/posts']);
+        void this.router.navigate(['/posts']);
       }, error => {
         this.alertify.error(error);
       });

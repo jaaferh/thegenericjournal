@@ -81,8 +81,8 @@ export class CommentTreeComponent {
         this.comments[index].editHidden = true;
       }, error => {
         this.alertify.error(error);
-      });
-    }
+      }); 
+    } 
   }
 
   // onexpand(comment: Comment): void {

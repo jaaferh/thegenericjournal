@@ -10,7 +10,7 @@ describe('AuthorListComponent', () => {
   let fixture: ComponentFixture<AuthorListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ AuthorListComponent ]
     })
     .compileComponents();

@@ -8,7 +8,7 @@ import { AlertifyService } from 'src/app/services/alertify.service';
 import { PostService } from 'src/app/services/post.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ContainerService } from 'src/app/services/container.service';
-import { Author } from 'src/app/models/author.entity';
+import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 
 @Component({
   selector: 'app-post-form',
@@ -23,10 +23,10 @@ export class PostFormComponent implements OnInit {
   showNewContainer = false;
   containerAdd = {} as Container;
   mode: Mode = Mode.Create;
-  id: string | null = '';
+  id: string = '';
   @ViewChild('postForm') postForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any): void {
+  unloadNotification($event: Event): void {
     if (this.postForm.dirty) {
       $event.returnValue = true;
     }
@@ -40,15 +40,16 @@ export class PostFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id') as string;
     this.mode = this.id ? Mode.Edit : Mode.Create;
 
     this.route.data.subscribe(data => {
       if (this.mode === Mode.Edit) {
-        this.post = data.post;
+        this.post = data.post as Post;
       }
-      this.topics = data.topics;
-      this.authors = data.authorsPosts.authors;
+      this.topics = data.topics as Topic[];
+      const resAuthorPosts = data.authorsPosts as AuthorsPosts;
+      this.authors = resAuthorPosts.authors;
     }, error => {
       this.alertify.error(error);
     });
@@ -62,7 +63,7 @@ export class PostFormComponent implements OnInit {
 
   doAuthorFilter(): void { } // TODO
 
-  drop(event: any): void {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.post.content.containers, event.previousIndex, event.currentIndex);
   }
 
@@ -83,7 +84,7 @@ export class PostFormComponent implements OnInit {
       this.postService.createPost(this.post).subscribe(newP => {
         this.alertify.success('Post Created Successfully');
         this.postForm.reset(this.post);
-        this.router.navigate(['/post/' + newP._id]);
+        void this.router.navigate(['/post/' + newP._id]);
       }, error => {
         this.alertify.error(error);
       });
@@ -95,7 +96,7 @@ export class PostFormComponent implements OnInit {
         this.postService.updatePost(this.id, this.post).subscribe(() => {
           this.alertify.success('Post Updated Successfully');
           this.postForm.reset(this.post);
-          this.router.navigate(['/post/' + this.id]);
+          void this.router.navigate(['/post', this.id]);
         }, error => {
           this.alertify.error(error);
         });

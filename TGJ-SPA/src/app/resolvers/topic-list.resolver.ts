@@ -18,7 +18,7 @@ export class TopicListResolver implements Resolve<Topic[]> {
         return this.topicService.getTopicList().pipe(
           catchError(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['/']);
+            void this.router.navigate(['/']);
             return [];
           })
         );

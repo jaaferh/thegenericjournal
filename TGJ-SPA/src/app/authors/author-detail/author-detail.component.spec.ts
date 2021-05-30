@@ -10,7 +10,7 @@ describe('AuthorDetailComponent', () => {
   let fixture: ComponentFixture<AuthorDetailComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ AuthorDetailComponent ]
     })
     .compileComponents();

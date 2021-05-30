@@ -18,7 +18,7 @@ export class AuthorListResolver implements Resolve<AuthorsPosts> {
         return this.authorService.getAuthorPosts().pipe(
           catchError(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['/']);
+            void this.router.navigate(['/']);
             return [];
           })
         );

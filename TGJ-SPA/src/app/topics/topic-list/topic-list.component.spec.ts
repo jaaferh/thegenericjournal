@@ -10,7 +10,7 @@ describe('TopicListComponent', () => {
   let fixture: ComponentFixture<TopicListComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ TopicListComponent ]
     })
     .compileComponents();

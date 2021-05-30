@@ -18,7 +18,7 @@ export class CommentSectionComponent implements OnInit {
   newComment = {} as Comment;
   @ViewChild('newComForm') newComForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any): void {
+  unloadNotification($event: Event): void {
     if (this.newComForm.dirty) {
       $event.returnValue = true;
     }

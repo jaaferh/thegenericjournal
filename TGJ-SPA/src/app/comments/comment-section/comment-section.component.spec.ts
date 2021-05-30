@@ -10,7 +10,7 @@ describe('CommentSectionComponent', () => {
   let fixture: ComponentFixture<CommentSectionComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ CommentSectionComponent ]
     })
     .compileComponents();

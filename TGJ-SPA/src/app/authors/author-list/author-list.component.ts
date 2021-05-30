@@ -25,8 +25,8 @@ export class AuthorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.allAuthorsPosts = data.authorsPosts;
-      this.authorsPosts = {...data.authorsPosts};
+      this.allAuthorsPosts = data.authorsPosts as AuthorsPosts;
+      this.authorsPosts = {...this.allAuthorsPosts};
     }, error => {
       this.alertify.error(error);
     });
@@ -53,7 +53,7 @@ export class AuthorListComponent implements OnInit {
   }
 
   routeToAuthor(authorId: string): void {
-    this.router.navigate(['/author', authorId]);
+    void this.router.navigate(['/author', authorId]);
   }
 
 }

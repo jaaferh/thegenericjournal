@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Author } from 'src/app/models/author.entity';
+import { Author, AuthorDetails } from 'src/app/models/author.entity';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthorService } from 'src/app/services/author.service';
 
@@ -13,12 +13,12 @@ import { AuthorService } from 'src/app/services/author.service';
 })
 export class AuthorFormComponent implements OnInit {
   mode: Mode = Mode.Create;
-  id: string | null = '';
+  id: string = '';
   author = {} as Author;
   newDate: any;
   @ViewChild('authorForm') authorForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any): void {
+  unloadNotification($event: Event): void {
     if (this.authorForm.dirty) {
       $event.returnValue = true;
     }
@@ -33,13 +33,14 @@ export class AuthorFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id') as string;
     this.mode = this.id ? Mode.Edit : Mode.Create;
     this.author.pic_url = 'http://res.cloudinary.com/soqudu/image/upload/v1621168850/xyniooa0hep6j8eeboin.png';
 
     if (this.mode === Mode.Edit) {
       this.route.data.subscribe(data => {
-        this.author = data.authorDetail.author;
+        const resAuthorDetail =  data.authorDetail as AuthorDetails;
+        this.author = resAuthorDetail.author;
       }, error => {
         this.alertify.error(error);
       });
@@ -62,7 +63,8 @@ export class AuthorFormComponent implements OnInit {
       this.authorService.createAuthor(this.author).subscribe(newA => {
         this.alertify.success('Author Created Successfully');
         this.authorForm.reset(this.author);
-        this.router.navigate(['/author/' + newA._id]);
+        void this.router.navigate(['/author', newA._id]);
+        
       }, error => {
         this.alertify.error(error);
       });
@@ -72,7 +74,7 @@ export class AuthorFormComponent implements OnInit {
         this.authorService.updateAuthor(this.id, this.author).subscribe(() => {
           this.alertify.success('Author Updated Successfully');
           this.authorForm.reset(this.author);
-          this.router.navigate(['/author/' + this.id]);
+          void this.router.navigate(['/author', this.id]);
         }, error => {
           this.alertify.error(error);
         });

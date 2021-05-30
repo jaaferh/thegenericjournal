@@ -18,7 +18,7 @@ export class PostListResolver implements Resolve<Post[]> {
         return this.postService.getPostList().pipe(
           catchError(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['/']);
+            void this.router.navigate(['/']);
             return [];
           })
         );

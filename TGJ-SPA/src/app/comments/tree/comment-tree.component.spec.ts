@@ -10,7 +10,7 @@ describe('TreeComponent', () => {
   let fixture: ComponentFixture<CommentTreeComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [ CommentTreeComponent ]
     })
     .compileComponents();

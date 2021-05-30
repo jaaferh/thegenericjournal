@@ -18,7 +18,7 @@ export class AuthorDetailResolver implements Resolve<AuthorDetails> {
         return this.authorService.getAuthorDetail(route.params.id).pipe(
           catchError(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['/authors']);
+            void this.router.navigate(['/authors']);
             return [];
           })
         );
