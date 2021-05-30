@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
-import { Topic, TopicDetails } from 'src/app/models/topic.entity';
+import { Topic, TopicDetails, TopicsPosts } from 'src/app/models/topic.entity';
 import { TopicService } from 'src/app/services/topic.service';
 
 @Component({
@@ -10,10 +10,10 @@ import { TopicService } from 'src/app/services/topic.service';
   styleUrls: ['./topic-list.component.scss']
 })
 export class TopicListComponent implements OnInit {
-  topics: Topic[] = [];
-  topicDetails: TopicDetails[] = [];
+  topicsPosts = {} as TopicsPosts;
   newTopic = {} as Topic;
   visibleTopics: boolean[] = [];
+  editedNames: string[] = [];
   showNew = false;
   p = 1;
   constructor(
@@ -24,42 +24,35 @@ export class TopicListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.topics = data.topics as Topic[];
-      this.getTopicDetails();
+      this.topicsPosts = data.topicsPosts as TopicsPosts;
+      console.log(this.topicsPosts);
     }, error => {
       this.toaster.pop('error', error);
     });
   }
 
-  getTopicDetails(): void {
-    this.topics.forEach(topic => {
-      this.topicService.getTopicDetail(topic._id).subscribe(data => {
-        this.topicDetails.push(data);
-      }, error => {
-        this.toaster.pop('error', error);
-      });
-    });
+  getPostCount(topic: Topic): number {
+    return this.topicsPosts.posts.filter(p => p.topics?.some(t => t._id === topic._id)).length;
   }
 
   deleteTopic(topicId: string): void {
     if (confirm('Are you sure you want to delete this topic?')) {
       this.topicService.deleteTopic(topicId).subscribe(() => {
         this.toaster.pop('success', 'Topic Deleted Successfully');
-        const topicIndex = this.topics.findIndex(topic => topic._id === topicId);
-        const topicDetIndex = this.topicDetails.findIndex(td => td.topic._id === topicId);
-        this.topics.splice(topicIndex, 1);
-        this.topicDetails.splice(topicDetIndex, 1);
+        const topicIndex = this.topicsPosts.topics.findIndex(t => t._id === topicId);
+        this.topicsPosts.topics.splice(topicIndex, 1);
       }, error => {
         this.toaster.pop('error', error);
       });
     }
   }
 
-  saveTopic(topicId: string, topic: Topic, index: number): void {
-    if (topic.name.length > 1) {
-      this.topicService.updateTopic(topicId, topic).subscribe(() => {
+  saveTopic(topicId: string, name: string, index: number): void {
+    if (name.length > 1) {
+      const editedTopic = { _id: topicId, name } as Topic;
+      this.topicService.updateTopic(topicId, editedTopic).subscribe(() => {
         this.toaster.pop('success', 'Topic Updated Successfully');
-        this.topics[index].name = topic.name;
+        this.topicsPosts.topics[index].name = name;
         this.updateClick(index);
       }, error => {
         this.toaster.pop('error', error);
@@ -70,25 +63,27 @@ export class TopicListComponent implements OnInit {
   }
 
   updateClick(index: number): void {
-    if (this.visibleTopics[index] === undefined)
+    if (this.visibleTopics[index] === undefined) {
       this.visibleTopics[index] = true;
+      this.editedNames[index] = this.topicsPosts.topics[index].name;
+    }
     else {
       this.visibleTopics[index] = !this.visibleTopics[index];
-      this.topicDetails[index].topic.name = this.topics[index].name;
+      this.editedNames[index] = this.topicsPosts.topics[index].name;
     }
       
   }
 
   createTopic(): void {
-    const topicExists = this.topics.some(t => t.name.toLowerCase() === this.newTopic.name.toLowerCase());
+    const topicExists = this.topicsPosts.topics
+      .some(t => t.name.toLowerCase() === this.newTopic.name.toLowerCase());
     if (topicExists) {
       this.toaster.pop('error', 'Topic already exists');
     }
     if (Object.keys(this.newTopic).length) {
       this.topicService.createTopic(this.newTopic).subscribe(data => {
         this.toaster.pop('success', 'Topic Created Successfully');
-        this.topics.push(data);
-        this.topicDetails.push({topic: data, topic_posts: []});
+        this.topicsPosts.topics.push(data);
         this.newTopic.name = '';
       }, error => {
         this.toaster.pop('error', error);

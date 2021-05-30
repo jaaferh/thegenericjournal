@@ -101,6 +101,9 @@ router.get('/topic/:id', topicController.topic_detail);
 // GET request for list of all topic.
 router.get('/topics', topicController.topic_list);
 
+// GET request for list of all Topics and All Posts.
+router.get('/topics/posts', topicController.topic_posts);
+
 /// CLOUDINARY ROUTES ///
 
 // POST request to upload photo.

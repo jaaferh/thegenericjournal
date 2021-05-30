@@ -31,7 +31,7 @@
 </form>
 
 
-<app-comment-tree 
+<app-comment-tree class="overflow-wrapper"
   [comments]="commentTree"
   (delCommentId)="deleteComment($event)"
   (replyCommentOut)="createComment($event)"></app-comment-tree>

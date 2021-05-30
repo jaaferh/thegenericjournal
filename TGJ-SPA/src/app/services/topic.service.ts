@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Topic, TopicDetails } from '../models/topic.entity';
+import { Topic, TopicDetails, TopicsPosts } from '../models/topic.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ constructor(private http: HttpClient) { }
 
   getTopicList(): Observable<Topic[]> {
     return this.http.get<Topic[]>(this.baseUrl + 'topics');
+  }
+
+  getTopicPosts(): Observable<TopicsPosts> {
+    return this.http.get<TopicsPosts>(this.baseUrl + 'topics/posts');
   }
 
   getTopicDetail(topicId: string): Observable<TopicDetails> {

@@ -42,21 +42,32 @@ exports.author_search = (req, res, next) => {
     });
 };
 
+// // AUTHOR_POSTS GET
+// exports.author_posts = (req, res, next) => {
+//   Author.find()
+//     .sort([['first_name', 'ascending']])
+//     .exec((err, listAuthors) => {
+//       if (err) { return next(err); }
+//       // Successful
+//       return Post.find()
+//         .populate('author')
+//         .exec((error, listPosts) => {
+//           if (error) { return next(error); }
+//           // Successful
+//           return res.send({ authors: listAuthors, posts: listPosts });
+//         });
+//     });
+// };
+
 // AUTHOR_POSTS GET
 exports.author_posts = (req, res, next) => {
   Author.find()
     .sort([['first_name', 'ascending']])
-    .exec((err, listAuthors) => {
-      if (err) { return next(err); }
-      // Successful
-      return Post.find()
-        .populate('author')
-        .exec((error, listPosts) => {
-          if (error) { return next(error); }
-          // Successful
-          return res.send({ authors: listAuthors, posts: listPosts });
-        });
-    });
+    .then((listAuthors) => Post.find()
+      .populate('author')
+      .then((listPosts) => res.send({ authors: listAuthors, posts: listPosts }))
+      .catch((err) => next(err)))
+    .catch((err) => next(err));
 };
 
 // DETAIL GET.

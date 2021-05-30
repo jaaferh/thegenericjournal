@@ -5,21 +5,21 @@
 	
 	<div class="mb-4">
 		<ul>
-			<li class="" *ngFor="let topicDetail of topicDetails | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+			<li class="" *ngFor="let topic of topicsPosts.topics | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
 				<div class="flex-wrapper">
 					<div *ngIf="!visibleTopics[i]" class="title-count">
-						<p>{{topicDetail.topic.name}}</p>
-						<p class="post">(Posts: {{topicDetail.topic_posts.length}})</p>
+						<p>{{topic.name}}</p>
+						<p class="post">(Posts: {{getPostCount(topic)}})</p>
 					</div>
 
 					<div class="inputs">
 						<input *ngIf="visibleTopics[i]" type="text" class="form-control" 
-								[id]="'name' + i" [(ngModel)]="topicDetail.topic.name"
+								[id]="'name' + i" [(ngModel)]="editedNames[i]"
 								[name]="'name' + i" #name="ngModel" maxlength="25">
 
 						<button *ngIf="visibleTopics[i]" type="button" class="btn input-group-text btn-outline-success fa fa-check" 
 								[id]="'save' + i" [name]="'save' + i"
-								(click)="saveTopic(topicDetail.topic._id, topicDetail.topic, i)"></button>
+								(click)="saveTopic(topic._id, editedNames[i], i)"></button>
 						
 						<button type="button" class="btn input-group-text btn-outline-secondary" 
 								[id]="'update' + i" [name]="'update' + i" 
@@ -28,7 +28,7 @@
 						
 						<button type="button" class="btn input-group-text btn-outline-danger fa fa-trash" 
 								[id]="'delete' + i" [name]="'delete' + i"
-								(click)="deleteTopic(topicDetail.topic._id)"></button>
+								(click)="deleteTopic(topic._id)"></button>
 					</div>
 				
 				 

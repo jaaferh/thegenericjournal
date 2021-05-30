@@ -14,6 +14,17 @@ exports.topic_list = (req, res, next) => {
     });
 };
 
+// TOPICS POSTS GET
+exports.topic_posts = (req, res, next) => {
+  Topic.find()
+    .sort([['name', 'ascending']])
+    .then((listTopics) => Post.find()
+      .populate('topics')
+      .then((listPosts) => res.send({ topics: listTopics, posts: listPosts }))
+      .catch((err) => next(err)))
+    .catch((err) => next(err));
+};
+
 // DETAIL GET
 exports.topic_detail = (req, res, next) => {
   async.parallel({

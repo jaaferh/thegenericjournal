@@ -28,7 +28,7 @@ const routes: Routes = [
       { path: 'author/:id/edit', component: AuthorFormComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
       { path: 'topics', component: TopicListComponent,
-          resolve: {topics: TopicListResolver} },
+          resolve: {topicsPosts: TopicListResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
       { path: 'post/new', component: PostFormComponent,
