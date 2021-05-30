@@ -14,12 +14,12 @@
 
 					<div class="inputs">
 						<input *ngIf="visibleTopics[i]" type="text" class="form-control" 
-								[id]="'name' + i" [(ngModel)]="topicDetail.topic.name" 
+								[id]="'name' + i" [(ngModel)]="topicDetail.topic.name"
 								[name]="'name' + i" #name="ngModel" maxlength="25">
 
 						<button *ngIf="visibleTopics[i]" type="button" class="btn input-group-text btn-outline-success fa fa-check" 
 								[id]="'save' + i" [name]="'save' + i"
-								(click)="saveTopic(topicDetail.topic._id, topicDetail.topic)"></button>
+								(click)="saveTopic(topicDetail.topic._id, topicDetail.topic, i)"></button>
 						
 						<button type="button" class="btn input-group-text btn-outline-secondary" 
 								[id]="'update' + i" [name]="'update' + i" 

@@ -55,19 +55,28 @@ export class TopicListComponent implements OnInit {
     }
   }
 
-  saveTopic(topicId: string, topic: Topic): void {
-    this.topicService.updateTopic(topicId, topic).subscribe(() => {
-      this.toaster.pop('success', 'Topic Updated Successfully');
-    }, error => {
-      this.toaster.pop('error', error);
-    });
+  saveTopic(topicId: string, topic: Topic, index: number): void {
+    if (topic.name.length > 1) {
+      this.topicService.updateTopic(topicId, topic).subscribe(() => {
+        this.toaster.pop('success', 'Topic Updated Successfully');
+        this.topics[index].name = topic.name;
+        this.updateClick(index);
+      }, error => {
+        this.toaster.pop('error', error);
+      });
+    }
+    else 
+      this.toaster.pop('info', 'Topic must have a name');
   }
 
   updateClick(index: number): void {
     if (this.visibleTopics[index] === undefined)
       this.visibleTopics[index] = true;
-    else 
+    else {
       this.visibleTopics[index] = !this.visibleTopics[index];
+      this.topicDetails[index].topic.name = this.topics[index].name;
+    }
+      
   }
 
   createTopic(): void {

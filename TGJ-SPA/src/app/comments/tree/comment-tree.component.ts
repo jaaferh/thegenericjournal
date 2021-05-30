@@ -64,7 +64,6 @@ export class CommentTreeComponent {
 
   editClick(index: number): void {
     this.comments[index].editHidden = !this.comments[index].editHidden;
-    console.log(this.comments[index].thisComment);
     this.editComment = Object.assign({}, this.comments[index].thisComment);
     if (this.editCommentForm)
       this.editCommentForm.control.markAsPristine();
