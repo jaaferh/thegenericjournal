@@ -24,21 +24,6 @@
         }
     }
 
-    .topic {
-        padding: 0 1% 0 1%;
-        margin-bottom: 0.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background-color: hsl(0, 0%, 91%);
-        color: hsl(0, 0%, 29%);
-        border-radius: 10%;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     .date-wrapper {
         color: gray;
     }
