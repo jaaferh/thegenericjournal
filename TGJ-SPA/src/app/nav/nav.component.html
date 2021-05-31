@@ -1,4 +1,4 @@
-<div [ngClass]="stick ? 'sticky-padding' : ''">
+<div class="all-wrap" [ngClass]="stick ? 'sticky-padding' : ''">
   <header role="banner">
     <div class="page-header fullnav" routerLink="/">
       <h1></h1>
@@ -13,7 +13,7 @@
     </div>
   </header>
   <nav class="navbar-expand-lg" [ngClass]="stick ? 'sticky' : ''" #navbar>
-    <div [ngClass]="showNav ? 'hideNav' : ''" class="navmenu" >
+    <div class="navmenu" [ngClass]="showNav ? 'hideNav' : ''">
       <ul>
         <li class="navitem">
           <a class="nav-link" href="authors">Authors <span class="sr-only">(current)</span></a>

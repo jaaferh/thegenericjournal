@@ -118,6 +118,10 @@
 }
 
 @media screen and (max-width: 580px) {
+    .all-wrap {
+        margin-bottom: 3rem;
+    }
+
     .smallnav {
         display: flex;
     }

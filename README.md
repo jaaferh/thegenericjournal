@@ -41,7 +41,6 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
-- Adjust post font in comment section / subtitles
 - NgModel issue with comment edits on the same level
 - Implement error catching properly in controllers
 - Fix styling issues on resize/mobile

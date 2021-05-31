@@ -1,26 +1,26 @@
 <div class="container pb-5">
-  <div class="mb-1">
+  <div class="mb-1 header-wrapper">
     <h1>{{post.title}}</h1>
     <p>{{post.summary}}</p>
     </div>
   <div class="author-date-wrapper row">
-    <div class="col">
+    <div class="col-6 author-wrapper">
       <img [src]=post.author.pic_url>  
-      <span>{{post.author.first_name}} {{post.author.family_name}}</span>
+      <span [routerLink]="['/author', post.author._id]">{{post.author.first_name}} {{post.author.family_name}}</span>
     </div>
-    <div class="col mb-4 mt-4">
+    <div class="col-6 mb-4 mt-4">
       <p>{{post.date_created | date:'longDate'}}</p>
-      <p>Last Edited: {{post.content.last_edited | date:'longDate'}}</p>  
+      <p>Edited: {{post.content.last_edited | date:'longDate'}}</p>  
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-9">
+  <div class="row mb-4">
+    <div class="col-sm-8">
       <div class="topic-wrapper">
         <div *ngFor="let topic of post.topics" class="topic" >{{topic.name}}</div>
       </div>    
     </div>
-    <div class="col-3 edit-del-wrapper">
+    <div class="col-sm-4 edit-del-wrapper">
       <button type="button" class="btn btn-gray btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
       <button type="button" class="btn btn-gray btn-outline-danger" (click)="deletePost(post._id)">Delete</button>    
     </div>
