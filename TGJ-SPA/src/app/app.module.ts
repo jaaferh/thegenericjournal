@@ -13,7 +13,7 @@ import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { FormsModule } from '@angular/forms';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
-import { TopicListResolver } from './resolvers/topic-list.resolver';
+import { TopicPostsResolver } from './resolvers/topic-posts.resolver';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { PostListResolver } from './resolvers/post-list.resolver';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
@@ -34,6 +34,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FooterComponent } from './footer/footer.component';
 import { PostBannerComponent } from './posts/post-banner/post-banner.component';
 import { ToasterModule } from 'angular2-toaster';
+import { TopicListResolver } from './resolvers/topic-list.resolver';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ToasterModule } from 'angular2-toaster';
   providers: [
     AuthorListResolver,
     AuthorDetailResolver,
+    TopicPostsResolver,
     TopicListResolver,
     PostListResolver,
     PostDetailResolver,

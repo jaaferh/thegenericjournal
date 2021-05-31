@@ -116,6 +116,9 @@ export class PostFormComponent implements OnInit {
     const topicChosen = Object.keys(this.topicAdd).length > 0;
     const topicDupe = this.post.topics?.find(t => t._id === this.topicAdd._id);
     if (topicChosen && !topicDupe) { // Object not empty
+      if (!this.post.topics) {
+        this.post.topics = [];
+      }
       this.post.topics?.push(this.topicAdd);
     }
   }
@@ -129,10 +132,8 @@ export class PostFormComponent implements OnInit {
   }
 
   addContainer(type: string): void {
-    // const newCont =  {} as Container;
     this.showNewContainer = !this.showNewContainer;
     this.containerAdd.type = type === 'Text' ? 'Text' : 'Image';
-    // this.post.content.containers.push(newCont);
   }
 
   createContainer(): void {

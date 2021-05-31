@@ -11,6 +11,7 @@ import { AuthorListResolver } from './resolvers/author-list.resolver';
 import { PostDetailResolver } from './resolvers/post-detail.resolver';
 import { PostListResolver } from './resolvers/post-list.resolver';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
+import { TopicPostsResolver } from './resolvers/topic-posts.resolver';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
       { path: 'author/:id/edit', component: AuthorFormComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
       { path: 'topics', component: TopicListComponent,
-          resolve: {topicsPosts: TopicListResolver} },
+          resolve: {topicsPosts: TopicPostsResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
       { path: 'post/new', component: PostFormComponent,

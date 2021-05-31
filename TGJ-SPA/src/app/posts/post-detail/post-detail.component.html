@@ -10,7 +10,7 @@
     </div>
     <div class="col-6 mb-4 mt-4">
       <p>{{post.date_created | date:'longDate'}}</p>
-      <p>Edited: {{post.content.last_edited | date:'longDate'}}</p>  
+      <p>{{post.content.last_edited ? 'Edited:' : ''}} {{post.content.last_edited | date:'longDate'}}</p>  
     </div>
   </div>
 

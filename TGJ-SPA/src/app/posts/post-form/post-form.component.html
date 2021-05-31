@@ -1,12 +1,12 @@
 <div class="container pb-5">
   <div class="list-header">
-    <h1>New Post</h1>
+    <h1>{{ mode == 0 ? 'New Post' : 'Edit Post'}}</h1>
   </div>
 
   <form (ngSubmit)="onSubmit()" #postForm="ngForm">
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title"
+        <input type="text" class="form-control w-50" id="title"
             required [(ngModel)]="post.title" name="title"
             #title="ngModel">
         <div [hidden]="title.valid || title.pristine"
@@ -17,9 +17,9 @@
   
     <div class="form-group">
         <label for="summary">Summary</label>
-        <input type="text" class="form-control" id="summary"
+        <textarea type="text" class="form-control" id="summary"
             required [(ngModel)]="post.summary" name="summary"
-            #summary="ngModel" maxlength="500">
+            #summary="ngModel" maxlength="500" rows="3"></textarea>
         <div [hidden]="summary.valid || summary.pristine"
             class="alert alert-danger">
          Summary is required

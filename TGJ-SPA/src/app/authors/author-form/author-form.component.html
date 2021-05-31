@@ -1,6 +1,6 @@
 <div class="container pb-5">
     <div class="list-header">
-        <h1>New Author</h1>
+        <h1>{{mode == 0 ? 'New Author' : 'Edit Author'}}</h1>
     </div>
 
     <form (ngSubmit)="onSubmit()" #authorForm="ngForm">

@@ -12,6 +12,7 @@ $gap-margin: 2rem;
 }
 
 .author-date-wrapper {
+    margin-bottom: $gap-margin/4;
     .author-wrapper {
         display: flex;
         align-items: center;
