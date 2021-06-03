@@ -35,6 +35,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PostBannerComponent } from './posts/post-banner/post-banner.component';
 import { ToasterModule } from 'angular2-toaster';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
+import { AuthorPostsResolver } from './resolvers/author-posts.resolver';
 
 @NgModule({
   declarations: [
@@ -67,10 +68,11 @@ import { TopicListResolver } from './resolvers/topic-list.resolver';
     FileUploadModule,
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'soqudu' }),
     NgxPaginationModule,
-    ToasterModule.forRoot()
+    ToasterModule.forRoot(),
   ],
   providers: [
     AuthorListResolver,
+    AuthorPostsResolver,
     AuthorDetailResolver,
     TopicPostsResolver,
     TopicListResolver,

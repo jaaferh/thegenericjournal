@@ -12,7 +12,7 @@
                         required [(ngModel)]="author.first_name" name="first_name"
                         #first_name="ngModel">
                     <div [hidden]="first_name.valid || first_name.pristine"
-                        class="alert alert-danger">
+                        class="alert alert-danger mt-2">
                      First name is required
                    </div>
                 </div>
@@ -23,7 +23,7 @@
                         required [(ngModel)]="author.family_name" name="family_name"
                         #family_name="ngModel">
                     <div [hidden]="family_name.valid || family_name.pristine"
-                        class="alert alert-danger">
+                        class="alert alert-danger mt-2">
                      Family Name is required
                    </div>
                 </div>

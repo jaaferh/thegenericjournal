@@ -8,6 +8,7 @@ import { PostFormComponent } from './posts/post-form/post-form.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { AuthorDetailResolver } from './resolvers/author-detail.resolver';
 import { AuthorListResolver } from './resolvers/author-list.resolver';
+import { AuthorPostsResolver } from './resolvers/author-posts.resolver';
 import { PostDetailResolver } from './resolvers/post-detail.resolver';
 import { PostListResolver } from './resolvers/post-list.resolver';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
@@ -22,7 +23,7 @@ const routes: Routes = [
     canActivate: [], // AuthGuard
     children: [
       { path: 'authors', component: AuthorListComponent,
-          resolve: {authorsPosts: AuthorListResolver} },
+          resolve: {authorsPosts: AuthorPostsResolver} },
       { path: 'author/new', component: AuthorFormComponent },
       { path: 'author/:id', component: AuthorDetailComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
@@ -33,7 +34,7 @@ const routes: Routes = [
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver} },
       { path: 'post/new', component: PostFormComponent,
-          resolve: {topics: TopicListResolver, authorsPosts: AuthorListResolver} },
+          resolve: {topics: TopicListResolver, authors: AuthorListResolver} },
       { path: 'post/:id', component: PostDetailComponent,
           resolve: {post: PostDetailResolver} },
       { path: 'post/:id/edit', component: PostFormComponent,
