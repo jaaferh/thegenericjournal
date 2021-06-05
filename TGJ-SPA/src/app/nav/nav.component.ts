@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Topic } from '../models/topic.entity';
+import { TopicService } from '../services/topic.service';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements AfterViewInit {
+export class NavComponent implements OnInit, AfterViewInit {
   @ViewChild('navbar') navbar!: ElementRef;
   @HostListener('window:scroll', ['$event'])
     scrollHandler(event: any) {
@@ -14,7 +16,16 @@ export class NavComponent implements AfterViewInit {
   stick = false;
   showNav = true;
   navbarTopOffset = 0;
-  constructor() { }
+  topics: Topic[] = []
+  constructor(
+    private topicService: TopicService
+  ) { }
+
+  ngOnInit(): void {
+    this.topicService.getTopicList().subscribe(tl => {
+      this.topics = tl;
+    })
+  }
 
   ngAfterViewInit(): void {
     const navBarNativElement = this.navbar.nativeElement as Element;

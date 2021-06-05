@@ -19,13 +19,17 @@
           <a class="nav-link" href="authors">Authors <span class="sr-only">(current)</span></a>
         </li>
         <li class="navitem">
-          <a class="nav-link" href="topics">Topics <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="topics">All Topics <span class="sr-only">(current)</span></a>
         </li>
         <li class="navitem">
-          <a class="nav-link" href="posts">Posts <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="posts">All Posts <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="navitem" *ngFor="let topic of topics | slice:0:4">
+          <a class="nav-link" [routerLink]="['/posts/']" [queryParams]="{topicName: topic.name}">
+            {{topic.name}} <span class="sr-only">(current)</span>
+          </a>
         </li>
         <li class="lastitem m-auto">
-
           <div class="input-group rounded">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
               aria-describedby="search-addon" />
