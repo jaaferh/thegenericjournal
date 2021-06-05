@@ -9,6 +9,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ContainerService } from 'src/app/services/container.service';
 import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 import { ToasterService } from 'angular2-toaster';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-post-form',
@@ -24,6 +25,7 @@ export class PostFormComponent implements OnInit {
   containerAdd = {} as Container;
   mode: Mode = Mode.Create;
   id: string = '';
+  
   @ViewChild('postForm') postForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: Event): void {
@@ -36,7 +38,8 @@ export class PostFormComponent implements OnInit {
     private containerService: ContainerService,
     private toaster: ToasterService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -48,8 +51,7 @@ export class PostFormComponent implements OnInit {
         this.post = data.post as Post;
       }
       this.topics = data.topics as Topic[];
-      const resAuthorPosts = data.authorsPosts as AuthorsPosts;
-      this.authors = resAuthorPosts.authors;
+      this.authors = data.authors as Author[];
     }, error => {
       this.toaster.pop('error', error);
     });
@@ -108,10 +110,6 @@ export class PostFormComponent implements OnInit {
     this.postForm.reset(this.post);
   }
 
-  selectTopic(topic: Topic): void {
-    this.topicAdd = topic;
-  }
-
   addTopic(): void {
     const topicChosen = Object.keys(this.topicAdd).length > 0;
     const topicDupe = this.post.topics?.find(t => t._id === this.topicAdd._id);
@@ -125,10 +123,6 @@ export class PostFormComponent implements OnInit {
 
   removeTopic(index: number): void {
     this.post.topics?.splice(index, 1);
-  }
-
-  selectAuthor(author: Author): void {
-    this.post.author = author;
   }
 
   addContainer(type: string): void {
@@ -162,6 +156,10 @@ export class PostFormComponent implements OnInit {
 
   trackByIndex(index: number, obj: any): any {
     return index;
+  }
+
+  navigatePost(): void {
+    this.location.back();
   }
 
 }
