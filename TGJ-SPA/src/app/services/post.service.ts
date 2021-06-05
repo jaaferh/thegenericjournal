@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Post } from '../models/post.entity';
+import { Post, PostFilter } from '../models/post.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,23 @@ export class PostService {
 
   postSearch(searchKey: string): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseUrl + 'post/search/' + searchKey);
+  }
+
+  postFilter(filter: PostFilter): Observable<Post[]> {
+    let params = new HttpParams();
+    if (filter.topics !== undefined) {
+      filter.topics?.forEach(t => {
+        params = params.append('topics[]', t._id);
+      });
+    }
+    if (filter.authorName !== undefined)
+      params = params.append('authorName', filter.authorName);
+    if (filter.dateFrom !== undefined)
+      params = params.append('dateFrom', filter.dateFrom?.toString());
+    if (filter.dateTo !== undefined)
+      params = params.append('dateTo', filter.dateTo?.toString());
+
+    return this.http.get<Post[]>(this.baseUrl + 'post/filter', { params });
   }
 
   getPostDetail(postId: string): Observable<Post> {

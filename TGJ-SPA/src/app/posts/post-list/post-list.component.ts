@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
-import { Post } from 'src/app/models/post.entity';
+import { Post, PostFilter } from 'src/app/models/post.entity';
+import { Topic } from 'src/app/models/topic.entity';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -11,9 +12,12 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostListComponent implements OnInit {
   allPosts: Post[] = [];
+  allTopics: Topic[] = []
   posts: Post[] = [];
+  queryTopic: Topic | undefined;
   searchParam = '';
   searchEmpty = false;
+  showFilter = true;
   p = 1;
   constructor(
     private postService: PostService,
@@ -23,11 +27,17 @@ export class PostListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const queryTopicName = this.route.snapshot.queryParams.topicName as string;
+
     this.route.data.subscribe(data => {
       this.allPosts = this.posts = data.posts as Post[];
+      this.allTopics = data.topics as Topic[];
     }, error => {
       this.toaster.pop('error', error);
     });
+
+    if (queryTopicName)
+      this.queryTopic = this.allTopics.find(t => t.name === queryTopicName);
   }
 
   keyUpFunction(e: Event): void {
@@ -43,5 +53,11 @@ export class PostListComponent implements OnInit {
         this.searchEmpty = true;
       }
     }
+  }
+
+  filterPosts(filter: PostFilter): void {
+    this.postService.postFilter(filter).subscribe(fp => {
+      console.log(fp);
+    })
   }
 }

@@ -18,3 +18,10 @@ export interface Post {
   topics?: Topic[];
   comments?: Comment[];
 }
+
+export interface PostFilter {
+  topics?: Topic[];
+  authorName?: string;
+  dateFrom?: Date;
+  dateTo?: Date;
+}

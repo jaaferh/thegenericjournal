@@ -1,0 +1,27 @@
+.topic-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .topic {
+        margin-top: 0.2rem;
+        margin-right: 0.75em;
+        
+        span::before {
+            cursor: pointer;
+        }
+    }
+
+    .topic-input {
+        width: 8em;
+
+        select {
+            padding: 0.13em;
+            height: auto;
+        }
+    }
+}
+
+.submit {
+    float: right;
+}

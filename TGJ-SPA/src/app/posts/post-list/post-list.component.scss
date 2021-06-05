@@ -1,6 +1,9 @@
-.btn-fill {
-    width: inherit;
-    justify-content: center;
-    padding: 10px;
-    cursor: pointer;
+.buttons {
+    display: flex;
+
+    .btn-fill {
+        width: inherit;
+        padding: 0.5rem;
+        margin: 0 0.25em 0 0.25em;
+    }
 }

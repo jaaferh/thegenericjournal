@@ -1,0 +1,48 @@
+<div class="filter-wrapper">
+    <form (ngSubmit)="onSubmit()" #filterForm="ngForm">
+        <h5>Topics</h5>
+        <div class="topic-wrapper form-group">
+            <div class="topic-input">
+              <select class="form-control custom-select" 
+                      [(ngModel)]="topicAdd" 
+                      name="topicSelect" 
+                      id="topicSelect">
+                <option *ngFor="let topic of topics" [ngValue]="topic">{{topic.name}}</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn btn-gray btn-success fa fa-plus ml-2" (click)="addTopic()"></button>
+
+            <div class="topic" *ngFor="let topic of filter.topics; let i = index">
+                {{topic.name}}
+                <span class="far fa-times-circle pl-2 pt-1" (click)="removeTopic(i)"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5 for="author">Author</h5>
+            <input type="text" class="form-control" id="author"
+                [(ngModel)]="filter.authorName" name="author">
+        </div>
+
+        <h5>Date</h5>
+
+        <div class="form-group">
+            <label for="from">From</label>
+            <input type="date" class="form-control" id="from" name="from"
+                [ngModel]="filter.dateFrom| date:'yyyy-MM-dd'" 
+                (ngModelChange)="dateChange($event, 'from')">
+        </div>
+
+        <div class="form-group">
+            <label for="to">To</label>
+            <input type="date" class="form-control" id="to" name="to"
+                [ngModel]="filter.dateTo| date:'yyyy-MM-dd'" 
+                (ngModelChange)="dateChange($event, 'to')">
+        </div>
+
+        <div class="submit">
+            <button type="submit" class="btn btn-gray btn-info">Filter</button>
+        </div>
+    </form>
+</div>

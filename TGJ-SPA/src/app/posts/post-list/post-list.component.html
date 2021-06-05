@@ -3,27 +3,44 @@
     <h1>Posts</h1>
   </div>
 
-  <div class="row mb-5">
-    <div
-      class="input-group-overlay showsearch col-9 col-sm-10"
-      style="padding-right: 1%"
-      (keyup)="keyUpFunction($event)"
-    >
-      <input
-        class="form-control appended-form-control"
-        type="text"
-        [(ngModel)]="searchParam"
-        placeholder="Search for Post"
-      />
+  <div class="row">
+    <div [ngClass]="showFilter ? 'col-md-3' : ''">
+      <app-post-filter *ngIf="showFilter" 
+        [topics]="allTopics" 
+        [paramTopic]="queryTopic"
+        (postFilter)="filterPosts($event)"></app-post-filter>
     </div>
-    <div class="col-3 col-sm-2">
-      <button
-        type="button"
-        class="btn-success btn btn-gray btn-fill fa fa-plus"
-        [routerLink]="['/post/new']"
-      ></button>
+
+    <div [ngClass]="showFilter ? 'col-md-9' : 'col'">
+      <div class="row mb-5">
+        <div
+          class="input-group-overlay showsearch col-8 col-sm-10"
+          style="padding-right: 1%"
+          (keyup)="keyUpFunction($event)"
+        >
+          <input
+            class="form-control appended-form-control"
+            type="text"
+            [(ngModel)]="searchParam"
+            placeholder="Search for Post"
+          />
+        </div>
+        <div class="buttons col-4 col-sm-2">
+          <button
+            type="button"
+            class="btn-info btn btn-gray btn-fill fas fa-sliders-h"
+            (click)="showFilter = !showFilter"
+          ></button>
+
+          <button
+            type="button"
+            class="btn-success btn btn-gray btn-fill fa fa-plus"
+            [routerLink]="['/post/new']"
+          ></button>
+        </div>
+      </div>
+
+      <app-post-banner [posts]="posts"></app-post-banner>
     </div>
   </div>
-
-  <app-post-banner [posts]="posts"></app-post-banner>
 </div>
