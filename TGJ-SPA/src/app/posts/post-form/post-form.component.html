@@ -108,9 +108,9 @@
 
       <div class="container-add">
         <button type="button" class="btn btn-outline-secondary" 
-                (click)="addContainer('Text')">Add Text Container</button>
+                (click)="addContainer('Text')">Add Text</button>
         <button type="button" class="btn btn-outline-secondary" 
-                (click)="addContainer('Image')">Add Image Container</button>
+                (click)="addContainer('Image')">Add Image</button>
       </div>
 
       <div *ngIf="showNewContainer" class="container-box">
@@ -139,9 +139,6 @@
                 #imgContCap="ngModel">
           </div>
         </ng-template>
-  
-        <!-- <button type="button" type="button" 
-                class="btn btn-outline-success" (click)="createContainer()">Add</button> -->
       </div>
     </div>
     <p></p>

@@ -42,12 +42,9 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 ## Short-Term Todo:
 
 - NgModel issue with comment edits on the same level
-- Implement error catching properly in controllers
 - Fix styling issues on resize/mobile
 - Add 'back to top' button
 - Fix the security issue with cloudinary (mixed insecure display content)
-- Get doTopicFilter in post-form component to display properly
-- Implement comment collapse and hide
 - Find a way to preserve previous page (data: { detachable: 1 })
 - Deploy a DEV build to Heroku
 
