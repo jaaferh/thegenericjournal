@@ -20,7 +20,7 @@ exports.photo_upload = (req, res, next) => {
     if (req.file) {
       return cloudinary.uploader.upload_stream((error, result) => {
         if (error) { return next(error); }
-        const imageUrl = result.url;
+        const imageUrl = result.url.replace('http', 'https');
         return res.send(imageUrl);
       }).end(req.file.buffer);
     }

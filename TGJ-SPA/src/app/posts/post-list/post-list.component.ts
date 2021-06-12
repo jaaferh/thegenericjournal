@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit {
   searchParam = '';
   searchEmpty = false;
   showFilter = true;
-  filter: PostFilter | undefined;
+  filter = {} as PostFilter;
   p = 1;
   constructor(
     private postService: PostService,
@@ -29,7 +29,8 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     const queryTopicName = this.route.snapshot.queryParams.topicName as string;
-
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    
     this.route.data.subscribe(data => {
       this.allPosts = this.posts = data.posts as Post[];
       this.allTopics = data.topics as Topic[];
@@ -37,8 +38,13 @@ export class PostListComponent implements OnInit {
       this.toaster.pop('error', error);
     });
 
-    if (queryTopicName)
+    if (queryTopicName) {
       this.queryTopic = this.allTopics.find(t => t.name === queryTopicName);
+      // Can't do this in post-filter due to NG0100 error
+      this.filter.topics = [];
+      this.filter.topics?.push(this.queryTopic as Topic);
+      this.filterPosts(this.filter);
+    }
   }
 
   keyUpFunction(): void {
