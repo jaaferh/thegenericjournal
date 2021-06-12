@@ -41,6 +41,7 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
+- Add debug messages to other controllers after testing it works
 - NgModel issue with comment edits on the same level
 - Add 'back to top' button
 - Find a way to preserve previous page (data: { detachable: 1 })

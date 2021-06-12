@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const debug = require('debug')('app');
+const compression = require('compression');
+const helmet = require('helmet');
 require('dotenv').config();
 
 const mongoose = require('mongoose');
@@ -13,6 +15,8 @@ const usersRouter = require('./routes/users');
 const journalRouter = require('./routes/journal');
 
 const app = express();
+
+app.use(helmet()); // Protects against multiple vulnerabilities
 
 // set up mongoose connection
 mongoose.connect(process.env.MONGODB_DEV, {
@@ -41,6 +45,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression()); // Compress all routes for faster HTTP response times
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
