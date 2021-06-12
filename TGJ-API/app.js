@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const debug = require('debug')('app');
+require('dotenv').config();
 
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
@@ -13,12 +15,11 @@ const journalRouter = require('./routes/journal');
 const app = express();
 
 // set up mongoose connection
-const mongoDB = 'mongodb+srv://dbUser:dbUserPassword@cluster0.1lj3d.mongodb.net/generic_journal?retryWrites=true&w=majority';
-mongoose.connect(mongoDB, {
+mongoose.connect(process.env.MONGODB_DEV, {
   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
 });
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', debug.bind(console, 'MongoDB connection error:'));
 
 // set up Cross Origin Requests
 const whitelist = ['https://localhost:4200', 'https://res.cloudinary.com'];

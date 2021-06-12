@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const async = require('async');
+const debug = require('debug')('author');
 const Author = require('../models/author');
 const Post = require('../models/post');
 
@@ -11,6 +12,7 @@ exports.author_list = (req, res, next) => {
       res.send(listAuthors);
     })
     .catch((err) => {
+      debug(`author list error: ${err}`);
       next(err);
     }); // Example of using Promise .then().catch() instead of .exec((err,result))
 };
@@ -22,7 +24,10 @@ exports.author_search = (req, res, next) => {
   Author.find({ $text: { $search: inputName } })
     .sort([['first_name', 'ascending']])
     .exec((err, fullsearch) => {
-      if (err) { return next(err); }
+      if (err) {
+        debug(`author full search error: ${err}`);
+        return next(err);
+      }
       // Successful
       if (!err && fullsearch.length) return res.send(fullsearch);
       if (!err && fullsearch.length === 0) {
@@ -33,7 +38,10 @@ exports.author_search = (req, res, next) => {
           ],
         })
           .exec((error, partialsearch) => {
-            if (error) { return next(error); }
+            if (error) {
+              debug(`author partial search error: ${error}`);
+              return next(error);
+            }
             // Successful
             return res.send(partialsearch);
           });
@@ -66,8 +74,14 @@ exports.author_posts = (req, res, next) => {
     .then((listAuthors) => Post.find()
       .populate('author')
       .then((listPosts) => res.send({ authors: listAuthors, posts: listPosts }))
-      .catch((err) => next(err)))
-    .catch((err) => next(err));
+      .catch((err) => {
+        debug(`author_posts Post find error: ${err}`);
+        next(err);
+      }))
+    .catch((err) => {
+      debug(`author_posts Author find error: ${err}`);
+      next(err);
+    });
 };
 
 // DETAIL GET.
@@ -83,10 +97,14 @@ exports.author_detail = (req, res, next) => {
         .exec(callback);
     },
   }, (err, results) => {
-    if (err) { return next(err); } // Error in API usage.
+    if (err) {
+      debug(`author detail error: ${err}`);
+      return next(err);
+    } // Error in API usage.
     if (results.author == null) { // No results.
       const error = new Error('Author not found');
       error.status = 404;
+      debug(`author detail author not found error: ${err}`);
       return next(error);
     }
     // Successful
@@ -108,7 +126,10 @@ exports.author_create = (req, res, next) => {
     },
   );
   author.save((err, newAuthor) => {
-    if (err) { return next(err); }
+    if (err) {
+      debug(`author create error: ${err}`);
+      return next(err);
+    }
     // Successful - set OK status
     return res.send(newAuthor);
   });
@@ -126,7 +147,10 @@ exports.author_delete = (req, res, next) => {
       Author.findByIdAndRemove(req.params.id, callback);
     },
   ], (err) => {
-    if (err) { return next(err); }
+    if (err) {
+      debug(`author delete error: ${err}`);
+      return next(err);
+    }
     // Success - set OK status
     return res.status(200).end();
   });
@@ -149,7 +173,10 @@ exports.author_update = (req, res, next) => {
 
   // Update the record.
   Author.findByIdAndUpdate(req.params.id, author, {}, (err) => {
-    if (err) { return next(err); }
+    if (err) {
+      debug(`author update error: ${err}`);
+      return next(err);
+    }
     // Successful - set OK status
     return res.status(200).end();
   });
