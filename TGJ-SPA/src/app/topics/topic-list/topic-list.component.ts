@@ -25,7 +25,6 @@ export class TopicListComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.topicsPosts = data.topicsPosts as TopicsPosts;
-      console.log(this.topicsPosts);
     }, error => {
       this.toaster.pop('error', error);
     });
