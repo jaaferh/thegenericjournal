@@ -78,9 +78,6 @@ router.post('/post/:id/update', postController.post_validate, postController.pos
 // GET request for post search.
 router.get('/post/search/:key', postController.post_search);
 
-// GET request for post filter.
-router.get('/post/filter', postController.post_filter);
-
 // GET request for one post.
 router.get('/post/:id', postController.post_detail);
 
