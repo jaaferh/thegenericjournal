@@ -32,7 +32,7 @@ export class AuthorListComponent implements OnInit {
   }
 
   getPostCount(author: Author): number {
-    return this.authorsPosts.posts.filter(p => p.author._id === author._id).length
+    return this.authorsPosts.posts.filter(p => p.author._id === author._id).length;
   }
 
   keyUpFunction(e: Event): void {

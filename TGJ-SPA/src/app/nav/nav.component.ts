@@ -24,7 +24,7 @@ export class NavComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.topicService.getTopicList().subscribe(tl => {
       this.topics = tl;
-    })
+    });
   }
 
   ngAfterViewInit(): void {

@@ -50,7 +50,7 @@ export class CommentTreeComponent {
 
   replyClick(comment: Comment, index: number): void {
     this.comments[index].replyHidden = !this.comments[index].replyHidden;
-    this.comments[index].hideChildren = false
+    this.comments[index].hideChildren = false;
     this.newReply.parent_comment = comment;
   }
 

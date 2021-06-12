@@ -56,7 +56,7 @@ export class CommentSectionComponent implements OnInit {
         editHidden: true,
         hideChildren: false,
         level: comLevel? comLevel + 1 : 0,
-      }
+      };
 
       if (comment.parent_comment === undefined) {
         this.commentTree.push(comTree);
@@ -98,7 +98,7 @@ export class CommentSectionComponent implements OnInit {
         editHidden: true,
         hideChildren: false,
         level: 1,
-      }
+      };
       this.commentTree.push(comTree);
     });
 
@@ -126,7 +126,7 @@ export class CommentSectionComponent implements OnInit {
               editHidden: true,
               hideChildren: level == 4,
               level: level, // Children dont have to each be true
-            }
+            };
             ct.children.push(comTree);
             ct.children = this.popCommentChildren(ct.children, level + 1);
           }
