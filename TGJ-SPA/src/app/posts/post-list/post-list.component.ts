@@ -12,12 +12,13 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostListComponent implements OnInit {
   allPosts: Post[] = [];
-  allTopics: Topic[] = []
+  allTopics: Topic[] = [];
   posts: Post[] = [];
   queryTopic: Topic | undefined;
   searchParam = '';
   searchEmpty = false;
   showFilter = true;
+  filter: PostFilter | undefined;
   p = 1;
   constructor(
     private postService: PostService,
@@ -40,24 +41,57 @@ export class PostListComponent implements OnInit {
       this.queryTopic = this.allTopics.find(t => t.name === queryTopicName);
   }
 
-  keyUpFunction(e: Event): void {
+  keyUpFunction(): void {
     if (this.searchParam.length > 0) {
       this.postService.postSearch(this.searchParam).subscribe(data => {
-        this.posts = data;
+        // Inner join the two arrays
+        this.posts = this.posts.filter(p => data.some(d => d._id === p._id));
         this.searchEmpty = false;
       });
     }
     else {
       if (!this.searchEmpty) {
-        this.posts = this.allPosts;
         this.searchEmpty = true;
+
+        if (this.filter === undefined)
+          this.posts = this.allPosts;
+        else
+          this.filterPosts(this.filter);
       }
     }
   }
 
   filterPosts(filter: PostFilter): void {
-    this.postService.postFilter(filter).subscribe(fp => {
-      console.log(fp);
-    })
+    this.filter = filter;
+    this.posts = this.allPosts.filter(p => {
+      if (filter.authorName) {
+        p.author.name = p.author.first_name + ' ' + p.author.family_name;
+        const regName = filter.authorName.toLowerCase();
+        if (p.author.name.toLowerCase().indexOf(regName) === -1) 
+          return false;
+      }
+
+      if (filter.topics !== undefined) {
+        for (const topic of filter.topics) {
+          if (!p.topics?.some(t => t._id === topic._id))
+            return false;
+        }
+      }
+
+      if (filter.dateFrom) {
+        if ((new Date(p.date_created as Date)) < filter.dateFrom)
+          return false;
+      }
+
+      if (filter.dateTo) {
+        if ((new Date(p.date_created as Date)) > filter.dateTo)
+          return false;
+      }
+
+      return true;
+    });
+
+    if (this.searchParam.length > 0)
+      this.keyUpFunction();
   }
 }

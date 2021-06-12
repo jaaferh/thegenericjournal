@@ -29,9 +29,6 @@ export class PostFilterComponent implements OnInit {
   }
 
   dateChange(dateString: string, type: string): void {
-    if (!dateString)
-      return
-
     if (type === 'from') {
       this.filter.dateFrom = new Date(dateString);
     } else if (type === 'to') {
