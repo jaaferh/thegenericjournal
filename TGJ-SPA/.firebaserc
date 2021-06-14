@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "the-generic-journal": {
+      "hosting": {
+        "TGJ-SPA": [
+          "the-generic-journal"
+        ]
+      }
+    }
+  }
+}
