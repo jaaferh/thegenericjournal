@@ -41,6 +41,7 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
+- Make all dev changes in development branch and then merge to main. Make all deployment changes in main
 - Add debug messages to other controllers after testing it works
 - NgModel issue with comment edits on the same level
 - Add 'back to top' button

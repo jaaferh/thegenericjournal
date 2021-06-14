@@ -19,7 +19,9 @@ const app = express();
 app.use(helmet()); // Protects against multiple vulnerabilities
 
 // set up mongoose connection
-mongoose.connect(process.env.MONGODB_DEV, {
+const devDBUrl = 'mongodb+srv://dbUser:dbUserPassword@cluster0.1lj3d.mongodb.net/generic_journal?retryWrites=true&w=majority';
+const mongoDB = process.env.MONGODB_URI || devDBUrl;
+mongoose.connect(mongoDB, {
   useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true,
 });
 const db = mongoose.connection;
