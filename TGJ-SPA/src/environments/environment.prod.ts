@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://vast-forest-20532.herokuapp.com/',
+  apiUrl: 'https://vast-forest-20532.herokuapp.com/journal/',
   firebaseConfig: {
     apiKey: "AIzaSyBPtuzE0S2LNgAMURyPsFnBcOeu6WKEzAo",
     authDomain: "the-generic-journal.firebaseapp.com",
