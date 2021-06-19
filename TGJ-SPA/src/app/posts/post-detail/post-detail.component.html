@@ -32,8 +32,10 @@
   </div>  
   
   <div *ngFor="let container of post.content.containers" class="container-wrapper">
-    <h3 *ngIf="container.type == 'Text'" class="cont-title">{{container.title}}</h3>
-    <p>{{container.text}}</p>
+    <div class="text-cont">
+      <h3 *ngIf="container.type == 'Text'">{{container.title}}</h3>
+      <p>{{container.text}}</p>
+    </div>
     <div class="image-cont">
       <img *ngIf="container.type == 'Image'" [src]=container.image_url>
       <p *ngIf="container.type == 'Image'" class="caption">{{container.caption}}</p>
