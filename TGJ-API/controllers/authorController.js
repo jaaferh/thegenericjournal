@@ -184,9 +184,8 @@ exports.author_update = (req, res, next) => {
 
 // AUTHOR VALIDATION
 exports.author_validate = [
-  body('first_name').trim().isLength({ min: 1 }).escape(),
-  body('family_name').trim().isLength({ min: 1 }).escape(),
+  body('first_name').trim().isLength({ min: 1 }),
+  body('family_name').trim().isLength({ min: 1 }),
   body('date_of_birth', 'Invalid date of birth').optional({ checkFalsy: true }).isISO8601().toDate(), // checkFalsy: True means accept empty string or null as empty value
-  body('bio').trim().optional({ checkFalsy: true }).isLength({ max: 255 })
-    .escape(),
+  body('bio').trim().optional({ checkFalsy: true }).isLength({ max: 255 }),
 ];
