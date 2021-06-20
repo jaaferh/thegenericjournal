@@ -10,17 +10,17 @@
                         <a [routerLink]="['/post/' + post._id]">
                             {{post.title}}
                         </a>
-                        <div *ngFor="let topic of post.topics | slice:0:3" class="topic">
-                            {{topic.name}}
-                        </div>
-                        <div class="date-wrapper">
-                            {{post.date_created | date}}
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row author-wrapper">
-                <span>{{post.author.first_name}} {{post.author.family_name}}</span>
+                <span *ngIf="post.author.first_name">{{post.author.first_name}} {{post.author.family_name}}</span>
+                <div *ngFor="let topic of post.topics | slice:0:3" class="topic">
+                    {{topic.name}}
+                </div>
+                <div class="date-wrapper">
+                    {{post.date_created | date}}
+                </div>
             </div>
             <div class="row">
                 <div class="col pl-0">
