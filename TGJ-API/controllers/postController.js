@@ -12,6 +12,7 @@ exports.index = (req, res) => {
 // ALL POSTS GET
 exports.post_list = (req, res, next) => {
   Post.find()
+    .limit(Number(req.params.limit))
     .populate('author')
     .populate('topics')
     .sort([['date_created', 'descending'], ['title', 'ascending']])

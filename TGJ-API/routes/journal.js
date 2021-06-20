@@ -82,7 +82,7 @@ router.get('/post/search/:key', postController.post_search);
 router.get('/post/:id', postController.post_detail);
 
 // GET request for list of all post.
-router.get('/posts', postController.post_list);
+router.get('/posts/:limit', postController.post_list);
 
 /// TOPIC ROUTES ///
 
