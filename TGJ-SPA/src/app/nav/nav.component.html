@@ -32,8 +32,9 @@
         <li class="lastitem m-auto">
           <div class="input-group rounded">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-              aria-describedby="search-addon" />
-            <span class="btn btn-gray bg-white border-0" id="search-addon">
+              aria-describedby="search-addon" [(ngModel)]="postSearch" />
+            <span class="btn btn-gray border-0" id="search-addon" [routerLink]="['/posts/']" 
+                  [queryParams]="{searchParam: postSearch}">
               <i class="fa fa-search"></i>
             </span>
           </div>

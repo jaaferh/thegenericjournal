@@ -17,6 +17,7 @@ export class NavComponent implements OnInit, AfterViewInit {
   showNav = true;
   navbarTopOffset = 0;
   topics: Topic[] = []
+  postSearch = '';
   constructor(
     private topicService: TopicService
   ) { }
@@ -39,5 +40,4 @@ export class NavComponent implements OnInit, AfterViewInit {
   toggleShowNav(): void {
     this.showNav = !this.showNav;
   }
-
 }

@@ -12,8 +12,8 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
-  getPostList(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseUrl + 'posts');
+  getPostList(maxCount: number): Observable<Post[]> {
+    return this.http.get<Post[]>(this.baseUrl + 'posts/' + maxCount.toString());
   }
 
   postSearch(searchKey: string): Observable<Post[]> {

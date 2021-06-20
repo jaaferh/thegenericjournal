@@ -7,13 +7,6 @@
 }
 
 .title-wrapper {
-    display: flex;
-    align-items: center;
-
-    * {
-        margin-right: 3%;
-    }
-
     a {
         font-size: 1.5rem;
         color: black;
@@ -22,6 +15,20 @@
             color: grey;
             text-decoration: none;
         }
+    }
+}
+
+.author-wrapper {
+    display: flex;
+    align-items: center;
+
+    * {
+        margin-right: 3%;
+    }
+    
+    span {
+        font-weight: 550;
+        cursor: pointer;
     }
 
     .date-wrapper {

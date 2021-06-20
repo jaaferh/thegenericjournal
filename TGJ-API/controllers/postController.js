@@ -12,6 +12,7 @@ exports.index = (req, res) => {
 // ALL POSTS GET
 exports.post_list = (req, res, next) => {
   Post.find()
+    .limit(Number(req.params.limit))
     .populate('author')
     .populate('topics')
     .sort([['date_created', 'descending'], ['title', 'ascending']])
@@ -173,6 +174,6 @@ exports.post_update = (req, res, next) => {
 
 // POST VALIDATION
 exports.post_validate = [
-  body('title').trim().isLength({ min: 1 }).escape(),
-  body('summary').trim().isLength({ min: 1, max: 500 }).escape(),
+  body('title').trim().isLength({ min: 1 }),
+  body('summary').trim().isLength({ min: 1, max: 500 }),
 ];

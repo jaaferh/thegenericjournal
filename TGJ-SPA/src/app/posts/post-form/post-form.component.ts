@@ -83,6 +83,11 @@ export class PostFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.mode === Mode.Create) {
+      if (!this.post.thumbnail) {
+        this.toaster.pop('error', 'Missing thumbnail');
+        return;
+      }
+
       this.postService.createPost(this.post).subscribe(newP => {
         this.toaster.pop('success', 'Post Created Successfully');
         this.postForm.reset(this.post);

@@ -29,6 +29,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     const queryTopicName = this.route.snapshot.queryParams.topicName as string;
+    this.searchParam = this.route.snapshot.queryParams.searchParam as string;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     
     this.route.data.subscribe(data => {
@@ -45,6 +46,9 @@ export class PostListComponent implements OnInit {
       this.filter.topics?.push(this.queryTopic as Topic);
       this.filterPosts(this.filter);
     }
+
+    if (this.searchParam)
+      this.keyUpFunction();
   }
 
   keyUpFunction(): void {

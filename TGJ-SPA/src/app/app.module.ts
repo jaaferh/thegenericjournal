@@ -37,6 +37,7 @@ import { ToasterModule } from 'angular2-toaster';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { AuthorPostsResolver } from './resolvers/author-posts.resolver';
 import { PostFilterComponent } from './posts/post-list/post-filter/post-filter.component';
+import { HomepageComponent } from './home/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { PostFilterComponent } from './posts/post-list/post-filter/post-filter.c
     FooterComponent,
     PostBannerComponent,
     PostFilterComponent,
+    HomepageComponent,
    ],
   imports: [
     BrowserModule,

@@ -15,7 +15,7 @@ export class PostListResolver implements Resolve<Post[]> {
     ) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Post[]> {
-        return this.postService.getPostList().pipe(
+        return this.postService.getPostList(10000).pipe(
           catchError(error => {
             this.toaster.pop('error', 'Problem retrieving data');
             void this.router.navigate(['/']);

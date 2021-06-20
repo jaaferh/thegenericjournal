@@ -71,6 +71,17 @@ $gap-margin: 2rem;
 .container-wrapper {
     margin-bottom: $gap-margin;
 
+    .text-cont {
+        h3 {
+            // font-size: 2rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        p {
+            white-space: pre-wrap;
+        }
+    }
+
     .image-cont {
         text-align: center;
 
@@ -79,21 +90,20 @@ $gap-margin: 2rem;
             max-width: 100%;
             object-fit: cover;
         }
+
+        .caption {
+            color: gray;
+            font-size: 1rem;
+        }
     }
 
-    h3 {
-        // font-size: 2rem;
-        font-family: 'Roboto', sans-serif;
-    }
+
 
     // p {
     //     font-size: 1.15rem;
     // }
 
-    .caption {
-        color: gray;
-        font-size: 1rem;
-    }
+
     
 }
 
