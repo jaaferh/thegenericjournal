@@ -29,7 +29,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     const queryTopicName = this.route.snapshot.queryParams.topicName as string;
-    this.searchParam = this.route.snapshot.queryParams.searchParam as string;
+    const navSearch = this.route.snapshot.queryParams.searchParam as string;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     
     this.route.data.subscribe(data => {
@@ -39,6 +39,11 @@ export class PostListComponent implements OnInit {
       this.toaster.pop('error', error);
     });
 
+    if (navSearch) {
+      this.searchParam = navSearch;
+      this.keyUpFunction();
+    }
+
     if (queryTopicName) {
       this.queryTopic = this.allTopics.find(t => t.name === queryTopicName);
       // Can't do this in post-filter due to NG0100 error
@@ -46,9 +51,6 @@ export class PostListComponent implements OnInit {
       this.filter.topics?.push(this.queryTopic as Topic);
       this.filterPosts(this.filter);
     }
-
-    if (this.searchParam)
-      this.keyUpFunction();
   }
 
   keyUpFunction(): void {
