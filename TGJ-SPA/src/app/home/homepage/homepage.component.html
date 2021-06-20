@@ -1,0 +1,37 @@
+<div class="container pb-5">
+    <div class="grid-container">
+        <div *ngFor="let post of posts; let i = index" [ngClass]="getPostClass(i + 1)">
+            <div [ngClass]="isSingle(i + 1) ? 'row' : ''">
+                <div class="banner-image" [ngClass]="isSingle(i + 1) ? 'col-3' : ''">
+                    <img [src]=post.thumbnail>
+                </div>
+                <div class="" [ngClass]="isSingle(i + 1) ? 'col-9' : ''">
+                    <div class="title-wrapper">
+                        <a [routerLink]="['/post/' + post._id]">
+                            {{post.title}}
+                        </a>
+
+                    </div>
+                    <div class="author-wrapper">
+                        <span>{{post.author.first_name}} {{post.author.family_name}}</span>
+                        <div *ngFor="let topic of post.topics | slice:0:3" class="topic mb-0">
+                            {{topic.name}}
+                        </div>
+                        <div class="date-wrapper">
+                            {{post.date_created | date}}
+                        </div>
+                    </div>
+                    <div class="pl-0">
+                        {{post.summary}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="button" 
+                class="btn btn-gray btn-outline-secondary" 
+                [routerLink]="['/posts']">All Posts</button>
+    </div>
+</div>

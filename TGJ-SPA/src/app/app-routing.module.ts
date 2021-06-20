@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
+import { HomepageComponent } from './home/homepage/homepage.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostFormComponent } from './posts/post-form/post-form.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
@@ -16,7 +17,8 @@ import { TopicPostsResolver } from './resolvers/topic-posts.resolver';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
 
 const routes: Routes = [
-  // { path: '', component: HomeComponent },
+  { path: '', component: HomepageComponent,
+      resolve: {posts: PostListResolver} },
   {
     path: '',
     runGuardsAndResolvers: 'always',
@@ -45,7 +47,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
