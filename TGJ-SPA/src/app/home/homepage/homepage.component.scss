@@ -58,6 +58,9 @@
 
 }
 
+.banner-image {
+    cursor: pointer;
+}
 
 .author-wrapper {
     display: flex;
@@ -70,6 +73,7 @@
 
     span {
         font-weight: 550;
+        cursor: pointer;
     }
 
     .date-wrapper {

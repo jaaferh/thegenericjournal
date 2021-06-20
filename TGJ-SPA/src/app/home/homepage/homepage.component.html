@@ -2,7 +2,8 @@
     <div class="grid-container">
         <div *ngFor="let post of posts; let i = index" [ngClass]="getPostClass(i + 1)">
             <div [ngClass]="isSingle(i + 1) ? 'row' : ''">
-                <div class="banner-image" [ngClass]="isSingle(i + 1) ? 'col-3' : ''">
+                <div class="banner-image" [ngClass]="isSingle(i + 1) ? 'col-3' : ''" 
+                     [routerLink]="['/post/', post._id]">
                     <img [src]=post.thumbnail>
                 </div>
                 <div class="" [ngClass]="isSingle(i + 1) ? 'col-9' : ''">
@@ -13,7 +14,9 @@
 
                     </div>
                     <div class="author-wrapper">
-                        <span>{{post.author.first_name}} {{post.author.family_name}}</span>
+                        <span [routerLink]="['/author/', post.author._id]">
+                            {{post.author.first_name}} {{post.author.family_name}}
+                        </span>
                         <div *ngFor="let topic of post.topics | slice:0:3" class="topic mb-0">
                             {{topic.name}}
                         </div>
