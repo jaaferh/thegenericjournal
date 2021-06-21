@@ -141,6 +141,11 @@ export class PostFormComponent implements OnInit {
       this.toaster.pop('success', 'Container Created Successfully');
       this.post.content.containers.push(cont);
       this.showNewContainer = false;
+
+      // Clear containerAdd
+      this.containerAdd.caption = this.containerAdd.image_url = 
+      this.containerAdd.text = this.containerAdd.title = undefined;
+      
     }, error => {
       this.toaster.pop('error', error);
     });
