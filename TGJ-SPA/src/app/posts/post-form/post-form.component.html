@@ -72,8 +72,8 @@
     </div>
 
   
-    <div class="container-wrapper" *ngIf="mode == 1">
-      <div *ngIf="post.content.containers.length > 0" 
+    <div class="container-wrapper">
+      <div *ngIf="post.content !== undefined" 
             cdkDropList (cdkDropListDropped)="drop($event)">
         <div class="container-box" *ngFor="let container of post.content.containers; let i = index" cdkDrag>
           <span class="fas fa-times top-left-red" (click)="deleteContainer(container._id, i)"></span>

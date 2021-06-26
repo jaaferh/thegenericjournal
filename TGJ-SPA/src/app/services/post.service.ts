@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Post, PostFilter } from '../models/post.entity';
+import { Post, PostFilter, PostOptions } from '../models/post.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +41,11 @@ export class PostService {
     return this.http.get<Post>(this.baseUrl + 'post/' + postId);
   }
 
-  createPost(post: Post): Observable<Post> {
+  createPost(post: PostOptions): Observable<Post> {
     return this.http.post<Post>(this.baseUrl + 'post/create', post);
   }
 
-  updatePost(postId: string, post: Post): Observable<void> {
+  updatePost(postId: string, post: PostOptions): Observable<void> {
     return this.http.post<void>(this.baseUrl + 'post/' + postId + '/update', post);
   }
 

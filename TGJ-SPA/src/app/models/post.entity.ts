@@ -25,3 +25,8 @@ export interface PostFilter {
   dateFrom?: Date;
   dateTo?: Date;
 }
+
+export interface PostOptions {
+  post: Post;
+  delContainers: Container[];
+}
