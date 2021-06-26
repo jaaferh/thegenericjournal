@@ -1,8 +1,6 @@
-import { Post } from './post.entity';
-
 export interface Container {
   _id: string;
-  post: Post;
+  post: string;
   type: string;
   title?: string;
   text?: string;

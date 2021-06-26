@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from 'src/app/models/post.entity';
+import { Post, PostOptions } from 'src/app/models/post.entity';
 import { Container } from 'src/app/models/container.entity';
 import { Topic } from 'src/app/models/topic.entity';
 import { PostService } from 'src/app/services/post.service';
@@ -17,6 +17,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
+  postOptions = {} as PostOptions;
   post = {} as Post;
   topics: Topic[] = [];
   authors: Author[] = [];
@@ -50,11 +51,16 @@ export class PostFormComponent implements OnInit {
       if (this.mode === Mode.Edit) {
         this.post = data.post as Post;
       }
+      else {
+        this.post.content = { containers: [], last_edited: new Date()};
+      }
       this.topics = data.topics as Topic[];
       this.authors = data.authors as Author[];
     }, error => {
       this.toaster.pop('error', error);
     });
+    
+    this.postOptions.delContainers = [];
   }
 
   doTopicFilter(): void { // Doesn't work
@@ -82,13 +88,15 @@ export class PostFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.postOptions.post = this.post;
+    console.log(this.postOptions);
     if (this.mode === Mode.Create) {
       if (!this.post.thumbnail) {
         this.toaster.pop('error', 'Missing thumbnail');
         return;
       }
 
-      this.postService.createPost(this.post).subscribe(newP => {
+      this.postService.createPost(this.postOptions).subscribe(newP => {
         this.toaster.pop('success', 'Post Created Successfully');
         this.postForm.reset(this.post);
         void this.router.navigate(['/post/' + newP._id]);
@@ -100,7 +108,7 @@ export class PostFormComponent implements OnInit {
       // Update Post
       if (this.id != null) {
         this.post.content.last_edited = new Date();
-        this.postService.updatePost(this.id, this.post).subscribe(() => {
+        this.postService.updatePost(this.id, this.postOptions).subscribe(() => {
           this.toaster.pop('success', 'Post Updated Successfully');
           this.postForm.reset(this.post);
           void this.router.navigate(['/post', this.id]);
@@ -136,32 +144,22 @@ export class PostFormComponent implements OnInit {
   }
 
   createContainer(): void {
-    this.containerAdd.post = this.post;
-    this.containerService.createContainer(this.containerAdd).subscribe(cont => {
-      this.toaster.pop('success', 'Container Created Successfully');
-      this.post.content.containers.push(cont);
-      this.showNewContainer = false;
+    this.containerAdd.post = this.post._id;
 
-      // Clear containerAdd
-      this.containerAdd.caption = this.containerAdd.image_url = 
-      this.containerAdd.text = this.containerAdd.title = undefined;
-      
-    }, error => {
-      this.toaster.pop('error', error);
-    });
+    // Deep copy (?)
+    const cont = Object.assign({}, this.containerAdd);
+    this.post.content.containers.push(cont);
+    this.showNewContainer = false;
+
+    // Clear containerAdd
+    this.containerAdd.caption = this.containerAdd.image_url = 
+    this.containerAdd.text = this.containerAdd.title = undefined;
   }
 
   deleteContainer(containerId: string, index: number): void {
-    if (containerId !== undefined) {
-      this.containerService.deleteContainer(containerId).subscribe(() => {
-        this.post.content.containers.splice(index, 1);
-      }, error => {
-        this.toaster.pop('error', error);
-      });
-    }
-    else {
-      this.post.content.containers.splice(index, 1);
-    }
+    if (containerId !== undefined)
+      this.postOptions.delContainers.push(this.post.content.containers[index]);
+    this.post.content.containers.splice(index, 1);
   }
 
   trackByIndex(index: number, obj: any): any {
