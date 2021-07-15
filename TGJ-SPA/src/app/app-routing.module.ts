@@ -15,6 +15,8 @@ import { PostListResolver } from './resolvers/post-list.resolver';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { TopicPostsResolver } from './resolvers/topic-posts.resolver';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent,
@@ -24,6 +26,8 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [], // AuthGuard
     children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'authors', component: AuthorListComponent,
           resolve: {authorsPosts: AuthorPostsResolver} },
       { path: 'author/new', component: AuthorFormComponent },

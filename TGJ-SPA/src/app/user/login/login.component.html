@@ -1,0 +1,42 @@
+<div class="container pb-5">
+  <div class="list-header">
+      <h1>Login</h1>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="login-wrapper">
+      
+      <!-- Email -->
+      <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email"
+              required [(ngModel)]="login.email" name="email"
+              #email="ngModel">
+          <div [hidden]="email.valid || email.pristine"
+              class="alert alert-danger mt-2">
+            Email is required
+          </div>
+      </div>
+  
+      <!-- Password -->
+      <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password"
+              required [(ngModel)]="login.password" name="password"
+              #password="ngModel">
+          <div [hidden]="password.valid || password.pristine"
+              class="alert alert-danger mt-2">
+            Password is required
+          </div>
+      </div>
+  
+      <!-- Submit & Register -->
+      <div class="buttons">
+          <button type="submit" class="btn-success btn btn-gray mr-2" 
+                  [disabled]="!loginForm.form.valid">Submit</button>
+          <button type="button" class="btn-secondary btn btn-gray mr-2" 
+                  [routerLink]="['/register']">Register</button>
+      </div>
+    </div>
+  </form>
+</div>

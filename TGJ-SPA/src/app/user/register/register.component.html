@@ -1,0 +1,86 @@
+<div class="container pb-5">
+  <div class="list-header">
+      <h1>Register</h1>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <div class="login-wrapper">
+      <div class="form-group">
+          <!-- First Name -->
+          <label for="first_name">First Name</label>
+          <input type="text" class="form-control" id="first_name"
+              required [(ngModel)]="register.first_name" name="first_name"
+              #first_name="ngModel">
+          <div [hidden]="first_name.valid || first_name.pristine"
+              class="alert alert-danger mt-2">
+            First name is required
+          </div>
+      </div>
+
+      <!-- Family Name  -->
+      <div class="form-group">
+          <label for="family_name">Family Name</label>
+          <input type="text" class="form-control" id="family_name"
+              required [(ngModel)]="register.family_name" name="family_name"
+              #family_name="ngModel">
+          <div [hidden]="family_name.valid || family_name.pristine"
+              class="alert alert-danger mt-2">
+            Family name is required
+          </div>
+      </div>
+
+      <!-- Email  -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email"
+            required [(ngModel)]="register.email" name="email"
+            #email="ngModel">
+        <div [hidden]="email.valid || email.pristine"
+            class="alert alert-danger mt-2">
+          Email is required
+        </div>
+      </div>
+  
+      <!-- DoB -->
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" class="form-control" id="dob" name="dob"
+            [ngModel]="register.date_of_birth | date:'yyyy-MM-dd'" 
+            (ngModelChange)="dateChange($event)" #dob="ngModel">
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password"
+            required [(ngModel)]="register.password" name="password"
+            #password="ngModel">
+        <div [hidden]="password.valid || password.pristine"
+            class="alert alert-danger mt-2">
+          Password is required
+        </div>
+      </div>
+
+      <!-- Password Confirm -->
+      <div class="form-group">
+        <label for="confirmPass">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPass"
+            required [(ngModel)]="register.confirm_pass" name="confirmPass"
+            (ngModelChange)="confirmPassword()" #confirmPass="ngModel">
+        <div [hidden]="confirmPass.valid || confirmPass.pristine || confirmPassword()"
+            class="alert alert-danger mt-2">
+          {{register.confirm_pass ? 
+              'Passwords do not match' : 'Confirmation is required'}}
+        </div>
+      </div>
+  
+      <!-- Submit & Cancel -->
+      <div class="buttons">
+          <button type="submit" class="btn-success btn btn-gray mr-2" 
+                  [disabled]="!registerForm.form.valid">Submit</button>
+          <button type="button" class="btn-secondary btn btn-gray mr-2" 
+                  [routerLink]="['/']">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

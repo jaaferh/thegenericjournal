@@ -38,6 +38,8 @@ import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { AuthorPostsResolver } from './resolvers/author-posts.resolver';
 import { PostFilterComponent } from './posts/post-list/post-filter/post-filter.component';
 import { HomepageComponent } from './home/homepage/homepage.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { HomepageComponent } from './home/homepage/homepage.component';
     PostBannerComponent,
     PostFilterComponent,
     HomepageComponent,
+    LoginComponent,
+    RegisterComponent,
    ],
   imports: [
     BrowserModule,
