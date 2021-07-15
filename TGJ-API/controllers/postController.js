@@ -4,11 +4,6 @@ const Post = require('../models/post');
 const Container = require('../models/container');
 const Comment = require('../models/comment');
 
-// HOMEPAGE GET
-exports.index = (req, res) => {
-  res.send('NOT IMPLEMENTED: Site Home Page');
-};
-
 // ALL POSTS GET
 exports.post_list = (req, res, next) => {
   Post.find()
