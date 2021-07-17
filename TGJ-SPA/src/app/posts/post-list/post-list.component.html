@@ -33,6 +33,7 @@
           ></button>
 
           <button
+            *ngIf="userService.currentUser.author"
             type="button"
             class="btn-success btn btn-gray btn-fill fa fa-plus"
             [routerLink]="['/post/new']"

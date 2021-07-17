@@ -20,7 +20,7 @@
         <div *ngFor="let topic of post.topics" class="topic" >{{topic.name}}</div>
       </div>    
     </div>
-    <div class="col-sm-4 edit-del-wrapper">
+    <div *ngIf="userService.currentUser.author && userService.currentUser.author._id === post.author._id" class="col-sm-4 edit-del-wrapper">
       <button type="button" class="btn btn-gray btn-outline-secondary" (click)="updatePost(post._id)">Update</button>
       <button type="button" class="btn btn-gray btn-outline-danger" (click)="deletePost(post._id)">Delete</button>    
     </div>

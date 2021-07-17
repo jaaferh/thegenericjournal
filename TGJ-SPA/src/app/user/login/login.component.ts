@@ -20,8 +20,9 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.login) {
-      this.userService.loginUser(this.login).subscribe(d => {
-        void this.router.navigate(['/']);
+      this.userService.loginUser(this.login).subscribe(() => {
+        // Reload and navigate to homepage simultaneously
+        window.location.href = window.location.protocol + '//' + window.location.host + '/';
         this.toaster.pop('success', 'Successfully Logged In');
       }, error => {
         this.toaster.pop('error', error);

@@ -3,7 +3,7 @@
         <h1>Author</h1>
     </div>
 
-    <div class="links">
+    <div class="links" *ngIf="userService.currentUser.author && userService.currentUser.author._id === authorDetails.author._id">
         <button class="btn-secondary btn btn-gray"
                 type="button"
                 [routerLink]="['/author/' + authorDetails.author._id + '/edit']">Edit</button>

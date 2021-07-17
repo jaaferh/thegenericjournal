@@ -3,6 +3,7 @@ import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 import { AuthorService } from 'src/app/services/author.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-author-list',
@@ -15,11 +16,13 @@ export class AuthorListComponent implements OnInit {
   searchParam = '';
   searchEmpty = false;
   p = 1;
+
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
     private router: Router,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    public userService: UserService,
   ) { }
 
   ngOnInit(): void {
