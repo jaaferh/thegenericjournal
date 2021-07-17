@@ -14,7 +14,12 @@ const userController = require('../controllers/userController');
 
 const checkAuth = expressJwt({
   secret: 'secret',
-  algorithms: ['HS256'],
+  getToken(req) {
+    if (req.headers.authorization && req.headers.authorization.split(' '[0] === 'Bearer')) return req.headers.authorization.split(' ')[1];
+    if (req.headers.authtoken) return req.headers.authtoken;
+    return null;
+  },
+  algorithms: ['sha1', 'RS256', 'HS256'],
 });
 
 /// USER ROUTES ///

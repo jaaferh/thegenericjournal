@@ -46,7 +46,7 @@ exports.login_user = async (req, res, next) => {
       const token = await user.generateJwtToken({
         user,
       }, 'secret', {
-        expiresIn: 120,
+        expiresIn: 7200,
       });
       if (token) {
         return res.send({ token, user });
