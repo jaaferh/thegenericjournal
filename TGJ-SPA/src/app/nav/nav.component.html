@@ -4,7 +4,7 @@
       <h1 routerLink="/"></h1>
     </div>
     <div class="login">
-      <span *ngIf="loggedIn()" [routerLink]="'/author/' + currentUser.author._id">
+      <span *ngIf="currentUser.author" [routerLink]="'/author/' + currentUser.author._id">
         {{currentUser.author.first_name}} {{currentUser.author.family_name}}
       </span>
       <span (click)="logClick()">{{loggedIn() ? 'Logout' : 'Login'}}</span>

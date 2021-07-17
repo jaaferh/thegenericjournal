@@ -32,7 +32,7 @@ export class NavComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.currentUser = JSON.parse(localStorage.getItem('user') as string) as User;
+    this.currentUser = this.userService.currentUser;
     this.topicService.getTopicList().subscribe(tl => {
       this.topics = tl;
     });

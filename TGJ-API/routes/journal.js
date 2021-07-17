@@ -13,7 +13,7 @@ const cloudinaryController = require('../controllers/cloudinaryController');
 const userController = require('../controllers/userController');
 
 const checkAuth = expressJwt({
-  secret: 'secret',
+  secret: process.env.SECRET,
   getToken(req) {
     if (req.headers.authorization && req.headers.authorization.split(' '[0] === 'Bearer')) return req.headers.authorization.split(' ')[1];
     if (req.headers.authtoken) return req.headers.authtoken;

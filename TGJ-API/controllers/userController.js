@@ -45,7 +45,7 @@ exports.login_user = async (req, res, next) => {
     if (match) {
       const token = await user.generateJwtToken({
         user,
-      }, 'secret', {
+      }, process.env.SECRET, {
         expiresIn: 7200,
       });
       if (token) {
