@@ -1,6 +1,8 @@
+import { Author } from "./author.entity";
+
 export interface User {
   email: string;
-  author: string;
+  author: Author;
 }
 
 export interface UserToken {

@@ -38,7 +38,6 @@ export class RegisterComponent {
   }
 
   confirmPassword(): boolean {
-    console.log('test');
     if (this.register.password !== this.register.confirm_pass) {
       this.registerForm.form.controls['confirmPass'].setErrors({'incorrect': true});
       return false;

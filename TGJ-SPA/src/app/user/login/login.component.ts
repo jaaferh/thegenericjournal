@@ -21,7 +21,6 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.login) {
       this.userService.loginUser(this.login).subscribe(d => {
-        console.log(d);
         void this.router.navigate(['/']);
         this.toaster.pop('success', 'Successfully Logged In');
       }, error => {

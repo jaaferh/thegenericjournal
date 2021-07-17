@@ -35,7 +35,7 @@ exports.login_user = async (req, res, next) => {
     // Get user from email
     const user = await User.findOne({
       email: login.email,
-    });
+    }).populate('author');
 
     // Check if user exists
     if (!user) {

@@ -35,6 +35,12 @@ export class UserService {
       );
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUser = {} as User;
+  }
+
   loggedIn(): boolean {
     const token = localStorage.getItem('token');
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
