@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ToasterService } from 'angular2-toaster';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { CommentService } from 'src/app/services/comment.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-comment-tree',
@@ -21,7 +22,8 @@ export class CommentTreeComponent {
 
   constructor(
     private commentService: CommentService,
-    private toaster: ToasterService
+    private toaster: ToasterService,
+    public userService: UserService,
   ) { }
 
   like(comment: Comment): void {

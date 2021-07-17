@@ -1,7 +1,13 @@
 <div class="all-wrap" [ngClass]="stick ? 'sticky-padding' : ''">
   <header role="banner">
-    <div class="page-header fullnav" routerLink="/">
-      <h1></h1>
+    <div class="page-header fullnav">
+      <h1 routerLink="/"></h1>
+    </div>
+    <div class="login">
+      <span *ngIf="currentUser.author" [routerLink]="'/author/' + currentUser.author._id">
+        {{currentUser.author.first_name}} {{currentUser.author.family_name}}
+      </span>
+      <span (click)="logClick()">{{loggedIn() ? 'Logout' : 'Login'}}</span>
     </div>
     <div class="page-header smallnav row">
       <h1 class="col-6" routerLink="/"></h1>
@@ -18,7 +24,7 @@
         <li class="navitem">
           <a class="nav-link" href="authors">Authors <span class="sr-only">(current)</span></a>
         </li>
-        <li class="navitem">
+        <li *ngIf="loggedIn()" class="navitem">
           <a class="nav-link" href="topics">All Topics <span class="sr-only">(current)</span></a>
         </li>
         <li class="navitem">

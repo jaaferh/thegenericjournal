@@ -4,6 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { Comment, CommentTree } from 'src/app/models/comment.entity';
 import { Post } from 'src/app/models/post.entity';
 import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -14,11 +15,13 @@ export class PostDetailComponent implements OnInit {
   post = {} as Post;
   comments: Comment[] = [];
   commentsVisible = false;
+
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
     private toaster: ToasterService,
     private router: Router,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {

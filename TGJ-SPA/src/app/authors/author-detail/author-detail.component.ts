@@ -4,6 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { AuthorDetails } from 'src/app/models/author.entity';
 import { Topic } from 'src/app/models/topic.entity';
 import { AuthorService } from 'src/app/services/author.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-author-detail',
@@ -14,11 +15,13 @@ export class AuthorDetailComponent implements OnInit {
   authorDetails!: AuthorDetails;
   topics: Topic[] = [];
   age = 0;
+
   constructor(
     private authorService: AuthorService,
     private route: ActivatedRoute,
     private toaster: ToasterService,
-    private router: Router
+    private router: Router,
+    public userService: UserService
   ) { }
 
   ngOnInit(): void {

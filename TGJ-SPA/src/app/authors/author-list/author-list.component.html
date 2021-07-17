@@ -4,7 +4,7 @@
     </div>
     
     <div class="row mb-5">
-        <div class="input-group-overlay showsearch col-9 col-sm-10" 
+        <div [ngClass]="userService.currentUser.author ? 'col-9 col-sm-10' : 'col'" class="input-group-overlay showsearch" 
              style="padding-right: 1%;" 
              (keyup)="keyUpFunction($event) ">
             <input class="form-control appended-form-control" 
@@ -12,7 +12,7 @@
                    [(ngModel)]="searchParam" 
                    placeholder="Search for Authors">
         </div>
-        <div class="col-3 col-sm-2">
+        <div *ngIf="userService.currentUser.author" class="col-3 col-sm-2">
             <button class="btn-success btn btn-gray btn-fill fa fa-plus" 
                     type="button" 
                     [routerLink]="['/author/new']"></button>

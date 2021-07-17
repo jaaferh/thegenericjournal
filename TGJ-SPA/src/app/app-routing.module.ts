@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
+import { AuthGuard } from './guards/auth.guard';
 import { HomepageComponent } from './home/homepage/homepage.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostFormComponent } from './posts/post-form/post-form.component';
@@ -15,6 +16,8 @@ import { PostListResolver } from './resolvers/post-list.resolver';
 import { TopicListResolver } from './resolvers/topic-list.resolver';
 import { TopicPostsResolver } from './resolvers/topic-posts.resolver';
 import { TopicListComponent } from './topics/topic-list/topic-list.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent,
@@ -24,6 +27,8 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [], // AuthGuard
     children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'authors', component: AuthorListComponent,
           resolve: {authorsPosts: AuthorPostsResolver} },
       { path: 'author/new', component: AuthorFormComponent },
@@ -31,7 +36,8 @@ const routes: Routes = [
           resolve: {authorDetail: AuthorDetailResolver} },
       { path: 'author/:id/edit', component: AuthorFormComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
-      { path: 'topics', component: TopicListComponent,
+      { path: 'topics', canActivate: [ AuthGuard ], 
+          component: TopicListComponent,
           resolve: {topicsPosts: TopicPostsResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver, topics: TopicListResolver} },

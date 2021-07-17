@@ -89,7 +89,7 @@ export class PostFormComponent implements OnInit {
 
   onSubmit(): void {
     this.postOptions.post = this.post;
-    console.log(this.postOptions);
+
     if (this.mode === Mode.Create) {
       if (!this.post.thumbnail) {
         this.toaster.pop('error', 'Missing thumbnail');

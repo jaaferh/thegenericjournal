@@ -4,6 +4,7 @@ import { ToasterService } from 'angular2-toaster';
 import { Post, PostFilter } from 'src/app/models/post.entity';
 import { Topic } from 'src/app/models/topic.entity';
 import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-post-list',
@@ -20,11 +21,13 @@ export class PostListComponent implements OnInit {
   showFilter = true;
   filter = {} as PostFilter;
   p = 1;
+
   constructor(
     private postService: PostService,
     private route: ActivatedRoute,
     private toaster: ToasterService,
-    private router: Router
+    private router: Router,
+    public userService: UserService,
   ) { }
 
   ngOnInit(): void {

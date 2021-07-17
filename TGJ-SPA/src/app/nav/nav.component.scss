@@ -8,7 +8,6 @@
 }
 
 .page-header {
-    cursor: pointer;
     padding-bottom: 2%;
     padding-top: 2%;
     border-top: 2px solid lightgray;
@@ -16,6 +15,7 @@
     text-align: center;
 
     h1 {
+        cursor: pointer;
         margin-bottom: 0; // Remove default mb
         font-family: 'Girassol', cursive;
         font-weight: 900;
@@ -26,6 +26,23 @@
         }
     }
 
+}
+
+.login {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    color: black;
+
+    > span {
+        margin-right: 1rem;
+
+        &:hover {
+            color: gray;
+        }
+    }
 }
 
 .navmenu {

@@ -8,7 +8,7 @@
 				<p *ngIf="comment.thisComment.last_edited" class="dates">
 					(edited: {{comment.thisComment.last_edited | date:'dd/MM/yy'}})
 				</p>
-				<span class="" (click)="editClick(i)">Edit</span>
+				<span *ngIf="userService.currentUser.author" class="" (click)="editClick(i)">Edit</span>
 			</div>
 			
 			<div *ngIf="comment.editHidden else editContainer">
@@ -36,7 +36,7 @@
 				<span class="fas fa-arrow-up" (click)="like(comment.thisComment)"></span> {{comment.thisComment.likes}}
 				<span class="fas fa-arrow-down" (click)="dislike(comment.thisComment)"></span> {{comment.thisComment.dislikes}} 
 				<span class="pl-2" (click)="replyClick(comment.thisComment, i)">Reply</span>
-				<span class="pl-2" (click)="deleteComment(comment.thisComment._id)">Delete</span>
+				<span *ngIf="userService.currentUser.author" class="pl-2" (click)="deleteComment(comment.thisComment._id)">Delete</span>
 			</p> 
 		</div>
 		<div *ngIf="!comment.replyHidden">

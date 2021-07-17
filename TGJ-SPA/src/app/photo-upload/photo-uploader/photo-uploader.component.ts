@@ -29,6 +29,7 @@ export class PhotoUploaderComponent implements OnInit {
   initialiseUploader(): void {
     this.uploader = new FileUploader({
       url: this.baseUrl + 'cloudinary/upload',
+      authToken: `Bearer ${localStorage.getItem('token') as string}`,
       // url: this.baseUrl + 'upload',
       isHTML5: true,
       allowedFileType: ['image'],
