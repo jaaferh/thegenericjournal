@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -11,6 +12,7 @@ import { Login, Register, User, UserToken } from '../models/user.entity';
 export class UserService {
   baseUrl = environment.apiUrl;
   currentUser = {} as User;
+  jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +33,10 @@ export class UserService {
           return response;
         })
       );
+  }
+
+  loggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 }

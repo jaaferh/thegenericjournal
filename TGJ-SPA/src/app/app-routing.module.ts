@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorDetailComponent } from './authors/author-detail/author-detail.component';
 import { AuthorFormComponent } from './authors/author-form/author-form.component';
 import { AuthorListComponent } from './authors/author-list/author-list.component';
+import { AuthGuard } from './guards/auth.guard';
 import { HomepageComponent } from './home/homepage/homepage.component';
 import { PostDetailComponent } from './posts/post-detail/post-detail.component';
 import { PostFormComponent } from './posts/post-form/post-form.component';
@@ -35,7 +36,8 @@ const routes: Routes = [
           resolve: {authorDetail: AuthorDetailResolver} },
       { path: 'author/:id/edit', component: AuthorFormComponent,
           resolve: {authorDetail: AuthorDetailResolver} },
-      { path: 'topics', component: TopicListComponent,
+      { path: 'topics', canActivate: [ AuthGuard ], 
+          component: TopicListComponent,
           resolve: {topicsPosts: TopicPostsResolver} },
       { path: 'posts', component: PostListComponent,
           resolve: {posts: PostListResolver, topics: TopicListResolver} },

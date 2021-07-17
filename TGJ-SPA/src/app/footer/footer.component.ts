@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent {
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
+
+  click(): void {
+    console.log(this.userService.loggedIn());
+  }
 
 }

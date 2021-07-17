@@ -40,6 +40,12 @@ import { PostFilterComponent } from './posts/post-list/post-filter/post-filter.c
 import { HomepageComponent } from './home/homepage/homepage.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -77,6 +83,13 @@ import { RegisterComponent } from './user/register/register.component';
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'soqudu' }),
     NgxPaginationModule,
     ToasterModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: [environment.apiUrl],
+        disallowedRoutes: [environment.apiUrl + 'user/']
+      }
+    })
   ],
   providers: [
     AuthorListResolver,
