@@ -104,6 +104,10 @@
     }
 }
 
+.smallnav-login {
+    display: none;
+}
+
 .sticky {
     position: fixed;
     top: 0; // Moves to top of window
@@ -169,7 +173,7 @@
 
         .menu-toggle {
             display: inline-flex;
-            justify-content: right;
+            justify-content: flex-end;
 
             button {
                 cursor: pointer;
@@ -193,6 +197,10 @@
                 padding-right: 30%;
             }
         }
+    }
+
+    .smallnav-login {
+        display: inherit;
     }
 }
 

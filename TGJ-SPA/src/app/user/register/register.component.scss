@@ -1,11 +1,16 @@
 .login-wrapper {
-  padding: 1rem 25rem 0 25rem;
+  padding: 1rem 35% 0 35%;
 
   .buttons {
     >* {
       width: 100%;
       margin-bottom: 1rem;
-      margin-top: 1rem;
     }
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .login-wrapper{
+    padding: 1rem 0 0 0;
   }
 }
