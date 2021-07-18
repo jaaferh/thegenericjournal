@@ -2,13 +2,14 @@
   <header role="banner">
     <div class="page-header fullnav">
       <h1 routerLink="/"></h1>
+      <div class="login">
+        <span *ngIf="loggedIn() && currentUser.author" [routerLink]="'/author/' + currentUser.author._id">
+          {{currentUser.author.first_name}} {{currentUser.author.family_name}}
+        </span>
+        <span (click)="logClick()">{{loggedIn() ? 'Logout' : 'Login'}}</span>
+      </div>
     </div>
-    <div class="login">
-      <span *ngIf="currentUser.author" [routerLink]="'/author/' + currentUser.author._id">
-        {{currentUser.author.first_name}} {{currentUser.author.family_name}}
-      </span>
-      <span (click)="logClick()">{{loggedIn() ? 'Logout' : 'Login'}}</span>
-    </div>
+
     <div class="page-header smallnav row">
       <h1 class="col-6" routerLink="/"></h1>
       <div class="menu-toggle col-6">
@@ -44,6 +45,16 @@
               <i class="fa fa-search"></i>
             </span>
           </div>
+        </li>
+        <li *ngIf="loggedIn() && currentUser.author" class="navitem smallnav-login">
+          <a class="nav-link" href="javascript:;" [routerLink]="'/author/' + currentUser.author._id">
+            {{currentUser.author.first_name}} {{currentUser.author.family_name}} <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="navitem smallnav-login">
+          <a class="nav-link" href="javascript:;" (click)="logClick()">
+            {{loggedIn() ? 'Logout' : 'Login'}} <span class="sr-only">(current)</span>
+          </a>
         </li>
       </ul>
     </div>

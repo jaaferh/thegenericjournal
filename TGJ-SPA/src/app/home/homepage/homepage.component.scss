@@ -81,3 +81,19 @@
         color: gray;
     }
 }
+
+@media screen and (max-width: 580px) {
+    .grid-container {
+        .single {
+            grid-column: span 12;
+        }
+
+        .double {
+            grid-column: span 12;
+        }
+
+        .triple {
+            grid-column: span 12;
+        }
+    }
+}
