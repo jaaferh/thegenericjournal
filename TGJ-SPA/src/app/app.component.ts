@@ -16,8 +16,10 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user') as string) as User;
-    if (user)
-      this.userService.currentUser = user;
+    if (this.userService.loggedIn()) {
+      const user = JSON.parse(localStorage.getItem('user') as string) as User;
+      if (user)
+        this.userService.currentUser = user;
+    }
   }
 }

@@ -36,7 +36,6 @@ export class PostFormComponent implements OnInit {
   }
   constructor(
     private postService: PostService,
-    private containerService: ContainerService,
     private toaster: ToasterService,
     private route: ActivatedRoute,
     private router: Router,
@@ -138,12 +137,13 @@ export class PostFormComponent implements OnInit {
     this.post.topics?.splice(index, 1);
   }
 
-  addContainer(type: string): void {
-    this.showNewContainer = !this.showNewContainer;
-    this.containerAdd.type = type === 'Text' ? 'Text' : 'Image';
-  }
+  // addContainer(type: string): void {
+  //   this.showNewContainer = !this.showNewContainer;
+  //   this.containerAdd.type = type === 'Text' ? 'Text' : 'Image';
+  // }
 
-  createContainer(): void {
+  createContainer(type: string): void {
+    this.containerAdd.type = type === 'Text' ? 'Text' : 'Image';
     this.containerAdd.post = this.post._id;
 
     // Deep copy (?)

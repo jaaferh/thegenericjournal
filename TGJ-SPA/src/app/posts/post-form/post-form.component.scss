@@ -107,6 +107,14 @@
   }
 } 
 
+.top-left-gray {
+  @extend .top-left-red;
+
+  &:hover {
+    color: lightgray;
+  }
+}
+
 .container-add {
   padding: 1em;
   border: 0.15rem solid #e7e6e6;
