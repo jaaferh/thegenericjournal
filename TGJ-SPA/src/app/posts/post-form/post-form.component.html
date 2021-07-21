@@ -86,9 +86,9 @@
                     #textContTitle="ngModel">
             </div>
             <div class="form-group">
-              <textarea type="text" class="form-control" [name]="'txtContText' + i"
-                    [(ngModel)]="post.content.containers[i].text" rows="3" placeholder="Text"
-                    #textContText="ngModel"></textarea>
+              <angular-editor class="" [name]="'txtContText' + i" [config]="editorConfig"
+                [(ngModel)]="post.content.containers[i].text" placeholder="Text"
+                #textContText="ngModel"></angular-editor>
             </div>
           </div>
           <ng-template #imageContainer>
@@ -114,33 +114,6 @@
                 (click)="createContainer('Image')">Add Image</button>
       </div>
 
-      <!-- <div *ngIf="showNewContainer" class="container-box">
-        <span class="fas fa-plus top-left-green" (click)="createContainer()"></span>
-
-        <div class="text-container" *ngIf="containerAdd.type == 'Text' else imageContainer">
-          <div class="form-group">
-            <input type="text" class="form-control" name="contAddTitle"
-                [(ngModel)]="containerAdd.title" placeholder="Sub-title"
-                #textContTitle="ngModel">
-          </div>
-          <div class="form-group">
-            <textarea type="text" class="form-control" name="contAddText"
-                [(ngModel)]="containerAdd.text" placeholder="Text"
-                #textContText="ngModel" rows="3"></textarea>
-          </div>
-        </div>
-        <ng-template #imageContainer>
-          <div class="img-container">
-            <div class="form-group">
-              <img *ngIf="containerAdd.image_url" id="contAddUrl" [src]=containerAdd.image_url name="contAddUrl">
-              <app-photo-uploader (uploadedImageUrl)="getUploadedImgContAdd($event)"></app-photo-uploader>
-            </div>
-            <input type="text" class="form-control" name="contAddCap"
-                [(ngModel)]="containerAdd.caption" placeholder="Caption"
-                #imgContCap="ngModel">
-          </div>
-        </ng-template>
-      </div> -->
     </div>
     <p></p>
   

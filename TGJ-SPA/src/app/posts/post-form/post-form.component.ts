@@ -10,6 +10,7 @@ import { ContainerService } from 'src/app/services/container.service';
 import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 import { ToasterService } from 'angular2-toaster';
 import { Location } from '@angular/common';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-post-form',
@@ -26,6 +27,19 @@ export class PostFormComponent implements OnInit {
   containerAdd = {} as Container;
   mode: Mode = Mode.Create;
   id: string = '';
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    toolbarHiddenButtons: [
+      [
+        'fontName'
+      ],
+      [
+        'backgroundColor',
+        'insertImage',
+        'insertVideo'
+      ]
+    ]
+  }
   
   @ViewChild('postForm') postForm!: NgForm;
   @HostListener('window:beforeunload', ['$event'])

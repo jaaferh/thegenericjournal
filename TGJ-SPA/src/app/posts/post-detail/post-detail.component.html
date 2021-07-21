@@ -34,7 +34,7 @@
   <div *ngFor="let container of post.content.containers" class="container-wrapper">
     <div class="text-cont" *ngIf="container.type == 'Text'">
       <h3>{{container.title}}</h3>
-      <p>{{container.text}}</p>
+      <p [innerHTML]="container.text"></p>
     </div>
     <div class="image-cont" *ngIf="container.type == 'Image'">
       <img [src]=container.image_url>
