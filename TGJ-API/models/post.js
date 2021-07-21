@@ -8,7 +8,6 @@ const PostSchema = new Schema(
     thumbnail: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'Author', required: true },
     summary: { type: String, required: true },
-    // content: { type: Schema.Types.ObjectId, ref: 'Content', required: true },
     content: {
       containers: [{ type: Schema.Types.ObjectId, ref: 'Container', required: true }],
       last_edited: { type: Date, default: null },

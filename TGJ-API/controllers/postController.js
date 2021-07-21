@@ -120,7 +120,10 @@ exports.post_create = (req, res, next) => {
           thumbnail: newPost.thumbnail,
           author: newPost.author,
           summary: newPost.summary,
-          content: req.body.post.content,
+          content: {
+            containers: req.body.post.content.containers,
+            last_edited: null,
+          },
           date_created: newPost.date_created,
           topics: newPost.topics,
           comments: newPost.comments,
