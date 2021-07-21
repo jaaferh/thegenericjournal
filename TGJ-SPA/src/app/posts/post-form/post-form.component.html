@@ -29,7 +29,8 @@
       <select class="form-control custom-select" 
               [(ngModel)]="post.author" 
               name="authorSelect" 
-              id="authorSelect">
+              id="authorSelect"
+              [disabled]="true">
         <option *ngFor="let author of authors" [ngValue]="author">{{author.first_name}} {{author.family_name}}</option>
       </select>
     </div>
@@ -77,28 +78,30 @@
             cdkDropList (cdkDropListDropped)="drop($event)">
         <div class="container-box" *ngFor="let container of post.content.containers; let i = index" cdkDrag>
           <span class="fas fa-times top-left-red" (click)="deleteContainer(container._id, i)"></span>
+          <span cdkDragHandle class="fas fa-arrows-alt top-left-gray"></span>
 
           <div class="text-container" *ngIf="container.type == 'Text' else imageContainer">
             <div class="form-group">
               <input type="text" class="form-control" [name]="'txtContTitle' + i"
-                    [(ngModel)]="post.content.containers[i].title" 
+                    [(ngModel)]="post.content.containers[i].title" placeholder="Sub-title"
                     #textContTitle="ngModel">
             </div>
             <div class="form-group">
-              <textarea type="text" class="form-control" [name]="'txtContText' + i"
-                    [(ngModel)]="post.content.containers[i].text" rows="3"
-                    #textContText="ngModel"></textarea>
+              <angular-editor class="" [name]="'txtContText' + i" [config]="editorConfig"
+                [(ngModel)]="post.content.containers[i].text" placeholder="Text"
+                #textContText="ngModel"></angular-editor>
             </div>
           </div>
           <ng-template #imageContainer>
             <div class="img-container">
               <div class="form-group">
-                <img [id]="'imgContUrl' + i" [src]=post.content.containers[i].image_url [name]="'imgContUrl' + i">
+                <img *ngIf="post.content.containers[i].image_url" [id]="'imgContUrl' + i" 
+                  [src]="post.content.containers[i].image_url" [name]="'imgContUrl' + i">
                 <app-photo-uploader (uploadedImageUrl)="getUploadedImgCont(i, $event)"></app-photo-uploader>
               </div>
               
               <input type="text" class="form-control" [name]="'imgContCap' + i"
-                    [(ngModel)]="post.content.containers[i].caption" 
+                    [(ngModel)]="post.content.containers[i].caption" placeholder="Caption"
                     #imgContCap="ngModel">
             </div>
           </ng-template>
@@ -107,38 +110,11 @@
 
       <div class="container-add">
         <button type="button" class="btn btn-outline-secondary" 
-                (click)="addContainer('Text')">Add Text</button>
+                (click)="createContainer('Text')">Add Text</button>
         <button type="button" class="btn btn-outline-secondary" 
-                (click)="addContainer('Image')">Add Image</button>
+                (click)="createContainer('Image')">Add Image</button>
       </div>
 
-      <div *ngIf="showNewContainer" class="container-box">
-        <span class="fas fa-plus top-left-green" (click)="createContainer()"></span>
-
-        <div class="text-container" *ngIf="containerAdd.type == 'Text' else imageContainer">
-          <div class="form-group">
-            <input type="text" class="form-control" name="contAddTitle"
-                [(ngModel)]="containerAdd.title" placeholder="Sub-title"
-                #textContTitle="ngModel">
-          </div>
-          <div class="form-group">
-            <textarea type="text" class="form-control" name="contAddText"
-                [(ngModel)]="containerAdd.text" placeholder="Text"
-                #textContText="ngModel" rows="3"></textarea>
-          </div>
-        </div>
-        <ng-template #imageContainer>
-          <div class="img-container">
-            <div class="form-group">
-              <img *ngIf="containerAdd.image_url" id="contAddUrl" [src]=containerAdd.image_url name="contAddUrl">
-              <app-photo-uploader (uploadedImageUrl)="getUploadedImgContAdd($event)"></app-photo-uploader>
-            </div>
-            <input type="text" class="form-control" name="contAddCap"
-                [(ngModel)]="containerAdd.caption" placeholder="Caption"
-                #imgContCap="ngModel">
-          </div>
-        </ng-template>
-      </div>
     </div>
     <p></p>
   

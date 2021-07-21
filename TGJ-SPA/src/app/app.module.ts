@@ -43,6 +43,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { HttpConfigInterceptor } from './services/httpconfig.interceptor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -84,6 +85,7 @@ export function tokenGetter() {
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'soqudu' }),
     NgxPaginationModule,
     ToasterModule.forRoot(),
+    AngularEditorModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,

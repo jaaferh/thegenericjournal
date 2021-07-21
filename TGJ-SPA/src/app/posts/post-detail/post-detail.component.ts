@@ -21,7 +21,7 @@ export class PostDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private toaster: ToasterService,
     private router: Router,
-    public userService: UserService
+    public userService: UserService,
   ) { }
 
   ngOnInit(): void {
