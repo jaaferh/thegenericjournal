@@ -11,6 +11,7 @@ import { Author, AuthorsPosts } from 'src/app/models/author.entity';
 import { ToasterService } from 'angular2-toaster';
 import { Location } from '@angular/common';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-post-form',
@@ -53,7 +54,8 @@ export class PostFormComponent implements OnInit {
     private toaster: ToasterService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
@@ -61,14 +63,16 @@ export class PostFormComponent implements OnInit {
     this.mode = this.id ? Mode.Edit : Mode.Create;
 
     this.route.data.subscribe(data => {
+      this.topics = data.topics as Topic[];
+      this.authors = data.authors as Author[];
+      
       if (this.mode === Mode.Edit) {
         this.post = data.post as Post;
       }
       else {
         this.post.content = { containers: [], last_edited: new Date()};
+        this.post.author = this.authors.find(a => a._id === this.userService.currentUser.author._id) as Author;
       }
-      this.topics = data.topics as Topic[];
-      this.authors = data.authors as Author[];
     }, error => {
       this.toaster.pop('error', error);
     });

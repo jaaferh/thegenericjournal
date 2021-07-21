@@ -29,7 +29,8 @@
       <select class="form-control custom-select" 
               [(ngModel)]="post.author" 
               name="authorSelect" 
-              id="authorSelect">
+              id="authorSelect"
+              [disabled]="true">
         <option *ngFor="let author of authors" [ngValue]="author">{{author.first_name}} {{author.family_name}}</option>
       </select>
     </div>
