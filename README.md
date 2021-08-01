@@ -41,6 +41,8 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Short-Term Todo:
 
+- Add RouteGuard to prevent users from reaching form pages they shouldnt reach. Consider including role checks as well
+- Fix errors toasting as objects
 - Forgot password and change password
 - Link comments to user/author
 - Add debug messages to other controllers after testing it works

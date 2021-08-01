@@ -15,6 +15,7 @@ const PostSchema = new Schema(
     date_created: { type: Date, default: Date.now },
     topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    admin: { type: Boolean, default: false },
   },
 );
 

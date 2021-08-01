@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const expressJwt = require('express-jwt');
+const permit = require('../middleware/authorisation');
 
 // Require controller modules.
 const postController = require('../controllers/postController');
@@ -33,13 +34,13 @@ router.post('/user/login', userController.login_user);
 /// AUTHOR ROUTES ///
 
 // POST request for creating Author.
-router.post('/author/create', checkAuth, authorController.author_validate, authorController.author_create);
+router.post('/author/create', [checkAuth, permit('Owner')], authorController.author_validate, authorController.author_create);
 
 // POST request to delete Author.
-router.delete('/author/:id/delete', checkAuth, authorController.author_delete);
+router.delete('/author/:id/delete', [checkAuth, permit('Owner')], authorController.author_delete);
 
 // POST request to update Author.
-router.post('/author/:id/update', checkAuth, authorController.author_validate, authorController.author_update);
+router.post('/author/:id/update', [checkAuth, permit('User', 'Admin', 'Owner')], authorController.author_validate, authorController.author_update);
 
 // GET request for Author search.
 router.get('/author/search/:key', authorController.author_search);
@@ -59,10 +60,10 @@ router.get('/authors/posts', authorController.author_posts);
 router.post('/comment/create', checkAuth, commentController.comment_create);
 
 // POST request to delete comment.
-router.delete('/comment/:id/delete', checkAuth, commentController.comment_delete);
+router.delete('/comment/:id/delete', [checkAuth, permit('User', 'Admin', 'Owner')], commentController.comment_delete);
 
 // POST request to update comment.
-router.post('/comment/:id/update', checkAuth, commentController.comment_update_post);
+router.post('/comment/:id/update', [checkAuth, permit('User', 'Admin', 'Owner')], commentController.comment_update_post);
 
 // POST request to like comment.
 router.post('/comment/:id/like', commentController.comment_like);
@@ -87,10 +88,10 @@ router.post('/container/:id/update', checkAuth, containerController.container_va
 router.post('/post/create', checkAuth, postController.post_validate, postController.post_create);
 
 // POST request to delete post.
-router.delete('/post/:id/delete', checkAuth, postController.post_delete);
+router.delete('/post/:id/delete', [checkAuth, permit('User', 'Admin', 'Owner')], postController.post_delete);
 
 // POST request to update post.
-router.post('/post/:id/update', checkAuth, postController.post_validate, postController.post_update);
+router.post('/post/:id/update', [checkAuth, permit('User', 'Admin', 'Owner')], postController.post_validate, postController.post_update);
 
 // GET request for post search.
 router.get('/post/search/:key', postController.post_search);
@@ -104,13 +105,13 @@ router.get('/posts/:limit', postController.post_list);
 /// TOPIC ROUTES ///
 
 // POST request for creating topic.
-router.post('/topic/create', checkAuth, topicController.topic_validate, topicController.topic_create);
+router.post('/topic/create', [checkAuth, permit('Owner')], topicController.topic_validate, topicController.topic_create);
 
 // POST request to delete topic.
-router.delete('/topic/:id/delete', checkAuth, topicController.topic_delete);
+router.delete('/topic/:id/delete', [checkAuth, permit('Owner')], topicController.topic_delete);
 
 // POST request to update topic.
-router.post('/topic/:id/update', checkAuth, topicController.topic_validate, topicController.topic_update);
+router.post('/topic/:id/update', [checkAuth, permit('Owner')], topicController.topic_validate, topicController.topic_update);
 
 // GET request for one topic.
 router.get('/topic/:id', topicController.topic_detail);
