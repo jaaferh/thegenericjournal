@@ -17,6 +17,7 @@ export interface Post {
   date_created?: Date;
   topics?: Topic[];
   comments?: Comment[];
+  admin: boolean;
 }
 
 export interface PostFilter {

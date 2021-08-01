@@ -3,6 +3,7 @@ const async = require('async');
 const debug = require('debug')('author');
 const Author = require('../models/author');
 const Post = require('../models/post');
+const hasAdminAccess = require('../helper/checkAdmin');
 
 // ALL AUTHORS GET.
 exports.author_list = (req, res, next) => {
@@ -68,10 +69,11 @@ exports.author_search = (req, res, next) => {
 // };
 
 // AUTHOR_POSTS GET
-exports.author_posts = (req, res, next) => {
+exports.author_posts = async (req, res, next) => {
+  const isAdmin = await hasAdminAccess(req);
   Author.find()
     .sort([['first_name', 'ascending']])
-    .then((listAuthors) => Post.find()
+    .then((listAuthors) => Post.find({ admin: [false, null, isAdmin] })
       .populate('author')
       .then((listPosts) => res.send({ authors: listAuthors, posts: listPosts }))
       .catch((err) => {
@@ -85,14 +87,16 @@ exports.author_posts = (req, res, next) => {
 };
 
 // DETAIL GET.
-exports.author_detail = (req, res, next) => {
+exports.author_detail = async (req, res, next) => {
+  const isAdmin = await hasAdminAccess(req);
+
   async.parallel({
     author(callback) {
       Author.findById(req.params.id)
         .exec(callback);
     },
     authors_posts(callback) {
-      Post.find({ author: req.params.id })
+      Post.find({ author: req.params.id, admin: [false, null, isAdmin] })
         .populate('topics')
         .exec(callback);
     },

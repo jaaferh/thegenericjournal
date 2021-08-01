@@ -3,10 +3,13 @@ const async = require('async');
 const Post = require('../models/post');
 const Container = require('../models/container');
 const Comment = require('../models/comment');
+const hasAdminAccess = require('../helper/checkAdmin');
 
 // ALL POSTS GET
-exports.post_list = (req, res, next) => {
-  Post.find()
+exports.post_list = async (req, res, next) => {
+  const isAdmin = await hasAdminAccess(req);
+
+  Post.find({ admin: [false, null, isAdmin] })
     .limit(Number(req.params.limit))
     .populate('author')
     .populate('topics')
@@ -19,10 +22,11 @@ exports.post_list = (req, res, next) => {
 };
 
 // POST SEARCH GET
-exports.post_search = (req, res, next) => {
+exports.post_search = async (req, res, next) => {
+  const isAdmin = await hasAdminAccess(req);
   const inputTitle = new RegExp(req.params.key, 'i');
 
-  Post.find({ $text: { $search: inputTitle } })
+  Post.find({ $text: { $search: inputTitle } }, { admin: [false, null, isAdmin] })
     .exec((err, fullsearch) => {
       if (err) { return next(err); }
       // Successful
@@ -127,6 +131,7 @@ exports.post_create = (req, res, next) => {
           date_created: newPost.date_created,
           topics: newPost.topics,
           comments: newPost.comments,
+          admin: newPost.admin,
           _id: newPost._id,
         },
       );
@@ -271,6 +276,7 @@ exports.post_update = (req, res, next) => {
           date_created: req.body.post.date_created,
           topics: req.body.post.topics,
           comments: req.body.post.comments,
+          admin: req.body.post.admin,
           _id: req.params.id,
         },
       );
