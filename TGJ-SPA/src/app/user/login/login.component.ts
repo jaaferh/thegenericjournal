@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import { Login } from 'src/app/models/user.entity';
 import { UserService } from 'src/app/services/user.service';
@@ -14,7 +13,6 @@ export class LoginComponent {
  
   constructor(
     private userService: UserService,
-    private router: Router,
     private toaster: ToasterService
   ) { }
 

@@ -1,14 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { PostBannerComponent } from './post-banner.component';
 
-describe('AuthorDetailPostComponent', () => {
+describe('PostBannerComponent', () => {
   let component: PostBannerComponent;
   let fixture: ComponentFixture<PostBannerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostBannerComponent ]
+      declarations: [ PostBannerComponent ],
+      imports: [ NgxPaginationModule ]
     })
     .compileComponents();
   });

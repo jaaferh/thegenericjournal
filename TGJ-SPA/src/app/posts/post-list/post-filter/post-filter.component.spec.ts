@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { PostFilterComponent } from './post-filter.component';
 
@@ -8,7 +9,8 @@ describe('PostFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostFilterComponent ]
+      declarations: [ PostFilterComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   });
