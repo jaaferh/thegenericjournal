@@ -1,10 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToasterService } from 'angular2-toaster';
-import { EMPTY, from, Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Register } from 'src/app/models/user.entity';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,6 +15,7 @@ describe('RegisterComponent', () => {
   let fixture: ComponentFixture<RegisterComponent>;
   let userService: UserService;
   let router: Router;
+  let fb: FormBuilder;
 
   const toasterSpy = {
     pop: jasmine.createSpy('pop')
@@ -27,6 +28,7 @@ describe('RegisterComponent', () => {
       providers: [ 
         { provide: ToasterService, useValue: toasterSpy },
         UserService,
+        FormBuilder
       ]
     })
     .compileComponents();
@@ -38,6 +40,7 @@ describe('RegisterComponent', () => {
     fixture.detectChanges();
     userService = TestBed.inject(UserService);
     router = TestBed.inject(Router);
+    fb = TestBed.inject(FormBuilder);
   });
 
   it('should create', () => {
@@ -79,7 +82,7 @@ describe('RegisterComponent', () => {
     };
     component.register = register;
 
-    const spy = spyOn(userService, 'registerUser').and.returnValue(throwError({status: 404}));
+    spyOn(userService, 'registerUser').and.returnValue(throwError({status: 404}));
 
     component.onSubmit();
 
@@ -91,5 +94,31 @@ describe('RegisterComponent', () => {
     expect(component.register.date_of_birth).toBeFalsy();
     component.dateChange('2021-08-13');
     expect(component.register.date_of_birth).toBeTruthy();
+  });
+
+  it('should compare passwords in password & confirm password fields', () => {
+    const register: Register = {
+      first_name: 'affendim',
+      family_name: 'pasha',
+      date_of_birth: new Date('2021-08-13'),
+      password: 'testpass123',
+      confirm_pass: 'testpass123',
+      email: 'testemail@email.com'
+    };
+    component.register = register;
+
+    expect(component.confirmPassword()).toBeTruthy();
+
+    register.confirm_pass = 'testwrongpass';
+
+    const formControl = new FormControl('confirmPass');
+    const formGroup: FormGroup = fb.group({
+      confirmPass: formControl,
+    });
+
+    component.registerForm.form = formGroup;
+    expect(component.confirmPassword()).toBeFalsy();
+    expect(component.registerForm.form.controls['confirmPass'].errors).toEqual({'incorrect': true});
+    
   });
 });
