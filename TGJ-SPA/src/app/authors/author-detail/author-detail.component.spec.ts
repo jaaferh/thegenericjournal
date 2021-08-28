@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorDetailComponent } from './author-detail.component';
@@ -55,6 +54,8 @@ describe('AuthorDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.authorDetails).toEqual(authorDetail);
+    expect(component.age).toEqual(35);
   });
 
   it('should delete author', () => {
