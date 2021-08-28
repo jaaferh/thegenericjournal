@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostDetailComponent } from './post-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -51,6 +47,7 @@ describe('PostDetailComponent', () => {
       imports: [ HttpClientTestingModule, RouterTestingModule.withRoutes([]) ], // need to flesh out RTM
       providers: [
         { provide: ActivatedRoute, useValue: { data: of({post})} },
+        { provide: ToasterService, useValue: toasterSpy },
         PostService
       ]
     })
@@ -84,8 +81,8 @@ describe('PostDetailComponent', () => {
 
     expect(spy).toHaveBeenCalled();
 
-    // expect(toasterSpy.pop).toHaveBeenCalledWith('success', 'Post Deleted Successfully');
-    // expect(navigateSpy).toHaveBeenCalledWith(['/posts']);
+    expect(toasterSpy.pop).toHaveBeenCalledWith('success', 'Post Deleted Successfully');
+    expect(navigateSpy).toHaveBeenCalledWith(['/posts']);
   });
 
   it('should toast an error when delete fails', () => {
@@ -94,7 +91,7 @@ describe('PostDetailComponent', () => {
 
     component.deletePost('id');
 
-    // expect(toasterSpy.pop).toHaveBeenCalledWith('error', Object({status: 404}));
+    expect(toasterSpy.pop).toHaveBeenCalledWith('error', Object({status: 404}));
   });
 
   it('should toggle commentsVisible', () => {
