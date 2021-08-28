@@ -61,6 +61,11 @@ export class TopicListComponent implements OnInit {
       this.toaster.pop('info', 'Topic must have a name');
   }
 
+  /* 
+  Sets the <inputs> and <buttons> to be invisible and replaces it with the topic name <p>
+  Edited names are set to what the updated topic name has become. (Should be the same,
+    done for good measure?)
+  */
   updateClick(index: number): void {
     if (this.visibleTopics[index] === undefined) {
       this.visibleTopics[index] = true;
