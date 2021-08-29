@@ -52,6 +52,13 @@ describe('NavComponent', () => {
     expect(component.topics).toEqual(topics);
   });
 
+  // it('should render title', () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement as Element;
+  //   expect(compiled.querySelector('.content span')?.textContent).toContain('TGJ-SPA app is running!');
+  // });
+
   it('should set stick variable based on page offset', () => {
     component.checkSticky();
     expect(component.stick).toBeFalsy();

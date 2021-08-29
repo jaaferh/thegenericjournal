@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopicListComponent } from './topic-list.component';
@@ -10,6 +12,7 @@ import { ToasterService } from 'angular2-toaster';
 import { Post } from 'src/app/models/post.entity';
 import { Author } from 'src/app/models/author.entity';
 import { TopicService } from 'src/app/services/topic.service';
+import { By } from '@angular/platform-browser';
 
 describe('TopicListComponent', () => {
   let component: TopicListComponent;
@@ -58,7 +61,12 @@ describe('TopicListComponent', () => {
 
   it('should get the number of posts', () => {
     component.topicsPosts = topicsPosts;
+    component.visibleTopics = [false];
+
     expect(component.getPostCount(topic)).toEqual(1);
+
+    // const postsP = fixture.debugElement.query(By.css('.post')).nativeElement;
+    // expect(postsP.innerHTML).toBe('(Posts: 1)');
   });
 
   it('should delete a topic', () => {
