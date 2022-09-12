@@ -55,7 +55,7 @@ describe('AuthorDetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.authorDetails).toEqual(authorDetail);
-    expect(component.age).toEqual(35);
+    expect(component.age).toEqual(36);
   });
 
   it('should delete author', () => {
