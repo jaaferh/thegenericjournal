@@ -4,14 +4,28 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { CommentTreeComponent } from './comment-tree.component';
+import { CommentService } from 'src/app/services/comment.service';
+import { UserService } from 'src/app/services/user.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('TreeComponent', () => {
+describe('CommentTreeComponent', () => {
   let component: CommentTreeComponent;
   let fixture: ComponentFixture<CommentTreeComponent>;
 
+  const commentSpy = {
+    like: jasmine.createSpy('like'),
+    dislike: jasmine.createSpy('dislike'),
+    updateComment: jasmine.createSpy('updateComment'),
+  };
+
   beforeEach(async(() => {
     void TestBed.configureTestingModule({
-      declarations: [ CommentTreeComponent ]
+      declarations: [ CommentTreeComponent ],
+      imports: [ HttpClientTestingModule ],
+      providers: [
+        { provide: CommentService, useValue: commentSpy },
+        UserService
+      ]
     })
     .compileComponents();
   }));

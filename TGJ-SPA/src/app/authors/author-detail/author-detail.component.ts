@@ -48,10 +48,10 @@ export class AuthorDetailComponent implements OnInit {
     if (this.authorDetails.author.date_of_birth) {
       const today = new Date();
       const authorDOB = new Date(this.authorDetails.author.date_of_birth);
-      const dateDiff = Math.floor(today.getTime() - authorDOB.getTime());
+      const dateDiff = Math.round(today.getTime() - authorDOB.getTime());
       const day = 1000 * 60 * 60 * 24;
-      const months = Math.floor(dateDiff/day/31);
-      this.age = Math.floor(months/12);
+      const months = Math.round(dateDiff/day/31);
+      this.age = Math.round(months/12);
     }
   }
 }

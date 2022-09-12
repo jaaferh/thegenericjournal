@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { TestBed, async, inject } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { TopicService } from './topic.service';
 
 describe('Service: Topic', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       providers: [TopicService]
     });
   });

@@ -6,6 +6,8 @@ Uses MEAN stack
 
 ## Running DEV
 
+### Manually
+
 Install npm dependencies for both the API and SPA using:
 
 ```
@@ -27,6 +29,12 @@ cd ..
 cd TGJ-SPA
 
 ng serve
+```
+
+### With Docker
+
+```
+docker compose up
 ```
 
 **API: localhost:3000**
@@ -59,5 +67,5 @@ Check out this UML diagram in MySQL form using DrawSQL: https://drawsql.app/jaaf
 
 ## Extra Plans:
 
-- Experiment with Docker
+- Fix Docker compose dev build not listening to file changes
 - Create Progressive WebApp version of the site using Chrome Lighthouse

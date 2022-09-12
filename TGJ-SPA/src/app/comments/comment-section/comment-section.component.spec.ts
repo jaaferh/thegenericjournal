@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { CommentSectionComponent } from './comment-section.component';
 
@@ -9,12 +8,13 @@ describe('CommentSectionComponent', () => {
   let component: CommentSectionComponent;
   let fixture: ComponentFixture<CommentSectionComponent>;
 
-  beforeEach(async(() => {
-    void TestBed.configureTestingModule({
-      declarations: [ CommentSectionComponent ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ CommentSectionComponent ],
+      imports: [ HttpClientTestingModule, FormsModule ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CommentSectionComponent);

@@ -69,7 +69,7 @@ export class AuthorFormComponent implements OnInit {
       });
     }
     else {
-      if (this.id != null) {
+      if (this.id) {
         this.authorService.updateAuthor(this.id, this.author).subscribe(() => {
           this.toaster.pop('success', 'Author Updated Successfully');
           this.authorForm.reset(this.author);
